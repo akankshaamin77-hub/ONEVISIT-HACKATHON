@@ -1,0 +1,405 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONEVISIT | Every Family, Every Opportunity</title>
+<style>
+:root{--navy:#102b46;--teal:#087f80;--mint:#e8f7f3;--ink:#203449;--muted:#687b8c;--bg:#f5f8fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,"Noto Sans Kannada",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{background:white;position:sticky;top:0;z-index:5;border-bottom:1px solid #e5edf1}
+.nav{max-width:1150px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:900;color:var(--navy);letter-spacing:1px}
+.logo span{color:var(--teal)}
+nav{display:flex;gap:17px;flex-wrap:wrap;align-items:center}
+nav a{text-decoration:none;color:var(--ink);font-size:13px;font-weight:bold}
+.lang{border:1px solid var(--teal);border-radius:9px;padding:9px 12px;background:white;color:var(--teal);font-weight:bold}
+.lang.active{background:var(--teal);color:white}
+.hero{background:linear-gradient(120deg,#102b46,#126c73);color:white;padding:65px 22px}
+.hero-inner{max-width:1150px;margin:auto;display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center}
+.tag{display:inline-block;background:#ffffff20;border:1px solid #ffffff50;border-radius:30px;padding:6px 13px;font-size:12px;margin-bottom:18px}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.2;margin-bottom:17px}
+.hero h1 span{color:#7ee2ce}
+.hero p{color:#e1eeee;max-width:650px;margin-bottom:22px}
+.hero-card{background:#ffffff12;border:1px solid #ffffff40;padding:23px;border-radius:18px}
+.hero-card li{list-style:none;padding:8px 0;border-bottom:1px solid #ffffff30}
+.hero-card li:last-child{border:0}
+.btn{border:0;border-radius:9px;padding:11px 17px;background:var(--teal);color:white;font-weight:bold}
+.btn.secondary{background:#e5f3f1;color:var(--teal)}
+.container{max-width:1150px;margin:auto;padding:48px 22px}
+.heading{margin-bottom:22px}
+.eyebrow{color:var(--teal);font-size:12px;font-weight:800;letter-spacing:1px}
+h2{color:var(--navy);font-size:29px;margin:5px 0}
+.sub{color:var(--muted);max-width:750px}
+.panel,.card{background:white;border:1px solid #e3ebef;border-radius:15px;padding:22px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field label{display:block;font-size:13px;font-weight:bold;margin-bottom:5px}
+.field input,.field select{width:100%;padding:11px;border:1px solid #d6e1e7;border-radius:8px;background:white}
+.full{grid-column:1/-1}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}
+.notice{font-size:12px;color:var(--muted);margin-top:12px}
+.results,.loan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}
+.card{display:flex;flex-direction:column;gap:10px}
+.card h3{color:var(--navy)}
+.card p{font-size:14px;color:var(--muted)}
+.category{font-size:11px;color:var(--teal);font-weight:bold;text-transform:uppercase}
+.pill{display:inline-block;background:var(--mint);color:var(--teal);border-radius:30px;padding:4px 9px;font-size:11px}
+.card button{margin-top:auto}
+.location-box{background:#e8f6f3;padding:23px;border-radius:15px}
+.location-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.location-row input{flex:1;min-width:190px;padding:11px;border:1px solid #d6e1e7;border-radius:8px}
+.output{font-size:14px;color:var(--muted);margin-top:13px;overflow-wrap:anywhere}
+footer{background:var(--navy);color:#dce9ed;text-align:center;padding:30px}
+footer strong{font-size:24px;color:white}
+.modal{display:none;position:fixed;inset:0;background:#071827bb;z-index:10;padding:20px;overflow:auto}
+.modal-content{background:white;max-width:570px;margin:5vh auto;padding:25px;border-radius:15px}
+.modal-content li{margin-left:20px;color:var(--muted);font-size:14px}
+.close{float:right;border:0;padding:7px 10px;border-radius:7px}
+@media(max-width:760px){.hero-inner{grid-template-columns:1fr}.results,.loan-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.results,.loan-grid,.form-grid{grid-template-columns:1fr}.full{grid-column:auto}nav{gap:10px}.container{padding:35px 17px}h2{font-size:25px}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="nav">
+ <div class="logo">ONE<span>VISIT</span></div>
+ <nav>
+  <a href="#home" data-en="Home" data-kn="ಮುಖಪುಟ">Home</a>
+  <a href="#family" data-en="Family Profile" data-kn="ಕುಟುಂಬದ ವಿವರ">Family Profile</a>
+  <a href="#schemes" data-en="Schemes" data-kn="ಯೋಜನೆಗಳು">Schemes</a>
+  <a href="#loans" data-en="Loans" data-kn="ಸಾಲಗಳು">Loans</a>
+  <a href="#location" data-en="Find Services" data-kn="ಸೇವಾ ಕೇಂದ್ರಗಳು">Find Services</a>
+ </nav>
+ <div>
+  <button class="lang active" id="englishBtn" onclick="setLanguage('en')">English</button>
+  <button class="lang" id="kannadaBtn" onclick="setLanguage('kn')">ಕನ್ನಡ</button>
+ </div>
+</div>
+</header>
+
+<section class="hero" id="home">
+<div class="hero-inner">
+ <div>
+  <div class="tag" data-en="YOUR FAMILY'S OPPORTUNITY DISCOVERY PLATFORM" data-kn="ನಿಮ್ಮ ಕುಟುಂಬದ ಅವಕಾಶಗಳನ್ನು ತಿಳಿಯುವ ವೇದಿಕೆ">YOUR FAMILY'S OPPORTUNITY DISCOVERY PLATFORM</div>
+  <h1 data-en="One Family. Every Opportunity." data-kn="ಒಂದು ಕುಟುಂಬ. ಪ್ರತಿಯೊಂದು ಅವಕಾಶ.">One Family. Every Opportunity.</h1>
+  <p data-en="Discover government schemes, financial support, subsidies and nearby application services — all in one place." data-kn="ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು, ಆರ್ಥಿಕ ನೆರವು, ಸಬ್ಸಿಡಿಗಳು ಮತ್ತು ಹತ್ತಿರದ ಅರ್ಜಿ ಸೇವಾ ಕೇಂದ್ರಗಳನ್ನು ಒಂದೇ ಸ್ಥಳದಲ್ಲಿ ಹುಡುಕಿ.">Discover government schemes, financial support, subsidies and nearby application services — all in one place.</p>
+  <a href="#family"><button class="btn" data-en="Explore Opportunities →" data-kn="ಅವಕಾಶಗಳನ್ನು ಹುಡುಕಿ →">Explore Opportunities →</button></a>
+ </div>
+ <div class="hero-card">
+  <h3 data-en="What can ONEVISIT help you find?" data-kn="ONEVISIT ಮೂಲಕ ಏನನ್ನು ಹುಡುಕಬಹುದು?">What can ONEVISIT help you find?</h3>
+  <ul>
+   <li data-en="✦ Government schemes and benefits" data-kn="✦ ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು ಮತ್ತು ಸೌಲಭ್ಯಗಳು">✦ Government schemes and benefits</li>
+   <li data-en="✦ Loans and financial assistance" data-kn="✦ ಸಾಲ ಮತ್ತು ಆರ್ಥಿಕ ನೆರವು">✦ Loans and financial assistance</li>
+   <li data-en="✦ Documents and application guidance" data-kn="✦ ದಾಖಲೆಗಳು ಮತ್ತು ಅರ್ಜಿ ಮಾರ್ಗದರ್ಶನ">✦ Documents and application guidance</li>
+   <li data-en="✦ Nearby service centres" data-kn="✦ ಹತ್ತಿರದ ಸೇವಾ ಕೇಂದ್ರಗಳು">✦ Nearby service centres</li>
+   <li data-en="✦ Family application checklist" data-kn="✦ ಕುಟುಂಬದ ಅರ್ಜಿ ಪರಿಶೀಲನಾ ಪಟ್ಟಿ">✦ Family application checklist</li>
+  </ul>
+ </div>
+</div>
+</section>
+
+<section class="container" id="family">
+ <div class="heading">
+  <div class="eyebrow" data-en="PERSONALISED DISCOVERY" data-kn="ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ">PERSONALISED DISCOVERY</div>
+  <h2 data-en="Build Your Family Profile" data-kn="ನಿಮ್ಮ ಕುಟುಂಬದ ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ">Build Your Family Profile</h2>
+  <p class="sub" data-en="Add basic details to explore opportunities that may be relevant to your family." data-kn="ನಿಮ್ಮ ಕುಟುಂಬಕ್ಕೆ ಸೂಕ್ತವಾಗಿರಬಹುದಾದ ಅವಕಾಶಗಳನ್ನು ಹುಡುಕಲು ಮೂಲ ಮಾಹಿತಿಯನ್ನು ನಮೂದಿಸಿ.">Add basic details to explore opportunities that may be relevant to your family.</p>
+ </div>
+ <div class="panel">
+  <form id="familyForm">
+   <div class="form-grid">
+    <div class="field"><label data-en="Family member's name" data-kn="ಕುಟುಂಬದ ಸದಸ್ಯರ ಹೆಸರು">Family member's name</label><input id="name" required placeholder="Enter name"></div>
+    <div class="field"><label data-en="Age" data-kn="ವಯಸ್ಸು">Age</label><input id="age" type="number" min="1" max="120" required placeholder="Age"></div>
+    <div class="field"><label data-en="Occupation" data-kn="ಉದ್ಯೋಗ">Occupation</label>
+     <select id="occupation" required>
+      <option value="" data-en="Select occupation" data-kn="ಉದ್ಯೋಗ ಆಯ್ಕೆಮಾಡಿ">Select occupation</option>
+      <option value="Farmer" data-en="Farmer" data-kn="ರೈತ">Farmer</option>
+      <option value="Student" data-en="Student" data-kn="ವಿದ್ಯಾರ್ಥಿ">Student</option>
+      <option value="Unemployed" data-en="Unemployed" data-kn="ನಿರುದ್ಯೋಗಿ">Unemployed</option>
+      <option value="Business" data-en="Business owner" data-kn="ವ್ಯಾಪಾರಸ್ಥರು">Business owner</option>
+      <option value="Self-employed" data-en="Self-employed" data-kn="ಸ್ವಯಂ ಉದ್ಯೋಗಿ">Self-employed</option>
+      <option value="Worker" data-en="Daily wage worker" data-kn="ದಿನಗೂಲಿ ಕಾರ್ಮಿಕರು">Daily wage worker</option>
+      <option value="Artisan" data-en="Artisan" data-kn="ಕುಶಲಕರ್ಮಿ">Artisan</option>
+      <option value="Other" data-en="Other" data-kn="ಇತರೆ">Other</option>
+     </select>
+    </div>
+    <div class="field"><label data-en="Annual family income (₹)" data-kn="ಕುಟುಂಬದ ವಾರ್ಷಿಕ ಆದಾಯ (₹)">Annual family income (₹)</label><input id="income" type="number" min="0" placeholder="Approximate income"></div>
+    <div class="field"><label data-en="State" data-kn="ರಾಜ್ಯ">State</label><select id="state"><option value="Karnataka" data-en="Karnataka" data-kn="ಕರ್ನಾಟಕ">Karnataka</option><option value="Other" data-en="Other" data-kn="ಇತರೆ">Other</option></select></div>
+    <div class="field"><label data-en="District" data-kn="ಜಿಲ್ಲೆ">District</label><input id="district" placeholder="Enter district"></div>
+   </div>
+   <div class="actions">
+    <button class="btn" type="submit" data-en="Find Opportunities" data-kn="ಅವಕಾಶಗಳನ್ನು ಹುಡುಕಿ">Find Opportunities</button>
+    <button class="btn secondary" type="reset" data-en="Clear" data-kn="ಅಳಿಸಿ">Clear</button>
+   </div>
+   <p class="notice" data-en="Prototype: details are saved only in this browser. Never enter Aadhaar numbers, passwords or bank details." data-kn="ಮಾದರಿ ವೆಬ್‌ಸೈಟ್: ವಿವರಗಳು ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಷ್ಟೇ ಉಳಿಯುತ್ತವೆ. ಆಧಾರ್ ಸಂಖ್ಯೆ, ಪಾಸ್‌ವರ್ಡ್ ಅಥವಾ ಬ್ಯಾಂಕ್ ವಿವರಗಳನ್ನು ನಮೂದಿಸಬೇಡಿ.">Prototype: details are saved only in this browser. Never enter Aadhaar numbers, passwords or bank details.</p>
+  </form>
+  <div class="output" id="profileMessage" aria-live="polite"></div>
+ </div>
+</section>
+
+<section class="container" id="schemes">
+ <div class="heading">
+  <div class="eyebrow" data-en="DISCOVER SUPPORT" data-kn="ಸಹಾಯವನ್ನು ಹುಡುಕಿ">DISCOVER SUPPORT</div>
+  <h2 data-en="Government Schemes" data-kn="ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು">Government Schemes</h2>
+  <p class="sub" data-en="Explore selected Central Government and Karnataka schemes. Eligibility must be checked on official portals." data-kn="ಆಯ್ದ ಕೇಂದ್ರ ಮತ್ತು ಕರ್ನಾಟಕ ಸರ್ಕಾರದ ಯೋಜನೆಗಳನ್ನು ನೋಡಿ. ಅರ್ಹತೆಯನ್ನು ಅಧಿಕೃತ ಜಾಲತಾಣಗಳಲ್ಲಿ ಪರಿಶೀಲಿಸಿ.">Explore selected Central Government and Karnataka schemes. Eligibility must be checked on official portals.</p>
+ </div>
+ <div class="field" style="max-width:350px">
+  <label data-en="Filter by occupation" data-kn="ಉದ್ಯೋಗದ ಆಧಾರದ ಮೇಲೆ ಆಯ್ಕೆಮಾಡಿ">Filter by occupation</label>
+  <select id="schemeFilter" onchange="renderSchemes()">
+   <option value="All" data-en="All opportunities" data-kn="ಎಲ್ಲಾ ಅವಕಾಶಗಳು">All opportunities</option>
+   <option value="Farmer" data-en="Farmer" data-kn="ರೈತ">Farmer</option>
+   <option value="Student" data-en="Student" data-kn="ವಿದ್ಯಾರ್ಥಿ">Student</option>
+   <option value="Unemployed" data-en="Unemployed" data-kn="ನಿರುದ್ಯೋಗಿ">Unemployed</option>
+   <option value="Business" data-en="Business owner" data-kn="ವ್ಯಾಪಾರಸ್ಥರು">Business owner</option>
+   <option value="Self-employed" data-en="Self-employed" data-kn="ಸ್ವಯಂ ಉದ್ಯೋಗಿ">Self-employed</option>
+   <option value="Artisan" data-en="Artisan" data-kn="ಕುಶಲಕರ್ಮಿ">Artisan</option>
+  </select>
+ </div>
+ <div class="results" id="schemeResults"></div>
+</section>
+
+<section class="container" id="loans">
+ <div class="heading">
+  <div class="eyebrow" data-en="FINANCIAL GUIDANCE" data-kn="ಆರ್ಥಿಕ ಮಾರ್ಗದರ್ಶನ">FINANCIAL GUIDANCE</div>
+  <h2 data-en="Loans & Financial Support" data-kn="ಸಾಲಗಳು ಮತ್ತು ಆರ್ಥಿಕ ನೆರವು">Loans & Financial Support</h2>
+  <p class="sub" data-en="Explore selected loan pathways. Interest rates and approval depend on the lender and applicant." data-kn="ಆಯ್ದ ಸಾಲದ ಆಯ್ಕೆಗಳನ್ನು ತಿಳಿಯಿರಿ. ಬಡ್ಡಿದರ ಮತ್ತು ಸಾಲ ಮಂಜೂರಾತಿ ಸಾಲ ನೀಡುವ ಸಂಸ್ಥೆ ಹಾಗೂ ಅರ್ಜಿದಾರರ ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿರುತ್ತದೆ.">Explore selected loan pathways. Interest rates and approval depend on the lender and applicant.</p>
+ </div>
+ <div class="loan-grid">
+  <div class="card"><span class="category" data-en="AGRICULTURE" data-kn="ಕೃಷಿ">AGRICULTURE</span><h3>Kisan Credit Card</h3><p data-en="Credit facility for eligible farmers and certain allied agricultural activities." data-kn="ಅರ್ಹ ರೈತರು ಮತ್ತು ಕೆಲವು ಸಂಬಂಧಿತ ಕೃಷಿ ಚಟುವಟಿಕೆಗಳಿಗೆ ಸಾಲ ಸೌಲಭ್ಯ.">Credit facility for eligible farmers and certain allied agricultural activities.</p><a href="https://www.myscheme.gov.in/schemes/kcc" target="_blank" rel="noopener"><button class="btn" data-en="Official details ↗" data-kn="ಅಧಿಕೃತ ಮಾಹಿತಿ ↗">Official details ↗</button></a></div>
+  <div class="card"><span class="category" data-en="ENTREPRENEURSHIP" data-kn="ಉದ್ಯಮಶೀಲತೆ">ENTREPRENEURSHIP</span><h3>PMEGP</h3><p data-en="Credit-linked subsidy programme for eligible new micro-enterprises." data-kn="ಅರ್ಹ ಹೊಸ ಸಣ್ಣ ಉದ್ಯಮಗಳಿಗೆ ಸಾಲ ಆಧಾರಿತ ಸಬ್ಸಿಡಿ ಯೋಜನೆ.">Credit-linked subsidy programme for eligible new micro-enterprises.</p><a href="https://www.kviconline.gov.in/pmegpeportal/pmegphome/index.jsp" target="_blank" rel="noopener"><button class="btn" data-en="Official portal ↗" data-kn="ಅಧಿಕೃತ ಜಾಲತಾಣ ↗">Official portal ↗</button></a></div>
+  <div class="card"><span class="category" data-en="MULTIPLE SECTORS" data-kn="ವಿವಿಧ ಕ್ಷೇತ್ರಗಳು">MULTIPLE SECTORS</span><h3>JanSamarth</h3><p data-en="Explore government-linked credit schemes through a single portal." data-kn="ಒಂದೇ ಜಾಲತಾಣದ ಮೂಲಕ ಸರ್ಕಾರಿ ಸಾಲ ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ.">Explore government-linked credit schemes through a single portal.</p><a href="https://www.jansamarth.in/" target="_blank" rel="noopener"><button class="btn" data-en="Explore loans ↗" data-kn="ಸಾಲಗಳನ್ನು ನೋಡಿ ↗">Explore loans ↗</button></a></div>
+ </div>
+ <div class="panel" style="margin-top:18px">
+  <h3 data-en="Private Bank Loan Guidance" data-kn="ಖಾಸಗಿ ಬ್ಯಾಂಕ್ ಸಾಲದ ಮಾಹಿತಿ">Private Bank Loan Guidance</h3>
+  <p class="sub" data-en="Compare education, agriculture and business loans directly with banks. Check interest, fees, repayment period and total cost before applying." data-kn="ಶಿಕ್ಷಣ, ಕೃಷಿ ಮತ್ತು ವ್ಯಾಪಾರ ಸಾಲಗಳನ್ನು ಬ್ಯಾಂಕ್‌ಗಳೊಂದಿಗೆ ನೇರವಾಗಿ ಹೋಲಿಸಿ. ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಬಡ್ಡಿ, ಶುಲ್ಕ, ಮರುಪಾವತಿ ಅವಧಿ ಮತ್ತು ಒಟ್ಟು ವೆಚ್ಚ ಪರಿಶೀಲಿಸಿ.">Compare education, agriculture and business loans directly with banks. Check interest, fees, repayment period and total cost before applying.</p>
+  <div class="actions"><a href="https://www.rbi.org.in/" target="_blank" rel="noopener"><button class="btn secondary" data-en="RBI information ↗" data-kn="RBI ಮಾಹಿತಿ ↗">RBI information ↗</button></a></div>
+ </div>
+</section>
+
+<section class="container" id="location">
+ <div class="heading">
+  <div class="eyebrow" data-en="FIND HELP NEARBY" data-kn="ಹತ್ತಿರದ ಸಹಾಯವನ್ನು ಹುಡುಕಿ">FIND HELP NEARBY</div>
+  <h2 data-en="Locate Application Services" data-kn="ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಸೇವಾ ಕೇಂದ್ರಗಳನ್ನು ಹುಡುಕಿ">Locate Application Services</h2>
+  <p class="sub" data-en="Search by place or use GPS to explore nearby services." data-kn="ಸ್ಥಳದ ಹೆಸರನ್ನು ನಮೂದಿಸಿ ಅಥವಾ GPS ಬಳಸಿ ಹತ್ತಿರದ ಸೇವೆಗಳನ್ನು ಹುಡುಕಿ.">Search by place or use GPS to explore nearby services.</p>
+ </div>
+ <div class="location-box">
+  <h3 data-en="📍 Find services around you" data-kn="📍 ನಿಮ್ಮ ಹತ್ತಿರದ ಸೇವೆಗಳನ್ನು ಹುಡುಕಿ">📍 Find services around you</h3>
+  <div class="location-row">
+   <input id="placeSearch" placeholder="Example: Puttur, Karnataka">
+   <button class="btn" onclick="manualSearch()" data-en="Search location" data-kn="ಸ್ಥಳ ಹುಡುಕಿ">Search location</button>
+   <button class="btn secondary" onclick="useGPS()" data-en="Use my GPS" data-kn="ನನ್ನ GPS ಬಳಸಿ">Use my GPS</button>
+  </div>
+  <div class="output" id="locationOutput" aria-live="polite" data-en="Your search results will appear here." data-kn="ನಿಮ್ಮ ಹುಡುಕಾಟದ ಫಲಿತಾಂಶಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ.">Your search results will appear here.</div>
+  <div class="actions" id="mapLinks"></div>
+ </div>
+ <div class="panel" style="margin-top:17px">
+  <h3 data-en="Official service directories" data-kn="ಅಧಿಕೃತ ಸೇವಾ ಜಾಲತಾಣಗಳು">Official service directories</h3>
+  <div class="actions">
+   <a href="https://findmycsc.nic.in/csc/" target="_blank" rel="noopener"><button class="btn">Find a CSC ↗</button></a>
+   <a href="https://sevasindhu.karnataka.gov.in/" target="_blank" rel="noopener"><button class="btn secondary">Seva Sindhu ↗</button></a>
+  </div>
+ </div>
+</section>
+
+<section class="container" id="tracker">
+ <div class="heading">
+  <div class="eyebrow" data-en="STAY ORGANISED" data-kn="ವ್ಯವಸ್ಥಿತವಾಗಿರಿ">STAY ORGANISED</div>
+  <h2 data-en="Family Application Checklist" data-kn="ಕುಟುಂಬದ ಅರ್ಜಿ ಪರಿಶೀಲನಾ ಪಟ್ಟಿ">Family Application Checklist</h2>
+  <p class="sub" data-en="Prepare before applying. Exact requirements vary by scheme." data-kn="ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಸಿದ್ಧರಾಗಿ. ನಿಖರವಾದ ಅವಶ್ಯಕತೆಗಳು ಯೋಜನೆಯ ಪ್ರಕಾರ ಬದಲಾಗುತ್ತವೆ.">Prepare before applying. Exact requirements vary by scheme.</p>
+ </div>
+ <div class="panel" id="checklist">
+  <p><label><input type="checkbox"> <span data-en="Read official eligibility conditions" data-kn="ಅಧಿಕೃತ ಅರ್ಹತಾ ನಿಯಮಗಳನ್ನು ಓದಿ">Read official eligibility conditions</span></label></p>
+  <p><label><input type="checkbox"> <span data-en="Check required documents" data-kn="ಅಗತ್ಯ ದಾಖಲೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ">Check required documents</span></label></p>
+  <p><label><input type="checkbox"> <span data-en="Visit the official application portal" data-kn="ಅಧಿಕೃತ ಅರ್ಜಿ ಜಾಲತಾಣಕ್ಕೆ ಭೇಟಿ ನೀಡಿ">Visit the official application portal</span></label></p>
+  <p><label><input type="checkbox"> <span data-en="Save the application acknowledgement" data-kn="ಅರ್ಜಿ ಸ್ವೀಕೃತಿ ದಾಖಲೆಯನ್ನು ಉಳಿಸಿ">Save the application acknowledgement</span></label></p>
+  <p><label><input type="checkbox"> <span data-en="Track the application status" data-kn="ಅರ್ಜಿಯ ಸ್ಥಿತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ">Track the application status</span></label></p>
+ </div>
+</section>
+
+<div class="modal" id="schemeModal">
+ <div class="modal-content">
+  <button class="close" onclick="closeModal()">✕</button>
+  <div id="modalBody"></div>
+ </div>
+</div>
+
+<footer>
+ <strong>ONEVISIT</strong>
+ <p data-en="Every Family. Every Need. Every Opportunity." data-kn="ಪ್ರತಿಯೊಂದು ಕುಟುಂಬಕ್ಕೂ. ಪ್ರತಿಯೊಂದು ಅಗತ್ಯಕ್ಕೂ. ಪ್ರತಿಯೊಂದು ಅವಕಾಶಕ್ಕೂ.">Every Family. Every Need. Every Opportunity.</p>
+ <p data-en="Student prototype. Always verify information with the relevant official department." data-kn="ವಿದ್ಯಾರ್ಥಿ ಯೋಜನೆಯ ಮಾದರಿ. ಮಾಹಿತಿಯನ್ನು ಸಂಬಂಧಿತ ಸರ್ಕಾರಿ ಇಲಾಖೆಯಲ್ಲಿ ಪರಿಶೀಲಿಸಿ.">Student prototype. Always verify information with the relevant official department.</p>
+ <p>© 2026 ONEVISIT</p>
+</footer>
+
+<script>
+let language="en";
+
+const translations={
+ en:{
+  details:"View details",documents:"Indicative documents",steps:"Application guidance",
+  warning:"Important: This is general guidance, not official eligibility confirmation. Check current rules and exact document requirements.",
+  saved:"Profile saved in this browser. Explore the scheme cards and verify eligibility on official portals.",
+  noResults:"No sample schemes match this filter yet.",
+  searching:"Searching for",notFound:"Location not found. Try adding the district and state.",
+  gpsWait:"Requesting your location permission...",
+  gpsFail:"Location permission denied or unavailable. Try manual location search.",
+  gpsUnsupported:"GPS is not supported by this browser.",
+  emptyPlace:"Please enter a location.",
+  locationFound:"Location found. Open the map to explore nearby services.",
+  profileSaved:"Profile saved locally."
+ },
+ kn:{
+  details:"ವಿವರಗಳನ್ನು ನೋಡಿ",documents:"ಸಾಮಾನ್ಯವಾಗಿ ಬೇಕಾಗುವ ದಾಖಲೆಗಳು",steps:"ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ವಿಧಾನ",
+  warning:"ಮುಖ್ಯ ಸೂಚನೆ: ಇದು ಸಾಮಾನ್ಯ ಮಾರ್ಗದರ್ಶನ ಮಾತ್ರ; ಅಧಿಕೃತ ಅರ್ಹತೆಯ ದೃಢೀಕರಣವಲ್ಲ. ಪ್ರಸ್ತುತ ನಿಯಮಗಳು ಮತ್ತು ನಿಖರ ದಾಖಲೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
+  saved:"ನಿಮ್ಮ ವಿವರಗಳು ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಉಳಿಸಲಾಗಿದೆ. ಯೋಜನೆಗಳನ್ನು ನೋಡಿ ಮತ್ತು ಅಧಿಕೃತ ಜಾಲತಾಣದಲ್ಲಿ ಅರ್ಹತೆ ಪರಿಶೀಲಿಸಿ.",
+  noResults:"ಈ ಆಯ್ಕೆಗೆ ಹೊಂದುವ ಮಾದರಿ ಯೋಜನೆಗಳು ಇನ್ನೂ ಲಭ್ಯವಿಲ್ಲ.",
+  searching:"ಹುಡುಕಲಾಗುತ್ತಿದೆ:",
+  notFound:"ಸ್ಥಳ ಕಂಡುಬಂದಿಲ್ಲ. ಜಿಲ್ಲೆ ಮತ್ತು ರಾಜ್ಯದ ಹೆಸರನ್ನೂ ಸೇರಿಸಿ.",
+  gpsWait:"ನಿಮ್ಮ ಸ್ಥಳದ ಅನುಮತಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ...",
+  gpsFail:"ಸ್ಥಳದ ಅನುಮತಿ ಲಭ್ಯವಿಲ್ಲ. ಸ್ಥಳದ ಹೆಸರನ್ನು ನಮೂದಿಸಿ ಹುಡುಕಿ.",
+  gpsUnsupported:"ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ GPS ಸೌಲಭ್ಯ ಲಭ್ಯವಿಲ್ಲ.",
+  emptyPlace:"ದಯವಿಟ್ಟು ಸ್ಥಳದ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.",
+  locationFound:"ಸ್ಥಳ ಕಂಡುಬಂದಿದೆ. ಹತ್ತಿರದ ಸೇವೆಗಳನ್ನು ನಕ್ಷೆಯಲ್ಲಿ ನೋಡಿ.",
+  profileSaved:"ನಿಮ್ಮ ವಿವರಗಳು ಸ್ಥಳೀಯವಾಗಿ ಉಳಿಸಲಾಗಿದೆ."
+ }
+};
+
+const schemes=[
+ {name:"PM-KISAN",category:"Central Government",occupations:["Farmer"],
+  desc:{en:"Income support scheme for eligible landholding farmer families.",kn:"ಅರ್ಹ ಭೂಮಿ ಹೊಂದಿರುವ ರೈತ ಕುಟುಂಬಗಳಿಗೆ ಆದಾಯ ನೆರವು ಯೋಜನೆ."},
+  docs:{en:["Aadhaar details","Landholding records","Bank account details"],kn:["ಆಧಾರ್ ವಿವರಗಳು","ಭೂ ದಾಖಲೆಗಳು","ಬ್ಯಾಂಕ್ ಖಾತೆ ವಿವರಗಳು"]},
+  steps:{en:["Check eligibility on the official portal.","Complete farmer registration.","Complete the required e-KYC process."],kn:["ಅಧಿಕೃತ ಜಾಲತಾಣದಲ್ಲಿ ಅರ್ಹತೆ ಪರಿಶೀಲಿಸಿ.","ರೈತರ ನೋಂದಣಿ ಪೂರ್ಣಗೊಳಿಸಿ.","ಅಗತ್ಯವಿರುವ e-KYC ಪ್ರಕ್ರಿಯೆ ಪೂರ್ಣಗೊಳಿಸಿ."]},
+  url:"https://pmkisan.gov.in/"},
+ {name:"Kisan Credit Card",category:"Central Government",occupations:["Farmer"],
+  desc:{en:"Credit support for eligible farmers and certain allied agricultural activities.",kn:"ಅರ್ಹ ರೈತರು ಮತ್ತು ಕೆಲವು ಸಂಬಂಧಿತ ಕೃಷಿ ಚಟುವಟಿಕೆಗಳಿಗೆ ಸಾಲ ಸೌಲಭ್ಯ."},
+  docs:{en:["Application form","Identity and address proof","Land or cultivation documents"],kn:["ಅರ್ಜಿ ನಮೂನೆ","ಗುರುತಿನ ಮತ್ತು ವಿಳಾಸದ ದಾಖಲೆ","ಭೂಮಿ ಅಥವಾ ಕೃಷಿ ದಾಖಲೆಗಳು"]},
+  steps:{en:["Contact a participating bank.","Submit the application and documents.","The bank reviews eligibility."],kn:["ಭಾಗವಹಿಸುವ ಬ್ಯಾಂಕ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ.","ಅರ್ಜಿ ಮತ್ತು ದಾಖಲೆಗಳನ್ನು ಸಲ್ಲಿಸಿ.","ಬ್ಯಾಂಕ್ ನಿಮ್ಮ ಅರ್ಹತೆಯನ್ನು ಪರಿಶೀಲಿಸುತ್ತದೆ."]},
+  url:"https://www.myscheme.gov.in/schemes/kcc"},
+ {name:"PMEGP",category:"Central Government",occupations:["Business","Self-employed","Unemployed"],
+  desc:{en:"Credit-linked subsidy programme for eligible new micro-enterprises.",kn:"ಅರ್ಹ ಹೊಸ ಸೂಕ್ಷ್ಮ ಉದ್ಯಮಗಳಿಗೆ ಸಾಲ ಆಧಾರಿತ ಸಬ್ಸಿಡಿ ಯೋಜನೆ."},
+  docs:{en:["Aadhaar","Project report","Other category or education documents if applicable"],kn:["ಆಧಾರ್","ಯೋಜನಾ ವರದಿ","ಅಗತ್ಯವಿದ್ದರೆ ವರ್ಗ ಅಥವಾ ಶಿಕ್ಷಣದ ದಾಖಲೆಗಳು"]},
+  steps:{en:["Review the official eligibility rules.","Prepare a project report.","Apply through the official KVIC portal."],kn:["ಅಧಿಕೃತ ಅರ್ಹತಾ ನಿಯಮಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.","ಯೋಜನಾ ವರದಿ ಸಿದ್ಧಪಡಿಸಿ.","ಅಧಿಕೃತ KVIC ಜಾಲತಾಣದ ಮೂಲಕ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ."]},
+  url:"https://www.kviconline.gov.in/pmegpeportal/pmegphome/index.jsp"},
+ {name:"FRUITS",category:"Karnataka Government",occupations:["Farmer"],
+  desc:{en:"Karnataka farmer registration and beneficiary information system.",kn:"ಕರ್ನಾಟಕ ರೈತರ ನೋಂದಣಿ ಮತ್ತು ಫಲಾನುಭವಿಗಳ ಮಾಹಿತಿ ವ್ಯವಸ್ಥೆ."},
+  docs:{en:["Aadhaar details","Land and farmer information","Other documents requested by the department"],kn:["ಆಧಾರ್ ವಿವರಗಳು","ಭೂಮಿ ಮತ್ತು ರೈತರ ಮಾಹಿತಿ","ಇಲಾಖೆ ಕೇಳುವ ಇತರ ದಾಖಲೆಗಳು"]},
+  steps:{en:["Check the current agriculture department process.","Contact the relevant agriculture office if needed.","Verify your registration details."],kn:["ಪ್ರಸ್ತುತ ಕೃಷಿ ಇಲಾಖೆಯ ಪ್ರಕ್ರಿಯೆ ಪರಿಶೀಲಿಸಿ.","ಅಗತ್ಯವಿದ್ದರೆ ಸಂಬಂಧಿತ ಕೃಷಿ ಕಚೇರಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ.","ನೋಂದಣಿ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ."]},
+  url:"https://fruits.karnataka.gov.in/"},
+ {name:"Yuva Nidhi",category:"Karnataka Government",occupations:["Unemployed"],
+  desc:{en:"Support programme for eligible unemployed graduates and diploma holders, subject to current rules.",kn:"ಪ್ರಸ್ತುತ ನಿಯಮಗಳಿಗೆ ಒಳಪಟ್ಟು ಅರ್ಹ ನಿರುದ್ಯೋಗಿ ಪದವೀಧರರು ಮತ್ತು ಡಿಪ್ಲೊಮಾ ಪಡೆದವರಿಗೆ ನೆರವು ಯೋಜನೆ."},
+  docs:{en:["Aadhaar","Qualification documents","Bank details and other requested documents"],kn:["ಆಧಾರ್","ಶೈಕ್ಷಣಿಕ ಅರ್ಹತೆಯ ದಾಖಲೆಗಳು","ಬ್ಯಾಂಕ್ ವಿವರಗಳು ಮತ್ತು ಕೇಳಲಾದ ಇತರ ದಾಖಲೆಗಳು"]},
+  steps:{en:["Check current eligibility.","Visit the Seva Sindhu portal.","Submit the application and save the acknowledgement."],kn:["ಪ್ರಸ್ತುತ ಅರ್ಹತೆ ಪರಿಶೀಲಿಸಿ.","ಸೇವಾ ಸಿಂಧು ಜಾಲತಾಣಕ್ಕೆ ಭೇಟಿ ನೀಡಿ.","ಅರ್ಜಿ ಸಲ್ಲಿಸಿ ಮತ್ತು ಸ್ವೀಕೃತಿ ದಾಖಲೆಯನ್ನು ಉಳಿಸಿ."]},
+  url:"https://sevasindhu.karnataka.gov.in/"}
+];
+
+function setLanguage(lang){
+ language=lang;
+ document.documentElement.lang=lang;
+ document.querySelectorAll("[data-en][data-kn]").forEach(el=>{
+  const value=el.dataset[lang];
+  if(value!==undefined)el.textContent=value;
+ });
+ document.getElementById("englishBtn").classList.toggle("active",lang==="en");
+ document.getElementById("kannadaBtn").classList.toggle("active",lang==="kn");
+ document.getElementById("name").placeholder=lang==="en"?"Enter name":"ಹೆಸರು ನಮೂದಿಸಿ";
+ document.getElementById("district").placeholder=lang==="en"?"Enter district":"ಜಿಲ್ಲೆ ನಮೂದಿಸಿ";
+ document.getElementById("income").placeholder=lang==="en"?"Approximate income":"ಅಂದಾಜು ಆದಾಯ";
+ document.getElementById("placeSearch").placeholder=lang==="en"?"Example: Puttur, Karnataka":"ಉದಾಹರಣೆ: ಪುತ್ತೂರು, ಕರ್ನಾಟಕ";
+ renderSchemes();
+}
+
+function renderSchemes(){
+ const filter=document.getElementById("schemeFilter").value;
+ const list=schemes.map((s,i)=>({...s,index:i})).filter(s=>filter==="All"||s.occupations.includes(filter));
+ document.getElementById("schemeResults").innerHTML=list.length?list.map(s=>`
+  <article class="card">
+   <span class="category">${s.category}</span>
+   <h3>${s.name}</h3>
+   <p>${s.desc[language]}</p>
+   <div>${s.occupations.map(o=>`<span class="pill">${occupationName(o)}</span>`).join(" ")}</div>
+   <button class="btn" onclick="showScheme(${s.index})">${translations[language].details}</button>
+  </article>`).join(""):`<p>${translations[language].noResults}</p>`;
+}
+
+function occupationName(o){
+ const names={
+  Farmer:{en:"Farmer",kn:"ರೈತ"},Student:{en:"Student",kn:"ವಿದ್ಯಾರ್ಥಿ"},
+  Unemployed:{en:"Unemployed",kn:"ನಿರುದ್ಯೋಗಿ"},Business:{en:"Business owner",kn:"ವ್ಯಾಪಾರಸ್ಥರು"},
+  "Self-employed":{en:"Self-employed",kn:"ಸ್ವಯಂ ಉದ್ಯೋಗಿ"},Artisan:{en:"Artisan",kn:"ಕುಶಲಕರ್ಮಿ"}
+ };
+ return names[o]?.[language]||o;
+}
+
+function showScheme(i){
+ const s=schemes[i],t=translations[language];
+ document.getElementById("modalBody").innerHTML=`
+  <span class="pill">${s.category}</span>
+  <h3 style="margin-top:14px">${s.name}</h3>
+  <p>${s.desc[language]}</p>
+  <h4>${t.documents}</h4>
+  <ul>${s.docs[language].map(x=>`<li>${x}</li>`).join("")}</ul>
+  <h4 style="margin-top:15px">${t.steps}</h4>
+  <ol>${s.steps[language].map(x=>`<li>${x}</li>`).join("")}</ol>
+  <p><b>${t.warning}</b></p>
+  <a href="${s.url}" target="_blank" rel="noopener"><button class="btn">${language==="en"?"Visit official portal ↗":"ಅಧಿಕೃತ ಜಾಲತಾಣಕ್ಕೆ ಭೇಟಿ ನೀಡಿ ↗"}</button></a>`;
+ document.getElementById("schemeModal").style.display="block";
+}
+function closeModal(){document.getElementById("schemeModal").style.display="none"}
+document.getElementById("schemeModal").addEventListener("click",e=>{if(e.target.id==="schemeModal")closeModal()});
+
+document.getElementById("familyForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const profile={
+  name:document.getElementById("name").value.trim(),
+  age:document.getElementById("age").value,
+  occupation:document.getElementById("occupation").value,
+  income:document.getElementById("income").value,
+  state:document.getElementById("state").value,
+  district:document.getElementById("district").value.trim()
+ };
+ localStorage.setItem("onevisitProfile",JSON.stringify(profile));
+ document.getElementById("profileMessage").textContent=translations[language].saved;
+ document.getElementById("schemeFilter").value=profile.occupation;
+ renderSchemes();
+ document.getElementById("schemes").scrollIntoView();
+});
+
+function manualSearch(){
+ const place=document.getElementById("placeSearch").value.trim();
+ const out=document.getElementById("locationOutput");
+ if(!place){out.textContent=translations[language].emptyPlace;return}
+ out.textContent=translations[language].searching+" "+place+"...";
+ fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+encodeURIComponent(place))
+ .then(r=>r.json()).then(data=>{
+  if(!data.length)throw new Error("Not found");
+  showLocation(data[0].lat,data[0].lon,data[0].display_name);
+ }).catch(()=>{out.textContent=translations[language].notFound;});
+}
+
+function showLocation(lat,lon,label){
+ document.getElementById("locationOutput").textContent=label+" — "+translations[language].locationFound;
+ const q=encodeURIComponent(lat+","+lon+" CSC bank government service centre");
+ document.getElementById("mapLinks").innerHTML=`
+ <a href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">
+ <button class="btn">${language==="en"?"Nearby services on Google Maps ↗":"Google Maps ನಲ್ಲಿ ಹತ್ತಿರದ ಸೇವೆಗಳು ↗"}</button></a>
+ <a href="https://findmycsc.nic.in/csc/" target="_blank" rel="noopener">
+ <button class="btn secondary">${language==="en"?"Official CSC finder ↗":"ಅಧಿಕೃತ CSC ಹುಡುಕಾಟ ↗"}</button></a>`;
+}
+
+function useGPS(){
+ const out=document.getElementById("locationOutput");
+ if(!navigator.geolocation){out.textContent=translations[language].gpsUnsupported;return}
+ out.textContent=translations[language].gpsWait;
+ navigator.geolocation.getCurrentPosition(
+  pos=>showLocation(pos.coords.latitude,pos.coords.longitude,language==="en"?"Your current location":"ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಸ್ಥಳ"),
+  ()=>out.textContent=translations[language].gpsFail,
+  {enableHighAccuracy:true,timeout:12000}
+ );
+}
+renderSchemes();
+</script>
+</body>
+</html>
