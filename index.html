@@ -10,7 +10,7 @@
 
 /* =========================================================
    ONEVISIT
-   Family-level government scheme assistance
+   Existing design preserved + new modules added
    ========================================================= */
 
 *{
@@ -37,10 +37,6 @@ body{
     color:var(--text);
     background:#f7f1e8;
 }
-
-/* =========================================================
-   CULTURAL BACKGROUND
-   ========================================================= */
 
 body::before{
     content:"";
@@ -469,6 +465,245 @@ textarea{
 }
 
 /* =========================================================
+   NEW FEATURE DASHBOARD
+   ========================================================= */
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+}
+
+.feature-card{
+    background:white;
+    border:1px solid #e6ddd0;
+    border-radius:17px;
+    padding:22px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.feature-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 20px rgba(0,0,0,.10);
+}
+
+.feature-icon{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.feature-card h3{
+    margin-bottom:7px;
+}
+
+.feature-card p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.feature-badge{
+    display:inline-block;
+    margin-top:12px;
+    padding:6px 9px;
+    background:#fff3d5;
+    color:#855900;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* =========================================================
+   EMI
+   ========================================================= */
+
+.emi-result{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:20px;
+}
+
+.emi-box{
+    background:#fffaf2;
+    border:1px solid #eadcc8;
+    border-radius:14px;
+    padding:20px;
+    text-align:center;
+}
+
+.emi-value{
+    font-size:25px;
+    color:var(--primary);
+    font-weight:bold;
+    margin-top:7px;
+}
+
+/* =========================================================
+   JOBS / EXAMS
+   ========================================================= */
+
+.opportunity-card{
+    background:white;
+    border-radius:16px;
+    padding:22px;
+    border-left:5px solid var(--green);
+    box-shadow:0 5px 16px rgba(0,0,0,.07);
+}
+
+.opportunity-card + .opportunity-card{
+    margin-top:15px;
+}
+
+.opportunity-top{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.date-badge{
+    background:#fff3d5;
+    color:#805600;
+    padding:7px 10px;
+    border-radius:8px;
+    height:max-content;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.info-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:12px 0;
+}
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+.notification{
+    display:flex;
+    gap:15px;
+    background:white;
+    padding:18px;
+    border-radius:14px;
+    margin-bottom:12px;
+    border-left:5px solid var(--gold);
+}
+
+.notification-icon{
+    font-size:28px;
+}
+
+.notification small{
+    color:var(--muted);
+}
+
+.reminder{
+    background:#f3f8f3;
+    border-left:5px solid var(--green);
+}
+
+/* =========================================================
+   PRIORITY GUIDE
+   ========================================================= */
+
+.priority-card{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    margin-bottom:14px;
+    border-left:5px solid var(--primary);
+}
+
+.priority-number{
+    display:inline-flex;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    align-items:center;
+    justify-content:center;
+    background:var(--primary);
+    color:white;
+    margin-right:8px;
+}
+
+.priority-reason{
+    background:#f3f8f3;
+    padding:11px;
+    border-radius:9px;
+    margin-top:12px;
+}
+
+/* =========================================================
+   LOCATION
+   ========================================================= */
+
+.location-card{
+    background:white;
+    border-radius:16px;
+    padding:22px;
+    border-left:5px solid var(--green);
+}
+
+.location-card + .location-card{
+    margin-top:14px;
+}
+
+.location-distance{
+    float:right;
+    background:#eee5d9;
+    padding:6px 9px;
+    border-radius:7px;
+    font-size:12px;
+}
+
+/* =========================================================
+   MARKET
+   ========================================================= */
+
+.market-card{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    border-left:5px solid var(--green);
+}
+
+.price{
+    font-size:28px;
+    color:var(--primary);
+    font-weight:bold;
+}
+
+.price-up{
+    color:var(--green);
+    font-weight:bold;
+}
+
+.price-down{
+    color:var(--danger);
+    font-weight:bold;
+}
+
+.market-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+.market-table th,
+.market-table td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+}
+
+.market-table th{
+    background:#fffaf2;
+}
+
+/* =========================================================
    CHATBOT
    ========================================================= */
 
@@ -551,7 +786,7 @@ textarea{
 }
 
 /* =========================================================
-   EMPTY RESULTS
+   EMPTY
    ========================================================= */
 
 .empty{
@@ -586,6 +821,10 @@ textarea{
         position:static;
     }
 
+    .emi-result{
+        grid-template-columns:1fr;
+    }
+
     header{
         padding:13px 4%;
     }
@@ -602,6 +841,7 @@ textarea{
         right:10px;
         bottom:85px;
     }
+
 }
 
 </style>
@@ -609,9 +849,9 @@ textarea{
 
 <body>
 
-<!-- =====================================================
+<!-- =========================================================
      HEADER
-     ===================================================== -->
+     ========================================================= -->
 
 <header>
 
@@ -621,14 +861,21 @@ textarea{
 
     <div class="header-right">
 
-        <select id="language" class="language" onchange="changeLanguage()">
+        <select id="language"
+                class="language"
+                onchange="changeLanguage()">
+
             <option value="en">English</option>
             <option value="kn">ಕನ್ನಡ</option>
             <option value="hi">हिन्दी</option>
+
         </select>
 
-        <button class="btn secondary" onclick="showScreen('home')">
+        <button class="btn secondary"
+                onclick="showScreen('home')">
+
             Home
+
         </button>
 
     </div>
@@ -636,9 +883,9 @@ textarea{
 </header>
 
 
-<!-- =====================================================
+<!-- =========================================================
      SCREEN 1 — HOME
-     ===================================================== -->
+     ========================================================= -->
 
 <section id="home" class="screen active">
 
@@ -653,12 +900,18 @@ textarea{
 
         <div class="hero-buttons">
 
-            <button class="btn gold" onclick="showScreen('login')">
+            <button class="btn gold"
+                    onclick="showScreen('login')">
+
                 Start
+
             </button>
 
-            <button class="btn secondary" onclick="showScreen('about')">
+            <button class="btn secondary"
+                    onclick="showScreen('about')">
+
                 How it works
+
             </button>
 
         </div>
@@ -787,9 +1040,9 @@ textarea{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
      SCREEN 2 — LOGIN
-     ===================================================== -->
+     ========================================================= -->
 
 <section id="login" class="screen">
 
@@ -806,19 +1059,30 @@ textarea{
             <br>
 
             <div class="input-group">
+
                 <label>Name</label>
-                <input id="loginName" placeholder="Enter your name">
+
+                <input id="loginName"
+                       placeholder="Enter your name">
+
             </div>
 
             <div class="input-group">
+
                 <label>Mobile number</label>
-                <input id="loginMobile" maxlength="10"
+
+                <input id="loginMobile"
+                       maxlength="10"
                        placeholder="10 digit mobile number">
+
             </div>
 
-            <button class="btn" style="width:100%"
+            <button class="btn"
+                    style="width:100%"
                     onclick="loginUser()">
+
                 Continue
+
             </button>
 
             <br><br>
@@ -835,20 +1099,22 @@ textarea{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
      SCREEN 3 — FAMILY
-     ===================================================== -->
+     ========================================================= -->
 
 <section id="family" class="screen">
 
     <div class="container">
 
         <div class="progress">
+
             <div class="step active">1</div>
             <div class="step">2</div>
             <div class="step">3</div>
             <div class="step">4</div>
             <div class="step">5</div>
+
         </div>
 
         <div class="card">
@@ -861,18 +1127,24 @@ textarea{
 
             <br>
 
-            <div id="memberList" class="member-list"></div>
+            <div id="memberList"
+                 class="member-list"></div>
 
             <br>
 
-            <button class="btn" onclick="showScreen('addMember')">
+            <button class="btn"
+                    onclick="showScreen('addMember')">
+
                 + Add family member
+
             </button>
 
             <button class="btn green"
                     onclick="showScreen('memberSituation')"
                     style="margin-left:8px">
+
                 Continue
+
             </button>
 
         </div>
@@ -882,9 +1154,9 @@ textarea{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
      SCREEN 4 — ADD MEMBER
-     ===================================================== -->
+     ========================================================= -->
 
 <section id="addMember" class="screen">
 
@@ -897,19 +1169,28 @@ textarea{
             <div class="form-grid">
 
                 <div class="input-group">
+
                     <label>Name</label>
+
                     <input id="memberName">
+
                 </div>
 
                 <div class="input-group">
+
                     <label>Age</label>
-                    <input id="memberAge" type="number">
+
+                    <input id="memberAge"
+                           type="number">
+
                 </div>
 
                 <div class="input-group">
+
                     <label>Relationship</label>
 
                     <select id="memberRelation">
+
                         <option>Self</option>
                         <option>Father</option>
                         <option>Mother</option>
@@ -918,6 +1199,7 @@ textarea{
                         <option>Daughter</option>
                         <option>Grandparent</option>
                         <option>Other</option>
+
                     </select>
 
                 </div>
@@ -953,9 +1235,11 @@ textarea{
                     <label>Gender</label>
 
                     <select id="memberGender">
+
                         <option>Female</option>
                         <option>Male</option>
                         <option>Other</option>
+
                     </select>
 
                 </div>
@@ -965,12 +1249,14 @@ textarea{
                     <label>State</label>
 
                     <select id="memberState">
+
                         <option>Karnataka</option>
                         <option>Kerala</option>
                         <option>Tamil Nadu</option>
                         <option>Andhra Pradesh</option>
                         <option>Telangana</option>
                         <option>Other</option>
+
                     </select>
 
                 </div>
@@ -981,12 +1267,16 @@ textarea{
 
                 <button class="btn secondary"
                         onclick="showScreen('family')">
+
                     Back
+
                 </button>
 
                 <button class="btn"
                         onclick="addMember()">
+
                     Add member
+
                 </button>
 
             </div>
@@ -998,9 +1288,9 @@ textarea{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
      SCREEN 5 — SITUATION
-     ===================================================== -->
+     ========================================================= -->
 
 <section id="memberSituation" class="screen">
 
@@ -1039,8 +1329,10 @@ textarea{
                     <label>Residence</label>
 
                     <select id="residence">
+
                         <option>Rural</option>
                         <option>Urban</option>
+
                     </select>
 
                 </div>
@@ -1091,12 +1383,16 @@ textarea{
 
                 <button class="btn secondary"
                         onclick="showScreen('family')">
+
                     Back
+
                 </button>
 
                 <button class="btn green"
                         onclick="findSchemes()">
+
                     Find relevant schemes
+
                 </button>
 
             </div>
@@ -1108,9 +1404,9 @@ textarea{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
      SCREEN 6 — RESULTS
-     ===================================================== -->
+     ========================================================= -->
 
 <section id="results" class="screen">
 
@@ -1156,7 +1452,9 @@ textarea{
 
                 <button class="btn secondary"
                         onclick="showScreen('memberSituation')">
+
                     Change details
+
                 </button>
 
             </div>
@@ -1165,6 +1463,7 @@ textarea{
 
                 <div id="schemeResults"
                      class="scheme-grid">
+
                 </div>
 
             </div>
@@ -1176,9 +1475,9 @@ textarea{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
      SCREEN 7 — SCHEME DETAIL
-     ===================================================== -->
+     ========================================================= -->
 
 <section id="schemeDetail" class="screen">
 
@@ -1191,9 +1490,680 @@ textarea{
 </section>
 
 
-<!-- =====================================================
-     SCREEN 8 — ABOUT / HOW IT WORKS
-     ===================================================== -->
+<!-- =========================================================
+     SCREEN 8 — NEW ONEVISIT SERVICES
+     ========================================================= -->
+
+<section id="services" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>ONEVISIT Services</h2>
+
+            <p>
+                Additional support available after finding schemes
+                and opportunities.
+            </p>
+
+            <br>
+
+            <div class="feature-grid">
+
+                <div class="feature-card"
+                     onclick="showScreen('loans')">
+
+                    <div class="feature-icon">💰</div>
+
+                    <h3>Loans & EMI</h3>
+
+                    <p>
+                        Calculate EMI and understand loan repayment
+                        before making a decision.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card"
+                     onclick="showScreen('jobs')">
+
+                    <div class="feature-icon">🎓</div>
+
+                    <h3>Jobs & Internships</h3>
+
+                    <p>
+                        Find opportunities relevant to students,
+                        graduates and job seekers.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card"
+                     onclick="showScreen('notifications')">
+
+                    <div class="feature-icon">🔔</div>
+
+                    <h3>Notifications</h3>
+
+                    <p>
+                        Keep track of scheme updates and
+                        application deadlines.
+                    </p>
+
+                    <span class="feature-badge">
+                        3 reminders
+                    </span>
+
+                </div>
+
+
+                <div class="feature-card"
+                     onclick="showScreen('priority')">
+
+                    <div class="feature-icon">⚡</div>
+
+                    <h3>Application Priority</h3>
+
+                    <p>
+                        Compare multiple applications and see
+                        which one should be handled first.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card"
+                     onclick="showScreen('locations')">
+
+                    <div class="feature-icon">📍</div>
+
+                    <h3>Nearby Centres</h3>
+
+                    <p>
+                        Find places where applications or
+                        related services can be completed.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card"
+                     onclick="showScreen('exams')">
+
+                    <div class="feature-icon">📝</div>
+
+                    <h3>Competitive Exams</h3>
+
+                    <p>
+                        Track exam eligibility, application dates
+                        and examination dates.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card"
+                     onclick="showScreen('market')">
+
+                    <div class="feature-icon">🌾</div>
+
+                    <h3>Farmer Market Prices</h3>
+
+                    <p>
+                        Check available crop/product market values
+                        by location and market.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>Family overview</h2>
+
+            <div id="serviceFamilyOverview"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 9 — LOANS + EMI
+     ========================================================= -->
+
+<section id="loans" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn secondary"
+                    onclick="showScreen('services')">
+                ← Back
+            </button>
+
+            <br><br>
+
+            <h2>Loans & EMI Calculator</h2>
+
+            <p>
+                Calculate an approximate monthly repayment before
+                comparing loan options.
+            </p>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Loan amount (₹)</label>
+
+                    <input id="loanAmount"
+                           type="number"
+                           value="100000">
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Annual interest rate (%)</label>
+
+                    <input id="loanRate"
+                           type="number"
+                           step="0.1"
+                           value="10">
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Loan period (years)</label>
+
+                    <input id="loanYears"
+                           type="number"
+                           value="3">
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Purpose</label>
+
+                    <select id="loanPurpose">
+
+                        <option>Agriculture</option>
+                        <option>Education</option>
+                        <option>Business</option>
+                        <option>Housing</option>
+                        <option>Personal</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button class="btn green"
+                    onclick="calculateEMI()">
+
+                Calculate EMI
+
+            </button>
+
+
+            <div class="emi-result">
+
+                <div class="emi-box">
+
+                    <div>Monthly EMI</div>
+
+                    <div id="emiValue"
+                         class="emi-value">
+
+                        ₹0
+
+                    </div>
+
+                </div>
+
+                <div class="emi-box">
+
+                    <div>Total Interest</div>
+
+                    <div id="interestValue"
+                         class="emi-value">
+
+                        ₹0
+
+                    </div>
+
+                </div>
+
+                <div class="emi-box">
+
+                    <div>Total Repayment</div>
+
+                    <div id="totalValue"
+                         class="emi-value">
+
+                        ₹0
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="missing">
+
+                <b>Important:</b>
+                EMI is an estimate. Actual loan interest,
+                processing fees, eligibility and repayment terms
+                depend on the lender and the selected scheme.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 10 — JOBS / INTERNSHIPS
+     ========================================================= -->
+
+<section id="jobs" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn secondary"
+                    onclick="showScreen('services')">
+                ← Back
+            </button>
+
+            <br><br>
+
+            <h2>Jobs & Internships</h2>
+
+            <p>
+                Opportunities that may be relevant to students,
+                graduates and job seekers.
+            </p>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Looking for</label>
+
+                    <select id="jobType"
+                            onchange="renderJobs()">
+
+                        <option value="all">All</option>
+                        <option value="internship">Internship</option>
+                        <option value="job">Job</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Field</label>
+
+                    <select id="jobField"
+                            onchange="renderJobs()">
+
+                        <option value="all">All fields</option>
+                        <option value="technology">Technology</option>
+                        <option value="finance">Finance</option>
+                        <option value="agriculture">Agriculture</option>
+                        <option value="government">Government</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="jobResults"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 11 — NOTIFICATIONS
+     ========================================================= -->
+
+<section id="notifications" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn secondary"
+                    onclick="showScreen('services')">
+                ← Back
+            </button>
+
+            <br><br>
+
+            <h2>Notifications & Reminders</h2>
+
+            <p>
+                Updates and deadlines relevant to the information
+                entered into ONEVISIT.
+            </p>
+
+        </div>
+
+        <div id="notificationList"></div>
+
+        <div class="card">
+
+            <h3>Reminder setting</h3>
+
+            <p>
+                Choose how early you want to be reminded.
+            </p>
+
+            <br>
+
+            <select id="reminderDays">
+
+                <option value="1">1 day before</option>
+                <option value="3" selected>3 days before</option>
+                <option value="7">7 days before</option>
+                <option value="14">14 days before</option>
+
+            </select>
+
+            <br><br>
+
+            <button class="btn green"
+                    onclick="saveReminderPreference()">
+
+                Save reminder preference
+
+            </button>
+
+            <p id="reminderSaved"
+               style="margin-top:12px;color:var(--green)">
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 12 — APPLICATION PRIORITY
+     ========================================================= -->
+
+<section id="priority" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn secondary"
+                    onclick="showScreen('services')">
+                ← Back
+            </button>
+
+            <br><br>
+
+            <h2>Which application should I do first?</h2>
+
+            <p>
+                When several applications are open together,
+                ONEVISIT compares deadline, information readiness
+                and application effort to suggest a practical order.
+            </p>
+
+            <br>
+
+            <div class="missing">
+
+                <b>This is a priority guide, not an eligibility decision.</b>
+                You can always choose a different application.
+
+            </div>
+
+        </div>
+
+        <div id="priorityList"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 13 — NEARBY LOCATIONS
+     ========================================================= -->
+
+<section id="locations" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn secondary"
+                    onclick="showScreen('services')">
+                ← Back
+            </button>
+
+            <br><br>
+
+            <h2>Nearby Application Centres</h2>
+
+            <p>
+                Places that may help with applications or related
+                government services.
+            </p>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Location</label>
+
+                    <select id="locationCity"
+                            onchange="renderLocations()">
+
+                        <option value="bengaluru">Bengaluru</option>
+                        <option value="mysuru">Mysuru</option>
+                        <option value="mangaluru">Mangaluru</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Service</label>
+
+                    <select id="locationType"
+                            onchange="renderLocations()">
+
+                        <option value="all">All services</option>
+                        <option value="csc">CSC / Digital services</option>
+                        <option value="employment">Employment</option>
+                        <option value="exam">Exam centre</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="locationResults"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 14 — COMPETITIVE EXAMS
+     ========================================================= -->
+
+<section id="exams" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn secondary"
+                    onclick="showScreen('services')">
+                ← Back
+            </button>
+
+            <br><br>
+
+            <h2>Competitive Exams</h2>
+
+            <p>
+                Track important competitive examinations and
+                application stages.
+            </p>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Exam type</label>
+
+                    <select id="examType"
+                            onchange="renderExams()">
+
+                        <option value="all">All</option>
+                        <option value="government">Government</option>
+                        <option value="banking">Banking</option>
+                        <option value="railway">Railway</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="examResults"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 15 — FARMER MARKET
+     ========================================================= -->
+
+<section id="market" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn secondary"
+                    onclick="showScreen('services')">
+                ← Back
+            </button>
+
+            <br><br>
+
+            <h2>Farmer Market Prices</h2>
+
+            <p>
+                Check the available market-price information for
+                selected products and locations.
+            </p>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Location</label>
+
+                    <select id="marketLocation"
+                            onchange="renderMarket()">
+
+                        <option value="bengaluru">Bengaluru</option>
+                        <option value="mysuru">Mysuru</option>
+                        <option value="hubballi">Hubballi</option>
+                        <option value="mangaluru">Mangaluru</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Product</label>
+
+                    <select id="marketProduct"
+                            onchange="renderMarket()">
+
+                        <option value="tomato">Tomato</option>
+                        <option value="onion">Onion</option>
+                        <option value="maize">Maize</option>
+                        <option value="paddy">Paddy</option>
+                        <option value="ragi">Ragi</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="marketResults"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 16 — ABOUT
+     ========================================================= -->
 
 <section id="about" class="screen">
 
@@ -1206,48 +2176,68 @@ textarea{
             <div class="member-list">
 
                 <div class="member-card">
+
                     <div class="member-icon">1</div>
+
                     <h3>Enter</h3>
+
                     <p>
                         Create a family profile and add the people
                         whose circumstances matter.
                     </p>
+
                 </div>
 
                 <div class="member-card">
+
                     <div class="member-icon">2</div>
+
                     <h3>Describe</h3>
+
                     <p>
                         Add occupation, age, income, location,
                         education and other relevant circumstances.
                     </p>
+
                 </div>
 
                 <div class="member-card">
+
                     <div class="member-icon">3</div>
+
                     <h3>Compare</h3>
+
                     <p>
                         ONEVISIT compares the entered information
                         with the scheme records in its prototype database.
                     </p>
+
                 </div>
 
                 <div class="member-card">
+
                     <div class="member-icon">4</div>
+
                     <h3>Understand</h3>
+
                     <p>
                         Each result explains why it appeared and
                         which information may still need verification.
                     </p>
+
                 </div>
 
                 <div class="member-card">
+
                     <div class="member-icon">5</div>
+
                     <h3>Prepare</h3>
+
                     <p>
                         The user can see documents, next steps and
                         the official source before applying.
                     </p>
+
                 </div>
 
             </div>
@@ -1256,7 +2246,9 @@ textarea{
 
             <button class="btn"
                     onclick="showScreen('login')">
+
                 Start
+
             </button>
 
         </div>
@@ -1266,17 +2258,20 @@ textarea{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
      CHATBOT
-     ===================================================== -->
+     ========================================================= -->
 
 <button class="chat-button"
         onclick="toggleChat()">
+
     💬
+
 </button>
 
 
-<div id="chatWindow" class="chat-window">
+<div id="chatWindow"
+     class="chat-window">
 
     <div class="chat-header">
 
@@ -1284,16 +2279,21 @@ textarea{
 
         <button onclick="toggleChat()"
                 style="background:none;color:white;font-size:20px">
+
             ×
+
         </button>
 
     </div>
 
-    <div id="chatBody" class="chat-body">
+    <div id="chatBody"
+         class="chat-body">
 
         <div class="message bot">
+
             Hello. Tell me about your situation. For example:
             "My father is 67 and needs senior citizen support."
+
         </div>
 
     </div>
@@ -1306,7 +2306,9 @@ textarea{
 
         <button class="btn"
                 onclick="sendChat()">
+
             Send
+
         </button>
 
     </div>
@@ -1317,27 +2319,23 @@ textarea{
 <script>
 
 /* =========================================================
-   ONEVISIT DATA
+   ONEVISIT EXISTING DATA
    ========================================================= */
 
-let currentScreen = "home";
+let currentScreen="home";
 
-let familyMembers = [];
+let familyMembers=[];
 
-let currentResults = [];
+let currentResults=[];
 
-let selectedScheme = null;
+let selectedScheme=null;
 
 
-/*
-   IMPORTANT:
-   This is prototype data.
+/* =========================================================
+   EXISTING SCHEMES
+   ========================================================= */
 
-   For the hackathon, connect these records to a verified
-   database/API containing current official scheme information.
-*/
-
-const schemes = [
+const schemes=[
 
 {
     id:1,
@@ -1486,13 +2484,45 @@ function showScreen(id){
     const target=document.getElementById(id);
 
     if(target){
+
         target.classList.add("active");
+
         currentScreen=id;
+
         window.scrollTo(0,0);
+
     }
 
     if(id==="family"){
         renderMembers();
+    }
+
+    if(id==="services"){
+        renderServiceFamily();
+    }
+
+    if(id==="jobs"){
+        renderJobs();
+    }
+
+    if(id==="notifications"){
+        renderNotifications();
+    }
+
+    if(id==="priority"){
+        renderPriority();
+    }
+
+    if(id==="locations"){
+        renderLocations();
+    }
+
+    if(id==="exams"){
+        renderExams();
+    }
+
+    if(id==="market"){
+        renderMarket();
     }
 
 }
@@ -1504,41 +2534,62 @@ function showScreen(id){
 
 function loginUser(){
 
-    const name=document.getElementById("loginName").value.trim();
+    const name=
+        document.getElementById("loginName")
+        .value.trim();
 
-    const mobile=document.getElementById("loginMobile").value.trim();
+    const mobile=
+        document.getElementById("loginMobile")
+        .value.trim();
 
     if(!name){
+
         alert("Please enter your name.");
+
         return;
+
     }
 
     if(mobile.length!==10){
+
         alert("Please enter a valid 10 digit mobile number.");
+
         return;
+
     }
 
-    localStorage.setItem("onevisitUser",name);
+    localStorage.setItem(
+        "onevisitUser",
+        name
+    );
 
     showScreen("family");
+
 }
 
 
 /* =========================================================
-   ADD FAMILY MEMBER
+   ADD MEMBER
    ========================================================= */
 
 function addMember(){
 
-    const name=document.getElementById("memberName").value.trim();
+    const name=
+        document.getElementById("memberName")
+        .value.trim();
 
-    const age=parseInt(
-        document.getElementById("memberAge").value
-    );
+    const age=
+        parseInt(
+            document.getElementById("memberAge")
+            .value
+        );
 
     if(!name || !age){
+
         alert("Please enter member name and age.");
+
         return;
+
     }
 
     const member={
@@ -1566,6 +2617,7 @@ function addMember(){
     familyMembers.push(member);
 
     document.getElementById("memberName").value="";
+
     document.getElementById("memberAge").value="";
 
     showScreen("family");
@@ -1574,12 +2626,13 @@ function addMember(){
 
 
 /* =========================================================
-   DISPLAY FAMILY
+   MEMBER DISPLAY
    ========================================================= */
 
 function renderMembers(){
 
-    const box=document.getElementById("memberList");
+    const box=
+        document.getElementById("memberList");
 
     if(familyMembers.length===0){
 
@@ -1601,9 +2654,11 @@ function renderMembers(){
         `;
 
         return;
+
     }
 
-    box.innerHTML=familyMembers.map(member=>`
+    box.innerHTML=
+        familyMembers.map(member=>`
 
         <div class="member-card">
 
@@ -1623,7 +2678,9 @@ function renderMembers(){
                 class="btn secondary"
                 style="margin-top:10px"
                 onclick="removeMember(${member.id})">
+
                 Remove
+
             </button>
 
         </div>
@@ -1636,7 +2693,9 @@ function renderMembers(){
 function removeMember(id){
 
     familyMembers=
-        familyMembers.filter(member=>member.id!==id);
+        familyMembers.filter(
+            member=>member.id!==id
+        );
 
     renderMembers();
 
@@ -1685,7 +2744,7 @@ function occupationName(value){
 
 
 /* =========================================================
-   FIND SCHEMES
+   EXISTING SCHEME MATCHING
    ========================================================= */
 
 function findSchemes(){
@@ -1714,22 +2773,19 @@ function findSchemes(){
         .toLowerCase();
 
 
-    /*
-       Match schemes against every family member.
-
-       A scheme appears when at least one member's
-       occupation matches its target group.
-    */
-
     schemes.forEach(scheme=>{
 
         let matchedMember=null;
 
         for(const member of familyMembers){
 
-            if(scheme.occupations.includes(member.occupation)){
+            if(
+                scheme.occupations
+                .includes(member.occupation)
+            ){
 
                 matchedMember=member;
+
                 break;
 
             }
@@ -1763,10 +2819,14 @@ function findSchemes(){
         (a,b)=>b.score-a.score
     );
 
-    document.getElementById("resultSummary").innerText=
+
+    document.getElementById(
+        "resultSummary"
+    ).innerText=
 
         `${currentResults.length} possible matches found for your family. `+
         `These are potential matches, not final eligibility decisions.`;
+
 
     renderResults();
 
@@ -1789,8 +2849,10 @@ function calculateScore(
         score+=10;
     }
 
-    if(disability==="Yes" &&
-       scheme.category==="disability"){
+    if(
+        disability==="Yes" &&
+        scheme.category==="disability"
+    ){
 
         score+=15;
 
@@ -1827,16 +2889,20 @@ function calculateScore(
 
 
 /* =========================================================
-   RENDER RESULTS
+   EXISTING RESULTS
    ========================================================= */
 
 function renderResults(){
 
     const box=
-        document.getElementById("schemeResults");
+        document.getElementById(
+            "schemeResults"
+        );
 
     const filter=
-        document.getElementById("resultFilter").value;
+        document.getElementById(
+            "resultFilter"
+        ).value;
 
     let results=currentResults;
 
@@ -1870,7 +2936,8 @@ function renderResults(){
 
     }
 
-    box.innerHTML=results.map(scheme=>`
+    box.innerHTML=
+        results.map(scheme=>`
 
         <div class="scheme-card">
 
@@ -1878,11 +2945,15 @@ function renderResults(){
 
                 <div>
 
-                    <h3>${escapeHTML(scheme.name)}</h3>
+                    <h3>
+                        ${escapeHTML(scheme.name)}
+                    </h3>
 
                     <p>
                         Potential match for
-                        <b>${escapeHTML(scheme.member.name)}</b>
+                        <b>
+                            ${escapeHTML(scheme.member.name)}
+                        </b>
                     </p>
 
                 </div>
@@ -1896,7 +2967,9 @@ function renderResults(){
             <div class="scheme-meta">
 
                 <span class="tag">
-                    ${occupationName(scheme.member.occupation)}
+                    ${occupationName(
+                        scheme.member.occupation
+                    )}
                 </span>
 
                 <span class="tag">
@@ -1910,14 +2983,18 @@ function renderResults(){
             </div>
 
             <p>
-                ${escapeHTML(scheme.description)}
+                ${escapeHTML(
+                    scheme.description
+                )}
             </p>
 
             <div class="why">
 
                 <b>Why it appeared:</b><br>
 
-                ${escapeHTML(scheme.why)}
+                ${escapeHTML(
+                    scheme.why
+                )}
 
             </div>
 
@@ -1925,20 +3002,24 @@ function renderResults(){
 
                 <b>Still to verify:</b><br>
 
-                ${escapeHTML(scheme.missing)}
+                ${escapeHTML(
+                    scheme.missing
+                )}
 
             </div>
 
             <div class="scheme-actions">
 
-                <button class="btn"
+                <button
+                    class="btn"
                     onclick="openScheme(${scheme.id})">
 
                     View details
 
                 </button>
 
-                <button class="btn secondary"
+                <button
+                    class="btn secondary"
                     onclick="askAboutScheme('${scheme.name.replace(/'/g,"\\'")}')">
 
                     Ask assistant
@@ -1955,13 +3036,15 @@ function renderResults(){
 
 
 /* =========================================================
-   SCHEME DETAILS
+   EXISTING SCHEME DETAILS
    ========================================================= */
 
 function openScheme(id){
 
     selectedScheme=
-        schemes.find(scheme=>scheme.id===id);
+        schemes.find(
+            scheme=>scheme.id===id
+        );
 
     if(!selectedScheme){
         return;
@@ -1973,7 +3056,9 @@ function openScheme(id){
         );
 
     const member=
-        matched ? matched.member : familyMembers[0];
+        matched ?
+        matched.member :
+        familyMembers[0];
 
     document.getElementById(
         "schemeDetailContent"
@@ -1984,16 +3069,24 @@ function openScheme(id){
             <button
                 class="btn secondary"
                 onclick="showScreen('results')">
+
                 ← Back to results
+
             </button>
 
             <br><br>
 
-            <h2>${escapeHTML(selectedScheme.name)}</h2>
+            <h2>
+                ${escapeHTML(
+                    selectedScheme.name
+                )}
+            </h2>
 
             <p>
                 Potentially relevant for
-                <b>${escapeHTML(member.name)}</b>.
+                <b>
+                    ${escapeHTML(member.name)}
+                </b>.
             </p>
 
         </div>
@@ -2005,30 +3098,42 @@ function openScheme(id){
 
                 <div class="card">
 
-                    <h3>What this scheme covers</h3>
+                    <h3>
+                        What this scheme covers
+                    </h3>
 
                     <p>
-                        ${escapeHTML(selectedScheme.description)}
+                        ${escapeHTML(
+                            selectedScheme.description
+                        )}
                     </p>
 
                 </div>
 
                 <div class="card">
 
-                    <h3>Why ONEVISIT showed this</h3>
+                    <h3>
+                        Why ONEVISIT showed this
+                    </h3>
 
                     <p>
-                        ${escapeHTML(selectedScheme.why)}
+                        ${escapeHTML(
+                            selectedScheme.why
+                        )}
                     </p>
 
                 </div>
 
                 <div class="card">
 
-                    <h3>Information still to verify</h3>
+                    <h3>
+                        Information still to verify
+                    </h3>
 
                     <p>
-                        ${escapeHTML(selectedScheme.missing)}
+                        ${escapeHTML(
+                            selectedScheme.missing
+                        )}
                     </p>
 
                 </div>
@@ -2040,12 +3145,20 @@ function openScheme(id){
 
                 <div class="card">
 
-                    <h3>Documents to prepare</h3>
+                    <h3>
+                        Documents to prepare
+                    </h3>
 
                     <ul class="checklist">
 
                         ${selectedScheme.documents
-                            .map(doc=>`<li>${escapeHTML(doc)}</li>`)
+                            .map(
+                                doc=>`
+                                <li>
+                                    ${escapeHTML(doc)}
+                                </li>
+                                `
+                            )
                             .join("")}
 
                     </ul>
@@ -2054,7 +3167,9 @@ function openScheme(id){
 
                 <div class="card">
 
-                    <h3>Next step</h3>
+                    <h3>
+                        Next step
+                    </h3>
 
                     <p>
                         Verify the current eligibility conditions
@@ -2068,7 +3183,9 @@ function openScheme(id){
                         target="_blank"
                         class="btn"
                         style="display:inline-block;text-decoration:none">
+
                         Open official source
+
                     </a>
 
                 </div>
@@ -2080,6 +3197,1143 @@ function openScheme(id){
     `;
 
     showScreen("schemeDetail");
+
+}
+
+
+/* =========================================================
+   NEW FEATURE — SERVICE FAMILY OVERVIEW
+   ========================================================= */
+
+function renderServiceFamily(){
+
+    const box=
+        document.getElementById(
+            "serviceFamilyOverview"
+        );
+
+    if(familyMembers.length===0){
+
+        box.innerHTML=`
+
+            <p>
+                Add family members first to receive
+                personalised service suggestions.
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+    box.innerHTML=
+        familyMembers.map(member=>`
+
+        <div class="member-card">
+
+            <h3>
+                ${escapeHTML(member.name)}
+            </h3>
+
+            <p>
+                ${occupationName(
+                    member.occupation
+                )}
+            </p>
+
+            <p>
+                Age: ${member.age}
+            </p>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   EMI CALCULATOR
+   ========================================================= */
+
+function calculateEMI(){
+
+    const principal=
+        parseFloat(
+            document.getElementById(
+                "loanAmount"
+            ).value
+        );
+
+    const annualRate=
+        parseFloat(
+            document.getElementById(
+                "loanRate"
+            ).value
+        );
+
+    const years=
+        parseFloat(
+            document.getElementById(
+                "loanYears"
+            ).value
+        );
+
+    if(
+        !principal ||
+        principal<=0 ||
+        annualRate<0 ||
+        !years ||
+        years<=0
+    ){
+
+        alert("Please enter valid loan details.");
+
+        return;
+
+    }
+
+    const monthlyRate=
+        annualRate/12/100;
+
+    const months=
+        years*12;
+
+    let emi;
+
+    if(monthlyRate===0){
+
+        emi=principal/months;
+
+    }else{
+
+        emi=
+            principal *
+            monthlyRate *
+            Math.pow(
+                1+monthlyRate,
+                months
+            ) /
+            (
+                Math.pow(
+                    1+monthlyRate,
+                    months
+                )-1
+            );
+
+    }
+
+    const total=
+        emi*months;
+
+    const interest=
+        total-principal;
+
+    document.getElementById(
+        "emiValue"
+    ).innerText=
+        formatRupee(emi);
+
+    document.getElementById(
+        "interestValue"
+    ).innerText=
+        formatRupee(interest);
+
+    document.getElementById(
+        "totalValue"
+    ).innerText=
+        formatRupee(total);
+
+}
+
+
+/* =========================================================
+   JOB / INTERNSHIP DATA
+   ========================================================= */
+
+const opportunities=[
+
+{
+    title:"Software Development Internship",
+    type:"internship",
+    field:"technology",
+    location:"Bengaluru",
+    duration:"3–6 months",
+    eligibility:"Students / recent graduates",
+    source:"https://www.ncs.gov.in/"
+},
+
+{
+    title:"Finance Internship",
+    type:"internship",
+    field:"finance",
+    location:"Bengaluru",
+    duration:"3 months",
+    eligibility:"Commerce / Finance students",
+    source:"https://www.ncs.gov.in/"
+},
+
+{
+    title:"Agriculture Field Opportunity",
+    type:"job",
+    field:"agriculture",
+    location:"Karnataka",
+    duration:"Full time",
+    eligibility:"Agriculture-related qualification preferred",
+    source:"https://www.ncs.gov.in/"
+},
+
+{
+    title:"Government Employment Opportunities",
+    type:"job",
+    field:"government",
+    location:"Karnataka",
+    duration:"Varies",
+    eligibility:"Depends on individual notification",
+    source:"https://www.ncs.gov.in/"
+}
+
+];
+
+
+function renderJobs(){
+
+    const box=
+        document.getElementById(
+            "jobResults"
+        );
+
+    if(!box){
+        return;
+    }
+
+    const type=
+        document.getElementById(
+            "jobType"
+        ).value;
+
+    const field=
+        document.getElementById(
+            "jobField"
+        ).value;
+
+    let results=
+        opportunities.filter(item=>{
+
+            const typeMatch=
+                type==="all" ||
+                item.type===type;
+
+            const fieldMatch=
+                field==="all" ||
+                item.field===field;
+
+            return typeMatch && fieldMatch;
+
+        });
+
+
+    if(results.length===0){
+
+        box.innerHTML=`
+
+            <div class="card empty">
+
+                <h3>
+                    No matching opportunity in the prototype.
+                </h3>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    box.innerHTML=
+        results.map(item=>`
+
+        <div class="opportunity-card">
+
+            <div class="opportunity-top">
+
+                <div>
+
+                    <h3>
+                        ${escapeHTML(item.title)}
+                    </h3>
+
+                    <p>
+                        ${capitalize(item.type)}
+                    </p>
+
+                </div>
+
+                <span class="date-badge">
+                    ${escapeHTML(item.duration)}
+                </span>
+
+            </div>
+
+            <div class="info-row">
+
+                <span class="tag">
+                    ${capitalize(item.field)}
+                </span>
+
+                <span class="tag">
+                    ${escapeHTML(item.location)}
+                </span>
+
+            </div>
+
+            <p>
+                <b>Eligibility:</b>
+                ${escapeHTML(item.eligibility)}
+            </p>
+
+            <br>
+
+            <a
+                href="${item.source}"
+                target="_blank"
+                class="btn"
+                style="display:inline-block;text-decoration:none">
+
+                Check official opportunities
+
+            </a>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+const notifications=[
+
+{
+    title:"Scholarship application deadline",
+    category:"Education",
+    date:"2026-10-15",
+    text:"Check the current scholarship notification and complete the application before the closing date.",
+    type:"deadline"
+},
+
+{
+    title:"Government scheme information update",
+    category:"Schemes",
+    date:"2026-10-20",
+    text:"A relevant scheme record should be checked again for current eligibility and documents.",
+    type:"update"
+},
+
+{
+    title:"Competitive exam application deadline",
+    category:"Exam",
+    date:"2026-10-25",
+    text:"Application window is expected to close on the displayed date in this prototype.",
+    type:"deadline"
+}
+
+];
+
+
+function renderNotifications(){
+
+    const box=
+        document.getElementById(
+            "notificationList"
+        );
+
+    if(!box){
+        return;
+    }
+
+    box.innerHTML=
+        notifications.map(item=>`
+
+        <div class="notification
+            ${item.type==="deadline" ?
+                "" :
+                "reminder"}">
+
+            <div class="notification-icon">
+
+                ${item.type==="deadline" ?
+                    "⏰" :
+                    "🔔"}
+
+            </div>
+
+            <div>
+
+                <h3>
+                    ${escapeHTML(item.title)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(item.text)}
+                </p>
+
+                <br>
+
+                <small>
+                    ${escapeHTML(item.category)}
+                    · Date:
+                    ${escapeHTML(item.date)}
+                </small>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+function saveReminderPreference(){
+
+    const days=
+        document.getElementById(
+            "reminderDays"
+        ).value;
+
+    localStorage.setItem(
+        "onevisitReminderDays",
+        days
+    );
+
+    document.getElementById(
+        "reminderSaved"
+    ).innerText=
+        `Reminder preference saved: ${days} day(s) before the deadline.`;
+
+}
+
+
+/* =========================================================
+   APPLICATION PRIORITY
+   ========================================================= */
+
+const applications=[
+
+{
+    name:"Scholarship application",
+    deadline:"2026-10-15",
+    documentsReady:90,
+    effort:2,
+    reason:"Education opportunity with a closer deadline."
+},
+
+{
+    name:"Housing assistance application",
+    deadline:"2026-10-20",
+    documentsReady:65,
+    effort:3,
+    reason:"More documents may need to be prepared."
+},
+
+{
+    name:"Business loan / support application",
+    deadline:"2026-10-25",
+    documentsReady:75,
+    effort:2,
+    reason:"The application can be prepared after the nearer deadline."
+},
+
+{
+    name:"Competitive exam application",
+    deadline:"2026-10-30",
+    documentsReady:95,
+    effort:1,
+    reason:"Documents are mostly ready and the deadline is later."
+}
+
+];
+
+
+function priorityScore(item){
+
+    const today=
+        new Date();
+
+    const deadline=
+        new Date(item.deadline);
+
+    const diff=
+        Math.max(
+            1,
+            Math.ceil(
+                (
+                    deadline-today
+                ) /
+                (1000*60*60*24)
+            )
+        );
+
+    let score=100;
+
+    /*
+       Fewer days = higher priority.
+       Better document readiness = higher priority.
+       Lower effort = slightly higher priority.
+    */
+
+    score +=
+        Math.max(
+            0,
+            30-diff
+        );
+
+    score +=
+        item.documentsReady/10;
+
+    score +=
+        (4-item.effort)*3;
+
+    return score;
+
+}
+
+
+function renderPriority(){
+
+    const box=
+        document.getElementById(
+            "priorityList"
+        );
+
+    if(!box){
+        return;
+    }
+
+    const sorted=
+        [...applications].sort(
+            (a,b)=>
+                priorityScore(b)-
+                priorityScore(a)
+        );
+
+
+    box.innerHTML=
+        sorted.map((item,index)=>`
+
+        <div class="priority-card">
+
+            <h3>
+
+                <span class="priority-number">
+                    ${index+1}
+                </span>
+
+                ${escapeHTML(item.name)}
+
+            </h3>
+
+            <div class="info-row">
+
+                <span class="tag">
+                    Deadline:
+                    ${escapeHTML(item.deadline)}
+                </span>
+
+                <span class="tag">
+                    Documents ready:
+                    ${item.documentsReady}%
+                </span>
+
+                <span class="tag">
+                    Effort:
+                    ${item.effort}/5
+                </span>
+
+            </div>
+
+            <div class="priority-reason">
+
+                <b>Why this order?</b><br>
+
+                ${escapeHTML(item.reason)}
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   NEARBY APPLICATION LOCATIONS
+   ========================================================= */
+
+const locations=[
+
+{
+    city:"bengaluru",
+    name:"Citizen Service / CSC Centre",
+    type:"csc",
+    area:"Central Bengaluru",
+    distance:"Demo distance",
+    purpose:"Digital government services and application assistance."
+},
+
+{
+    city:"bengaluru",
+    name:"Employment Service Centre",
+    type:"employment",
+    area:"Bengaluru",
+    distance:"Demo distance",
+    purpose:"Employment and job-seeker related services."
+},
+
+{
+    city:"bengaluru",
+    name:"Competitive Examination Centre",
+    type:"exam",
+    area:"Bengaluru",
+    distance:"Demo distance",
+    purpose:"Examination-related services and centre information."
+},
+
+{
+    city:"mysuru",
+    name:"Citizen Service / CSC Centre",
+    type:"csc",
+    area:"Mysuru",
+    distance:"Demo distance",
+    purpose:"Digital government services and application assistance."
+},
+
+{
+    city:"mangaluru",
+    name:"Citizen Service / CSC Centre",
+    type:"csc",
+    area:"Mangaluru",
+    distance:"Demo distance",
+    purpose:"Digital government services and application assistance."
+}
+
+];
+
+
+function renderLocations(){
+
+    const box=
+        document.getElementById(
+            "locationResults"
+        );
+
+    if(!box){
+        return;
+    }
+
+    const city=
+        document.getElementById(
+            "locationCity"
+        ).value;
+
+    const type=
+        document.getElementById(
+            "locationType"
+        ).value;
+
+
+    const results=
+        locations.filter(item=>{
+
+            return item.city===city &&
+            (
+                type==="all" ||
+                item.type===type
+            );
+
+        });
+
+
+    if(results.length===0){
+
+        box.innerHTML=`
+
+            <div class="card empty">
+
+                No centre is listed in this prototype
+                for the selected filter.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    box.innerHTML=
+        results.map(item=>`
+
+        <div class="location-card">
+
+            <span class="location-distance">
+                ${escapeHTML(item.distance)}
+            </span>
+
+            <h3>
+                ${escapeHTML(item.name)}
+            </h3>
+
+            <p>
+                <b>Area:</b>
+                ${escapeHTML(item.area)}
+            </p>
+
+            <p>
+                ${escapeHTML(item.purpose)}
+            </p>
+
+            <br>
+
+            <button
+                class="btn secondary"
+                onclick="openMap('${escapeHTML(item.area)}')">
+
+                Open map
+
+            </button>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+function openMap(place){
+
+    window.open(
+        "https://www.google.com/maps/search/?api=1&query="+
+        encodeURIComponent(place),
+        "_blank"
+    );
+
+}
+
+
+/* =========================================================
+   COMPETITIVE EXAMS
+   ========================================================= */
+
+const exams=[
+
+{
+    name:"SSC Government Examination",
+    type:"government",
+    eligibility:"Eligibility depends on the specific SSC notification.",
+    application:"Check the current notification before applying.",
+    examDate:"As announced",
+    source:"https://ssc.gov.in/"
+},
+
+{
+    name:"IBPS Banking Examination",
+    type:"banking",
+    eligibility:"Eligibility depends on the specific IBPS notification.",
+    application:"Check the current notification and application window.",
+    examDate:"As announced",
+    source:"https://www.ibps.in/"
+},
+
+{
+    name:"Railway Recruitment Examination",
+    type:"railway",
+    eligibility:"Eligibility depends on the specific recruitment notification.",
+    application:"Check the current RRB notification.",
+    examDate:"As announced",
+    source:"https://www.rrbcdg.gov.in/"
+}
+
+];
+
+
+function renderExams(){
+
+    const box=
+        document.getElementById(
+            "examResults"
+        );
+
+    if(!box){
+        return;
+    }
+
+    const type=
+        document.getElementById(
+            "examType"
+        ).value;
+
+    const results=
+        type==="all" ?
+        exams :
+        exams.filter(
+            item=>item.type===type
+        );
+
+
+    box.innerHTML=
+        results.map(item=>`
+
+        <div class="opportunity-card">
+
+            <div class="opportunity-top">
+
+                <div>
+
+                    <h3>
+                        ${escapeHTML(item.name)}
+                    </h3>
+
+                    <p>
+                        ${capitalize(item.type)}
+                    </p>
+
+                </div>
+
+                <span class="date-badge">
+                    ${escapeHTML(item.examDate)}
+                </span>
+
+            </div>
+
+            <br>
+
+            <p>
+                <b>Eligibility:</b>
+                ${escapeHTML(item.eligibility)}
+            </p>
+
+            <p>
+                <b>Application:</b>
+                ${escapeHTML(item.application)}
+            </p>
+
+            <br>
+
+            <a
+                href="${item.source}"
+                target="_blank"
+                class="btn"
+                style="display:inline-block;text-decoration:none">
+
+                Official exam source
+
+            </a>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   FARMER MARKET DATA
+   ========================================================= */
+
+const marketData={
+
+    bengaluru:{
+        tomato:{
+            market:"Yeshwanthpur APMC",
+            price:2200,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        onion:{
+            market:"Yeshwanthpur APMC",
+            price:2800,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        maize:{
+            market:"Bengaluru market",
+            price:2300,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        paddy:{
+            market:"Bengaluru market",
+            price:2400,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        ragi:{
+            market:"Bengaluru market",
+            price:3600,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        }
+    },
+
+    mysuru:{
+        tomato:{
+            market:"Mysuru APMC",
+            price:2100,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        onion:{
+            market:"Mysuru APMC",
+            price:2700,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        maize:{
+            market:"Mysuru APMC",
+            price:2250,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        paddy:{
+            market:"Mysuru APMC",
+            price:2350,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        ragi:{
+            market:"Mysuru APMC",
+            price:3500,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        }
+    },
+
+    hubballi:{
+        tomato:{
+            market:"Hubballi market",
+            price:2300,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        onion:{
+            market:"Hubballi market",
+            price:3000,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        maize:{
+            market:"Hubballi market",
+            price:2400,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        paddy:{
+            market:"Hubballi market",
+            price:2450,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        ragi:{
+            market:"Hubballi market",
+            price:3700,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        }
+    },
+
+    mangaluru:{
+        tomato:{
+            market:"Mangaluru market",
+            price:2250,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        onion:{
+            market:"Mangaluru market",
+            price:2900,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        maize:{
+            market:"Mangaluru market",
+            price:2350,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        paddy:{
+            market:"Mangaluru market",
+            price:2500,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        },
+
+        ragi:{
+            market:"Mangaluru market",
+            price:3650,
+            unit:"quintal",
+            trend:"Available prototype value",
+            date:"Demo data"
+        }
+    }
+
+};
+
+
+function renderMarket(){
+
+    const box=
+        document.getElementById(
+            "marketResults"
+        );
+
+    if(!box){
+        return;
+    }
+
+    const location=
+        document.getElementById(
+            "marketLocation"
+        ).value;
+
+    const product=
+        document.getElementById(
+            "marketProduct"
+        ).value;
+
+
+    const data=
+        marketData[location][product];
+
+
+    box.innerHTML=`
+
+        <div class="market-card">
+
+            <h3>
+                ${capitalize(product)}
+            </h3>
+
+            <p>
+                Market:
+                <b>
+                    ${escapeHTML(data.market)}
+                </b>
+            </p>
+
+            <br>
+
+            <div class="price">
+                ₹${data.price}
+                /
+                ${escapeHTML(data.unit)}
+            </div>
+
+            <p class="price-up">
+                ${escapeHTML(data.trend)}
+            </p>
+
+            <br>
+
+            <table class="market-table">
+
+                <tr>
+                    <th>Location</th>
+                    <td>
+                        ${capitalize(location)}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Product</th>
+                    <td>
+                        ${capitalize(product)}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Market</th>
+                    <td>
+                        ${escapeHTML(data.market)}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Price</th>
+                    <td>
+                        ₹${data.price}
+                        /
+                        ${escapeHTML(data.unit)}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Updated</th>
+                    <td>
+                        ${escapeHTML(data.date)}
+                    </td>
+                </tr>
+
+            </table>
+
+            <br>
+
+            <div class="missing">
+
+                <b>Important:</b>
+                Market prices can change during the day.
+                The hackathon prototype displays sample values.
+                A production version should connect to a verified
+                live market-price source.
+
+            </div>
+
+        </div>
+
+    `;
 
 }
 
@@ -2097,21 +4351,28 @@ function toggleChat(){
 }
 
 
-function addChatMessage(text,type){
+function addChatMessage(
+    text,
+    type
+){
 
     const body=
-        document.getElementById("chatBody");
+        document.getElementById(
+            "chatBody"
+        );
 
     const div=
         document.createElement("div");
 
-    div.className="message "+type;
+    div.className=
+        "message "+type;
 
     div.innerText=text;
 
     body.appendChild(div);
 
-    body.scrollTop=body.scrollHeight;
+    body.scrollTop=
+        body.scrollHeight;
 
 }
 
@@ -2119,7 +4380,9 @@ function addChatMessage(text,type){
 function sendChat(){
 
     const input=
-        document.getElementById("chatInput");
+        document.getElementById(
+            "chatInput"
+        );
 
     const message=
         input.value.trim();
@@ -2128,7 +4391,10 @@ function sendChat(){
         return;
     }
 
-    addChatMessage(message,"user");
+    addChatMessage(
+        message,
+        "user"
+    );
 
     input.value="";
 
@@ -2137,7 +4403,10 @@ function sendChat(){
         const reply=
             chatbotReply(message);
 
-        addChatMessage(reply,"bot");
+        addChatMessage(
+            reply,
+            "bot"
+        );
 
     },300);
 
@@ -2150,7 +4419,84 @@ function chatbotReply(message){
         message.toLowerCase();
 
 
-    /* Student */
+    if(
+        text.includes("emi") ||
+        text.includes("loan")
+    ){
+
+        return "ONEVISIT can calculate an approximate EMI using the loan amount, annual interest rate and repayment period. You can open Loans & EMI from the ONEVISIT Services page.";
+
+    }
+
+
+    if(
+        text.includes("internship") ||
+        text.includes("job") ||
+        text.includes("work")
+    ){
+
+        return "Students and job seekers can check the Jobs & Internships section. Opportunities can be filtered by internship or job and by field.";
+
+    }
+
+
+    if(
+        text.includes("deadline") ||
+        text.includes("reminder")
+    ){
+
+        return "The Notifications section can show relevant deadlines and let you choose how many days before a deadline you want a reminder.";
+
+    }
+
+
+    if(
+        text.includes("three applications") ||
+        text.includes("3 applications") ||
+        text.includes("which application")
+    ){
+
+        return "ONEVISIT can compare multiple applications using deadline, document readiness and application effort, then suggest a practical order. It does not make the decision for you.";
+
+    }
+
+
+    if(
+        text.includes("nearby") ||
+        text.includes("centre") ||
+        text.includes("center") ||
+        text.includes("office")
+    ){
+
+        return "Open Nearby Centres to filter application-support locations by city and service type.";
+
+    }
+
+
+    if(
+        text.includes("exam") ||
+        text.includes("upsc") ||
+        text.includes("ssc") ||
+        text.includes("bank")
+    ){
+
+        return "The Competitive Exams section can help users track exam type, eligibility information, application instructions and official sources.";
+
+    }
+
+
+    if(
+        text.includes("market") ||
+        text.includes("crop") ||
+        text.includes("tomato") ||
+        text.includes("onion") ||
+        text.includes("farmer price")
+    ){
+
+        return "Farmers can open Farmer Market Prices, select a location and product, and see the available market-price information. The prototype currently uses sample data.";
+
+    }
+
 
     if(
         text.includes("student") ||
@@ -2158,12 +4504,10 @@ function chatbotReply(message){
         text.includes("scholarship")
     ){
 
-        return "If the person is a student, ONEVISIT can check education and scholarship-related records. Course, institution, income and category may affect eligibility. Try adding the student as a family member.";
+        return "If the person is a student, ONEVISIT can check education and scholarship-related records. Course, institution, income and category may affect eligibility.";
 
     }
 
-
-    /* Farmer */
 
     if(
         text.includes("farmer") ||
@@ -2171,12 +4515,10 @@ function chatbotReply(message){
         text.includes("farming")
     ){
 
-        return "For a farmer, agriculture-related records such as PM-KISAN may become relevant. Land ownership and the current official eligibility conditions still need to be verified.";
+        return "For a farmer, agriculture-related records such as PM-KISAN may become relevant. Land ownership and current official eligibility conditions still need to be verified.";
 
     }
 
-
-    /* Senior */
 
     if(
         text.includes("senior") ||
@@ -2190,20 +4532,16 @@ function chatbotReply(message){
     }
 
 
-    /* Disability */
-
     if(
         text.includes("disability") ||
         text.includes("disabled") ||
         text.includes("pwd")
     ){
 
-        return "Disability-related assistance may depend on the disability certificate, percentage of disability, income and the particular programme. Add the person and mark the disability situation.";
+        return "Disability-related assistance may depend on the disability certificate, percentage of disability, income and the particular programme.";
 
     }
 
-
-    /* Women */
 
     if(
         text.includes("woman") ||
@@ -2212,40 +4550,32 @@ function chatbotReply(message){
         text.includes("mother")
     ){
 
-        return "Women and family-related programmes can depend on age, income, marital/family situation and other conditions. ONEVISIT can use these details when matching records.";
+        return "Women and family-related programmes can depend on age, income, marital/family situation and other conditions.";
 
     }
 
-
-    /* Business */
 
     if(
         text.includes("business") ||
         text.includes("shop") ||
-        text.includes("startup") ||
         text.includes("entrepreneur")
     ){
 
-        return "Business and self-employment records may be relevant. For example, PMEGP or artisan-related support can appear depending on the person's occupation and the official conditions.";
+        return "Business and self-employment records may be relevant. PMEGP or artisan-related support can appear depending on occupation and official conditions.";
 
     }
 
-
-    /* Worker */
 
     if(
         text.includes("worker") ||
         text.includes("labour") ||
-        text.includes("construction") ||
-        text.includes("daily wage")
+        text.includes("construction")
     ){
 
-        return "Worker welfare programmes may depend on worker registration, occupation, state and other conditions. Add the worker to the family profile for matching.";
+        return "Worker welfare programmes may depend on worker registration, occupation, state and other conditions.";
 
     }
 
-
-    /* Housing */
 
     if(
         text.includes("house") ||
@@ -2253,12 +4583,12 @@ function chatbotReply(message){
         text.includes("home")
     ){
 
-        return "Housing support can depend on household income, location and existing housing conditions. ONEVISIT can flag potentially relevant housing records.";
+        return "Housing support can depend on household income, location and existing housing conditions.";
 
     }
 
 
-    return "Tell me about the person and their situation. For example: age, occupation, income, student/farmer/worker status, disability, family situation or housing need. I can then explain which type of scheme may be relevant.";
+    return "Tell me about the person and their situation. You can also ask about loans, EMI, jobs, internships, exams, deadlines, nearby centres or farmer market prices.";
 
 }
 
@@ -2302,26 +4632,75 @@ const translations={
 function changeLanguage(){
 
     const language=
-        document.getElementById("language").value;
+        document.getElementById(
+            "language"
+        ).value;
 
-    document.getElementById("homeText").innerText=
-        translations[language].home;
+    document.getElementById(
+        "homeText"
+    ).innerText=
+        translations[
+            language
+        ].home;
 
 }
 
 
 /* =========================================================
-   SECURITY / DISPLAY HELPERS
+   HELPERS
    ========================================================= */
+
+function formatRupee(value){
+
+    return "₹"+
+        Math.round(value)
+        .toLocaleString("en-IN");
+
+}
+
+
+function capitalize(value){
+
+    if(!value){
+        return "";
+    }
+
+    return value
+        .charAt(0)
+        .toUpperCase()+
+        value.slice(1);
+
+}
+
 
 function escapeHTML(value){
 
     return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
