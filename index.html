@@ -3,1126 +3,2021 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ONEVISIT</title>
 
 <style>
-:root{
-  --primary:#8b1e1e;
-  --primary-dark:#5e1010;
-  --gold:#d69b2d;
-  --cream:#fff8ec;
-  --green:#236b43;
-  --text:#292929;
-  --muted:#6b6b6b;
-  --white:#ffffff;
-  --danger:#a52323;
-  --shadow:0 12px 35px rgba(0,0,0,.12);
-}
+
+/* =========================================================
+   ONEVISIT
+   Family-level government scheme assistance
+   ========================================================= */
 
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --primary:#8b1e1e;
+    --primary-dark:#5e1010;
+    --gold:#d69b2d;
+    --cream:#fff8ec;
+    --green:#236b43;
+    --text:#292929;
+    --muted:#6b6b6b;
+    --white:#ffffff;
+    --danger:#a52323;
+    --shadow:0 12px 35px rgba(0,0,0,.12);
 }
 
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--cream);
-  color:var(--text);
+    font-family:Arial, Helvetica, sans-serif;
+    color:var(--text);
+    background:#f7f1e8;
 }
 
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-3;
+
+    background-image:
+    linear-gradient(
+        rgba(72,30,18,.55),
+        rgba(255,248,236,.94) 55%,
+        #f7f1e8 90%
+    ),
+    url("https://images.unsplash.com/photo-1609947017136-9daf32a5eb16?auto=format&fit=crop&w=2000&q=85");
+
+    background-size:cover;
+    background-position:center top;
+    background-attachment:fixed;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
 header{
-  background:var(--primary);
-  color:white;
-  padding:14px 25px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  position:sticky;
-  top:0;
-  z-index:100;
+    width:100%;
+    padding:16px 5%;
+    background:rgba(255,255,255,.96);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.1);
 }
 
 .logo{
-  font-size:25px;
-  font-weight:bold;
-  letter-spacing:1px;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:2px;
+    color:var(--primary);
+}
+
+.logo span{
+    color:var(--gold);
 }
 
 .header-right{
-  display:flex;
-  gap:10px;
-  align-items:center;
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
-select,
-button,
-input{
-  font:inherit;
+.language{
+    padding:9px 12px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    background:white;
 }
 
-select{
-  padding:9px 12px;
-  border-radius:7px;
-  border:1px solid #ddd;
-}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:30px 20px;
-}
-
-.screen{
-  display:none;
-}
-
-.screen.active{
-  display:block;
-}
-
-.card{
-  background:white;
-  border-radius:15px;
-  padding:22px;
-  margin-bottom:20px;
-  box-shadow:var(--shadow);
-}
-
-.hero{
-  text-align:center;
-  padding:60px 20px;
-}
-
-.hero h1{
-  color:var(--primary);
-  font-size:45px;
-  margin-bottom:10px;
-}
-
-.hero p{
-  font-size:18px;
-  color:var(--muted);
+button{
+    border:none;
+    cursor:pointer;
+    font-weight:700;
 }
 
 .btn{
-  border:0;
-  background:var(--primary);
-  color:white;
-  padding:12px 20px;
-  border-radius:8px;
-  cursor:pointer;
-  margin:5px;
-  font-weight:bold;
+    padding:12px 18px;
+    border-radius:8px;
+    background:var(--primary);
+    color:white;
+    transition:.2s;
 }
 
 .btn:hover{
-  background:var(--primary-dark);
+    background:var(--primary-dark);
+    transform:translateY(-1px);
 }
 
-.btn.gold{
-  background:var(--gold);
-  color:#222;
+.btn.secondary{
+    background:white;
+    color:var(--primary);
+    border:1px solid var(--primary);
 }
 
 .btn.green{
-  background:var(--green);
+    background:var(--green);
 }
 
-.btn.light{
-  background:#f2e5d2;
-  color:var(--primary);
+.btn.gold{
+    background:var(--gold);
+    color:#241600;
 }
 
-.btn.danger{
-  background:var(--danger);
+/* =========================================================
+   SCREENS
+   ========================================================= */
+
+.screen{
+    display:none;
+    min-height:calc(100vh - 75px);
+    padding:45px 5%;
+}
+
+.screen.active{
+    display:block;
+}
+
+.container{
+    max-width:1150px;
+    margin:auto;
+}
+
+.card{
+    background:rgba(255,255,255,.96);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:var(--shadow);
+    margin-bottom:25px;
+}
+
+h1{
+    font-size:42px;
+    margin-bottom:14px;
+    color:#fff;
 }
 
 h2{
-  color:var(--primary);
+    font-size:30px;
+    color:var(--primary);
+    margin-bottom:12px;
 }
 
 h3{
-  margin-top:5px;
+    color:var(--primary);
+    margin-bottom:8px;
+}
+
+p{
+    line-height:1.65;
+}
+
+.hero{
+    max-width:850px;
+    margin:50px auto;
+    text-align:center;
+    background:rgba(30,20,15,.68);
+    padding:55px 35px;
+    border-radius:25px;
+    color:white;
+}
+
+.hero p{
+    font-size:18px;
+    margin:20px 0 30px;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.login-box{
+    max-width:460px;
+    margin:40px auto;
+}
+
+.input-group{
+    margin-bottom:18px;
 }
 
 label{
-  display:block;
-  font-weight:bold;
-  margin-top:12px;
-  margin-bottom:5px;
+    display:block;
+    font-weight:700;
+    margin-bottom:7px;
 }
 
 input,
-select{
-  width:100%;
-  padding:11px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  background:white;
+select,
+textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #d8d8d8;
+    border-radius:9px;
+    font-size:15px;
+    background:white;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:18px;
+textarea{
+    min-height:100px;
+    resize:vertical;
 }
 
-.feature-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-  margin-top:20px;
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+.progress{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:30px;
+    position:relative;
 }
 
-.feature-card{
-  background:white;
-  border:1px solid #eadcc7;
-  border-radius:14px;
-  padding:20px;
-  box-shadow:0 5px 18px rgba(0,0,0,.07);
-}
-
-.feature-card .icon{
-  font-size:32px;
-}
-
-.feature-card h3{
-  color:var(--primary);
-}
-
-.member{
-  border-left:5px solid var(--gold);
-}
-
-.tag{
-  display:inline-block;
-  padding:5px 9px;
-  background:#f4e5cb;
-  color:var(--primary);
-  border-radius:15px;
-  font-size:12px;
-  margin:3px;
-}
-
-.match{
-  font-size:24px;
-  font-weight:bold;
-  color:var(--green);
-}
-
-.notice{
-  padding:13px;
-  border-radius:8px;
-  background:#fff2d7;
-  margin:10px 0;
-}
-
-.success{
-  background:#e7f5eb;
-  border-left:5px solid var(--green);
-}
-
-.warning{
-  background:#fff0d7;
-  border-left:5px solid var(--gold);
-}
-
-.danger-box{
-  background:#fdeaea;
-  border-left:5px solid var(--danger);
-}
-
-.back{
-  margin-bottom:15px;
-}
-
-.small{
-  color:var(--muted);
-  font-size:14px;
-}
-
-.result-card{
-  position:relative;
-}
-
-.score{
-  float:right;
-  text-align:center;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:15px;
-}
-
-th,
-td{
-  padding:11px;
-  border-bottom:1px solid #ddd;
-  text-align:left;
-}
-
-th{
-  background:#f5e7d1;
-  color:var(--primary);
-}
-
-.chat-button{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  background:var(--primary);
-  color:white;
-  border:0;
-  font-size:25px;
-  cursor:pointer;
-  box-shadow:var(--shadow);
-  z-index:200;
-}
-
-.chat-box{
-  display:none;
-  position:fixed;
-  right:20px;
-  bottom:88px;
-  width:320px;
-  background:white;
-  border-radius:15px;
-  box-shadow:var(--shadow);
-  z-index:200;
-  overflow:hidden;
-}
-
-.chat-header{
-  background:var(--primary);
-  color:white;
-  padding:14px;
-  font-weight:bold;
-}
-
-.chat-messages{
-  height:250px;
-  overflow:auto;
-  padding:12px;
-}
-
-.chat-input{
-  display:flex;
-  padding:8px;
-  border-top:1px solid #ddd;
-}
-
-.chat-input input{
-  flex:1;
-}
-
-.chat-input button{
-  margin:0 0 0 5px;
-  padding:8px 12px;
-}
-
-.message{
-  padding:9px;
-  margin:6px 0;
-  border-radius:8px;
-  background:#f4eee5;
-}
-
-.message.user{
-  background:#ead3b0;
-  text-align:right;
-}
-
-.step-bar{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-bottom:20px;
+.progress::before{
+    content:"";
+    position:absolute;
+    top:17px;
+    left:5%;
+    right:5%;
+    height:3px;
+    background:#ddd;
+    z-index:0;
 }
 
 .step{
-  padding:7px 11px;
-  border-radius:15px;
-  background:#eee;
-  font-size:13px;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:#ddd;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    z-index:1;
+    font-weight:bold;
 }
 
 .step.active{
-  background:var(--primary);
-  color:white;
+    background:var(--primary);
+    color:white;
 }
 
-@media(max-width:600px){
-  .hero h1{
-    font-size:35px;
-  }
+.step.done{
+    background:var(--green);
+    color:white;
+}
 
-  header{
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.action-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:25px;
+}
+
+/* =========================================================
+   MEMBER CARDS
+   ========================================================= */
+
+.member-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:18px;
+}
+
+.member-card{
+    background:#fffaf2;
+    border:1px solid #eadcc8;
+    padding:20px;
+    border-radius:15px;
+}
+
+.member-icon{
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+/* =========================================================
+   CATEGORY GRID
+   ========================================================= */
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:14px;
+}
+
+.category{
+    background:white;
+    padding:18px;
+    border-radius:14px;
+    border:1px solid #e6ddd0;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.category:hover{
+    transform:translateY(-3px);
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.category.selected{
+    border:2px solid var(--primary);
+    background:#fff1df;
+}
+
+.category-icon{
+    font-size:30px;
+}
+
+/* =========================================================
+   RESULTS
+   ========================================================= */
+
+.result-layout{
+    display:grid;
+    grid-template-columns:250px 1fr;
+    gap:22px;
+}
+
+.filters{
+    height:max-content;
+    position:sticky;
+    top:90px;
+}
+
+.scheme-grid{
+    display:grid;
+    gap:18px;
+}
+
+.scheme-card{
+    background:white;
+    border-radius:17px;
+    padding:24px;
+    box-shadow:0 7px 20px rgba(0,0,0,.08);
+    border-left:5px solid var(--green);
+}
+
+.scheme-top{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.match{
+    background:#d9f6df;
+    color:#17682d;
+    padding:7px 11px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.scheme-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:14px 0;
+}
+
+.tag{
+    background:#f0e8dc;
+    padding:6px 9px;
+    border-radius:6px;
+    font-size:12px;
+}
+
+.missing{
+    background:#fff3d5;
+    color:#855900;
     padding:12px;
-  }
-
-  .logo{
-    font-size:20px;
-  }
-
-  .container{
-    padding:20px 12px;
-  }
-
-  .chat-box{
-    width:calc(100% - 30px);
-    right:15px;
-  }
+    border-radius:9px;
+    margin:12px 0;
 }
+
+.why{
+    background:#f3f8f3;
+    padding:12px;
+    border-radius:9px;
+    margin:12px 0;
+}
+
+.scheme-actions{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+}
+
+/* =========================================================
+   DETAILS
+   ========================================================= */
+
+.detail-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.checklist{
+    list-style:none;
+}
+
+.checklist li{
+    padding:12px;
+    border-bottom:1px solid #eee;
+}
+
+.checklist li::before{
+    content:"✓";
+    color:var(--green);
+    font-weight:bold;
+    margin-right:8px;
+}
+
+/* =========================================================
+   CHATBOT
+   ========================================================= */
+
+.chat-button{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    font-size:27px;
+    box-shadow:0 7px 20px rgba(0,0,0,.25);
+    z-index:200;
+}
+
+.chat-window{
+    position:fixed;
+    right:22px;
+    bottom:95px;
+    width:350px;
+    max-width:calc(100vw - 30px);
+    height:500px;
+    background:white;
+    border-radius:20px;
+    box-shadow:0 15px 50px rgba(0,0,0,.3);
+    display:none;
+    flex-direction:column;
+    z-index:200;
+    overflow:hidden;
+}
+
+.chat-window.open{
+    display:flex;
+}
+
+.chat-header{
+    background:var(--primary);
+    color:white;
+    padding:16px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.chat-body{
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+    background:#faf7f2;
+}
+
+.message{
+    max-width:85%;
+    padding:10px 13px;
+    border-radius:13px;
+    margin-bottom:10px;
+    line-height:1.4;
+}
+
+.bot{
+    background:#eee5d9;
+}
+
+.user{
+    background:var(--primary);
+    color:white;
+    margin-left:auto;
+}
+
+.chat-input{
+    display:flex;
+    padding:10px;
+    border-top:1px solid #ddd;
+    gap:6px;
+}
+
+.chat-input input{
+    flex:1;
+}
+
+/* =========================================================
+   EMPTY RESULTS
+   ========================================================= */
+
+.empty{
+    text-align:center;
+    padding:50px 20px;
+}
+
+/* =========================================================
+   NEW FEATURES
+   ========================================================= */
+
+.services-card{
+    background:rgba(255,255,255,.96);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:var(--shadow);
+    margin-top:25px;
+}
+
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:15px;
+    margin-top:20px;
+}
+
+.service-card{
+    background:#fffaf2;
+    border:1px solid #eadcc8;
+    border-radius:15px;
+    padding:20px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.service-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 18px rgba(0,0,0,.10);
+}
+
+.service-icon{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.service-card h3{
+    margin-bottom:7px;
+}
+
+.service-card p{
+    font-size:14px;
+    color:var(--muted);
+}
+
+.service-screen-card{
+    max-width:1100px;
+    margin:auto;
+}
+
+.calculator-result{
+    background:#f3f8f3;
+    border-radius:12px;
+    padding:20px;
+    margin-top:20px;
+}
+
+.calculator-result strong{
+    color:var(--green);
+}
+
+.info-box{
+    background:#fff3d5;
+    padding:15px;
+    border-radius:10px;
+    margin:15px 0;
+}
+
+.job-card,
+.exam-card,
+.market-card,
+.location-card,
+.notification-card,
+.priority-card{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:15px;
+    border-left:5px solid var(--green);
+    box-shadow:0 5px 15px rgba(0,0,0,.07);
+}
+
+.priority-high{
+    border-left-color:var(--primary);
+}
+
+.priority-medium{
+    border-left-color:var(--gold);
+}
+
+.service-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.price-value{
+    font-size:28px;
+    font-weight:900;
+    color:var(--green);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:750px){
+
+    h1{
+        font-size:32px;
+    }
+
+    h2{
+        font-size:25px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .result-layout,
+    .detail-grid{
+        grid-template-columns:1fr;
+    }
+
+    .filters{
+        position:static;
+    }
+
+    header{
+        padding:13px 4%;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
+    .screen{
+        padding:25px 4%;
+    }
+
+    .chat-window{
+        right:10px;
+        bottom:85px;
+    }
+
+    .services-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
 <header>
-  <div class="logo">ONEVISIT</div>
 
-  <div class="header-right">
-    <select id="language" onchange="changeLanguage()">
-      <option value="en">English</option>
-      <option value="kn">ಕನ್ನಡ</option>
-      <option value="hi">हिन्दी</option>
-    </select>
+    <div class="logo">
+        ONE<span>VISIT</span>
+    </div>
 
-    <button class="btn light" onclick="showScreen('home')">Home</button>
-  </div>
+    <div class="header-right">
+
+        <select id="language" class="language" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="kn">ಕನ್ನಡ</option>
+            <option value="hi">हिन्दी</option>
+        </select>
+
+        <button class="btn secondary" onclick="showScreen('home')">
+            Home
+        </button>
+
+    </div>
+
 </header>
 
 
-<!-- ================= HOME ================= -->
+<!-- =====================================================
+     SCREEN 1 — HOME
+     ===================================================== -->
 
 <section id="home" class="screen active">
-<div class="container">
 
-  <div class="hero">
-    <h1>ONEVISIT</h1>
+    <div class="hero">
 
-    <p id="homeText">
-      Keep your family's information together and check support, schemes,
-      opportunities and application requirements in one place.
-    </p>
+        <h1>ONEVISIT</h1>
 
-    <button class="btn" onclick="showScreen('login')">
-      Start
-    </button>
-  </div>
+        <p id="homeText">
+            Start with your family. Add each member, describe their
+            situation and find government schemes that may be relevant.
+        </p>
 
-</div>
+        <div class="hero-buttons">
+
+            <button class="btn gold" onclick="showScreen('login')">
+                Start
+            </button>
+
+            <button class="btn secondary" onclick="showScreen('about')">
+                How it works
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Who can use ONEVISIT?</h2>
+
+            <p>
+                ONEVISIT keeps different family circumstances together.
+                A family can include people from different occupations
+                and situations.
+            </p>
+
+            <br>
+
+            <div class="category-grid">
+
+                <div class="category">
+                    <div class="category-icon">🌾</div>
+                    <b>Agriculture</b>
+                    <p>Farmers, tenant farmers, livestock owners and fishers.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🏪</div>
+                    <b>Business</b>
+                    <p>Shopkeepers, entrepreneurs, vendors and self-employed people.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">👷</div>
+                    <b>Labour & Workers</b>
+                    <p>Construction, factory, domestic and daily-wage workers.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">💼</div>
+                    <b>Employment</b>
+                    <p>Employees, job seekers, gig workers and drivers.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🎓</div>
+                    <b>Education</b>
+                    <p>School students, college students and learners.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">👩‍👩‍👧</div>
+                    <b>Women & Family</b>
+                    <p>Women entrepreneurs, parents, widows and single parents.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">👴</div>
+                    <b>Senior Citizens</b>
+                    <p>Older people and pension beneficiaries.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🧵</div>
+                    <b>Artisans</b>
+                    <p>Weavers, carpenters, potters, tailors and craft workers.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">♿</div>
+                    <b>Disability Support</b>
+                    <p>Persons with disabilities and caregivers.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🤝</div>
+                    <b>Social Welfare</b>
+                    <p>Eligible SC, ST, OBC, minority and other communities.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🐟</div>
+                    <b>Fisheries</b>
+                    <p>Marine and inland fishers, vendors and aquaculture workers.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🏠</div>
+                    <b>Housing & Utilities</b>
+                    <p>Eligible rural and urban households.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">👶</div>
+                    <b>Children</b>
+                    <p>Child welfare and education-related support.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🔎</div>
+                    <b>Unemployed Youth</b>
+                    <p>Job seekers and young people looking for opportunities.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🎖️</div>
+                    <b>Ex-servicemen</b>
+                    <p>Support for eligible former service members.</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🏥</div>
+                    <b>Healthcare</b>
+                    <p>People requiring healthcare assistance.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
 
 
-<!-- ================= LOGIN ================= -->
+<!-- =====================================================
+     SCREEN 2 — LOGIN
+     ===================================================== -->
 
 <section id="login" class="screen">
-<div class="container">
 
-  <div class="card">
-    <h2>Login</h2>
+    <div class="container">
 
-    <label>Mobile Number</label>
-    <input id="mobile" type="tel" placeholder="Enter mobile number">
+        <div class="login-box card">
 
-    <label>Name</label>
-    <input id="loginName" type="text" placeholder="Enter your name">
+            <h2>Enter ONEVISIT</h2>
 
-    <button class="btn" onclick="loginUser()">
-      Continue
-    </button>
-  </div>
+            <p>
+                Use a name and mobile number for this demonstration.
+            </p>
 
-</div>
+            <br>
+
+            <div class="input-group">
+                <label>Name</label>
+                <input id="loginName" placeholder="Enter your name">
+            </div>
+
+            <div class="input-group">
+                <label>Mobile number</label>
+                <input id="loginMobile" maxlength="10"
+                       placeholder="10 digit mobile number">
+            </div>
+
+            <button class="btn" style="width:100%"
+                    onclick="loginUser()">
+                Continue
+            </button>
+
+            <br><br>
+
+            <small>
+                Demo version: no real government account or OTP is
+                created by this website.
+            </small>
+
+        </div>
+
+    </div>
+
 </section>
 
 
-<!-- ================= FAMILY ================= -->
+<!-- =====================================================
+     SCREEN 3 — FAMILY
+     ===================================================== -->
 
 <section id="family" class="screen">
-<div class="container">
 
-  <div class="step-bar">
-    <div class="step active">1. Family</div>
-    <div class="step">2. Members</div>
-    <div class="step">3. Situation</div>
-    <div class="step">4. Results</div>
-  </div>
+    <div class="container">
 
-  <div class="card">
-    <h2>Family Details</h2>
+        <div class="progress">
+            <div class="step active">1</div>
+            <div class="step">2</div>
+            <div class="step">3</div>
+            <div class="step">4</div>
+            <div class="step">5</div>
+        </div>
 
-    <label>Family Location</label>
-    <input id="familyLocation" placeholder="Village / Town / District">
+        <div class="card">
 
-    <label>Annual Family Income</label>
-    <input id="familyIncome" type="number" placeholder="Annual income">
+            <h2>Your family</h2>
 
-    <button class="btn" onclick="showScreen('addMember')">
-      Continue
-    </button>
-  </div>
+            <p>
+                Add the people whose circumstances should be considered.
+            </p>
 
-</div>
+            <br>
+
+            <div id="memberList" class="member-list"></div>
+
+            <br>
+
+            <button class="btn" onclick="showScreen('addMember')">
+                + Add family member
+            </button>
+
+            <button class="btn green"
+                    onclick="showScreen('memberSituation')"
+                    style="margin-left:8px">
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+
 </section>
 
 
-<!-- ================= ADD MEMBER ================= -->
+<!-- =====================================================
+     SCREEN 4 — ADD MEMBER
+     ===================================================== -->
 
 <section id="addMember" class="screen">
-<div class="container">
 
-  <div class="step-bar">
-    <div class="step">1. Family</div>
-    <div class="step active">2. Members</div>
-    <div class="step">3. Situation</div>
-    <div class="step">4. Results</div>
-  </div>
+    <div class="container">
 
-  <div class="card">
+        <div class="card">
 
-    <h2>Add Family Members</h2>
+            <h2>Add family member</h2>
 
-    <label>Name</label>
-    <input id="memberName" placeholder="Member name">
+            <div class="form-grid">
 
-    <label>Age</label>
-    <input id="memberAge" type="number" placeholder="Age">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input id="memberName">
+                </div>
 
-    <label>Relationship</label>
-    <select id="memberRelation">
-      <option>Self</option>
-      <option>Spouse</option>
-      <option>Father</option>
-      <option>Mother</option>
-      <option>Son</option>
-      <option>Daughter</option>
-      <option>Other</option>
-    </select>
+                <div class="input-group">
+                    <label>Age</label>
+                    <input id="memberAge" type="number">
+                </div>
 
-    <button class="btn" onclick="addMember()">
-      Add Member
-    </button>
+                <div class="input-group">
 
-  </div>
+                    <label>Relationship</label>
 
-  <div id="memberList"></div>
+                    <select id="memberRelation">
+                        <option>Self</option>
+                        <option>Father</option>
+                        <option>Mother</option>
+                        <option>Spouse</option>
+                        <option>Son</option>
+                        <option>Daughter</option>
+                        <option>Grandparent</option>
+                        <option>Other</option>
+                    </select>
 
-  <button class="btn green" onclick="showScreen('memberSituation')">
-    Continue
-  </button>
+                </div>
 
-</div>
+                <div class="input-group">
+
+                    <label>Occupation / situation</label>
+
+                    <select id="memberOccupation">
+
+                        <option value="farmer">Farmer</option>
+                        <option value="business">Business / self-employed</option>
+                        <option value="worker">Labour / worker</option>
+                        <option value="employee">Employee</option>
+                        <option value="student">Student</option>
+                        <option value="women">Women / family support</option>
+                        <option value="senior">Senior citizen</option>
+                        <option value="artisan">Artisan</option>
+                        <option value="disability">Person with disability</option>
+                        <option value="social">Social welfare category</option>
+                        <option value="fisher">Fisher</option>
+                        <option value="unemployed">Unemployed youth</option>
+                        <option value="child">Child</option>
+                        <option value="exservice">Ex-serviceman</option>
+                        <option value="health">Healthcare assistance</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Gender</label>
+
+                    <select id="memberGender">
+                        <option>Female</option>
+                        <option>Male</option>
+                        <option>Other</option>
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>State</label>
+
+                    <select id="memberState">
+                        <option>Karnataka</option>
+                        <option>Kerala</option>
+                        <option>Tamil Nadu</option>
+                        <option>Andhra Pradesh</option>
+                        <option>Telangana</option>
+                        <option>Other</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="action-row">
+
+                <button class="btn secondary"
+                        onclick="showScreen('family')">
+                    Back
+                </button>
+
+                <button class="btn"
+                        onclick="addMember()">
+                    Add member
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
 
 
-<!-- ================= MEMBER SITUATION ================= -->
+<!-- =====================================================
+     SCREEN 5 — SITUATION
+     ===================================================== -->
 
 <section id="memberSituation" class="screen">
-<div class="container">
 
-  <div class="step-bar">
-    <div class="step">1. Family</div>
-    <div class="step">2. Members</div>
-    <div class="step active">3. Situation</div>
-    <div class="step">4. Results</div>
-  </div>
+    <div class="container">
 
-  <div class="card">
+        <div class="card">
 
-    <h2>Member Circumstances</h2>
+            <h2>Tell us more</h2>
 
-    <p class="small">
-      Select the circumstances that apply to the family members.
-    </p>
+            <p>
+                These details help ONEVISIT narrow down potentially
+                relevant schemes.
+            </p>
 
-    <div class="grid">
+            <br>
 
-      <div>
-        <label>
-          <input type="checkbox" value="farmer" class="situation">
-          Farmer / Agriculture
-        </label>
+            <div class="form-grid">
 
-        <label>
-          <input type="checkbox" value="student" class="situation">
-          Student
-        </label>
+                <div class="input-group">
 
-        <label>
-          <input type="checkbox" value="disability" class="situation">
-          Person with disability
-        </label>
+                    <label>Annual family income</label>
 
-        <label>
-          <input type="checkbox" value="senior" class="situation">
-          Senior citizen
-        </label>
-      </div>
+                    <select id="income">
 
-      <div>
-        <label>
-          <input type="checkbox" value="woman" class="situation">
-          Woman / Family support
-        </label>
+                        <option value="low">Below ₹1 lakh</option>
+                        <option value="medium">₹1 lakh – ₹2.5 lakh</option>
+                        <option value="high">₹2.5 lakh – ₹5 lakh</option>
+                        <option value="veryhigh">Above ₹5 lakh</option>
 
-        <label>
-          <input type="checkbox" value="artisan" class="situation">
-          Artisan
-        </label>
+                    </select>
 
-        <label>
-          <input type="checkbox" value="worker" class="situation">
-          Labour / Worker
-        </label>
+                </div>
 
-        <label>
-          <input type="checkbox" value="fisheries" class="situation">
-          Fisheries
-        </label>
-      </div>
+                <div class="input-group">
 
-      <div>
-        <label>
-          <input type="checkbox" value="housing" class="situation">
-          Housing requirement
-        </label>
+                    <label>Residence</label>
 
-        <label>
-          <input type="checkbox" value="business" class="situation">
-          Business / Self-employed
-        </label>
+                    <select id="residence">
+                        <option>Rural</option>
+                        <option>Urban</option>
+                    </select>
 
-        <label>
-          <input type="checkbox" value="employment" class="situation">
-          Looking for employment
-        </label>
+                </div>
 
-        <label>
-          <input type="checkbox" value="healthcare" class="situation">
-          Healthcare requirement
-        </label>
-      </div>
+                <div class="input-group">
 
-      <div>
-        <label>
-          <input type="checkbox" value="child" class="situation">
-          Child
-        </label>
+                    <label>Social category</label>
 
-        <label>
-          <input type="checkbox" value="youth" class="situation">
-          Unemployed youth
-        </label>
+                    <select id="category">
 
-        <label>
-          <input type="checkbox" value="exservicemen" class="situation">
-          Ex-serviceman
-        </label>
+                        <option>General</option>
+                        <option>SC</option>
+                        <option>ST</option>
+                        <option>OBC</option>
+                        <option>Other eligible category</option>
 
-        <label>
-          <input type="checkbox" value="social" class="situation">
-          Social welfare requirement
-        </label>
-      </div>
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Disability situation</label>
+
+                    <select id="disability">
+
+                        <option>No</option>
+                        <option>Yes</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-group full">
+
+                    <label>
+                        Anything else you want ONEVISIT to understand?
+                    </label>
+
+                    <textarea id="extraSituation"
+                    placeholder="Example: I am a student from a low-income family and need scholarship support."></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="action-row">
+
+                <button class="btn secondary"
+                        onclick="showScreen('family')">
+                    Back
+                </button>
+
+                <button class="btn green"
+                        onclick="findSchemes()">
+                    Find relevant schemes
+                </button>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <button class="btn" onclick="findSchemes()">
-      Find Relevant Support
-    </button>
-
-  </div>
-
-</div>
 </section>
 
 
-<!-- ================= RESULTS ================= -->
+<!-- =====================================================
+     SCREEN 6 — RESULTS
+     ===================================================== -->
 
 <section id="results" class="screen">
-<div class="container">
 
-  <div class="step-bar">
-    <div class="step">1. Family</div>
-    <div class="step">2. Members</div>
-    <div class="step">3. Situation</div>
-    <div class="step active">4. Results</div>
-  </div>
+    <div class="container">
 
-  <div class="card">
-    <h2>Support for Your Family</h2>
+        <div class="card">
 
-    <p class="small">
-      These results are based on the information entered. Final eligibility
-      is decided by the concerned department.
-    </p>
+            <h2>Possible matches</h2>
 
-    <div id="resultsList"></div>
-  </div>
+            <p id="resultSummary">
+                Based on the information entered.
+            </p>
 
+        </div>
 
-  <!-- ================================================= -->
-  <!-- NEW FEATURES - CLEARLY VISIBLE ON RESULTS PAGE -->
-  <!-- ================================================= -->
+        <div class="result-layout">
 
-  <div class="card">
+            <div class="card filters">
 
-    <h2>Additional ONEVISIT Services</h2>
+                <h3>Refine</h3>
 
-    <p class="small">
-      You can also use these services for loans, jobs, exams, deadlines,
-      application planning, nearby centres and market information.
-    </p>
+                <br>
 
-    <div class="feature-grid">
+                <label>Scheme area</label>
 
-      <div class="feature-card">
-        <div class="icon">💰</div>
-        <h3>Loans & EMI</h3>
-        <p>
-          Calculate monthly EMI, total interest and repayment amount.
-        </p>
-        <button class="btn" onclick="showScreen('loans')">
-          Open
-        </button>
-      </div>
+                <select id="resultFilter"
+                        onchange="renderResults()">
 
+                    <option value="all">All</option>
+                    <option value="agriculture">Agriculture</option>
+                    <option value="education">Education</option>
+                    <option value="women">Women & Family</option>
+                    <option value="senior">Senior Citizens</option>
+                    <option value="disability">Disability</option>
+                    <option value="business">Business</option>
+                    <option value="worker">Workers</option>
+                    <option value="housing">Housing</option>
+                    <option value="health">Healthcare</option>
 
-      <div class="feature-card">
-        <div class="icon">🎓</div>
-        <h3>Jobs & Internships</h3>
-        <p>
-          Check student internships, fresher opportunities and jobs.
-        </p>
-        <button class="btn" onclick="showScreen('jobs')">
-          Open
-        </button>
-      </div>
+                </select>
 
+                <br><br>
 
-      <div class="feature-card">
-        <div class="icon">🔔</div>
-        <h3>Notifications</h3>
-        <p>
-          Keep track of deadlines and application reminders.
-        </p>
-        <button class="btn" onclick="showScreen('notifications')">
-          Open
-        </button>
-      </div>
+                <button class="btn secondary"
+                        onclick="showScreen('memberSituation')">
+                    Change details
+                </button>
+
+            </div>
+
+            <div>
+
+                <div id="schemeResults"
+                     class="scheme-grid">
+                </div>
+
+            </div>
+
+        </div>
 
 
-      <div class="feature-card">
-        <div class="icon">⚡</div>
-        <h3>Application Priority</h3>
-        <p>
-          Compare applications based on deadline, readiness and effort.
-        </p>
-        <button class="btn" onclick="showScreen('priority')">
-          Open
-        </button>
-      </div>
+        <!-- =================================================
+             NEW FEATURES — VISIBLE ON RESULTS PAGE
+             ================================================= -->
+
+        <div class="services-card">
+
+            <h2>More help for your family</h2>
+
+            <p>
+                After checking possible schemes, you can also use these
+                services for loans, jobs, exams, deadlines, application
+                locations and market information.
+            </p>
+
+            <div class="services-grid">
+
+                <div class="service-card"
+                     onclick="showScreen('loans')">
+
+                    <div class="service-icon">💰</div>
+
+                    <h3>Loans & EMI</h3>
+
+                    <p>
+                        Calculate monthly EMI, total interest and
+                        repayment for a loan.
+                    </p>
+
+                </div>
 
 
-      <div class="feature-card">
-        <div class="icon">📍</div>
-        <h3>Nearby Centres</h3>
-        <p>
-          Find example CSC, employment and government service locations.
-        </p>
-        <button class="btn" onclick="showScreen('locations')">
-          Open
-        </button>
-      </div>
+                <div class="service-card"
+                     onclick="showScreen('jobs')">
+
+                    <div class="service-icon">🎓</div>
+
+                    <h3>Jobs & Internships</h3>
+
+                    <p>
+                        Check internship, fresher and job opportunities.
+                    </p>
+
+                </div>
 
 
-      <div class="feature-card">
-        <div class="icon">📝</div>
-        <h3>Competitive Exams</h3>
-        <p>
-          Check upcoming exams, eligibility and application dates.
-        </p>
-        <button class="btn" onclick="showScreen('exams')">
-          Open
-        </button>
-      </div>
+                <div class="service-card"
+                     onclick="showScreen('notifications')">
+
+                    <div class="service-icon">🔔</div>
+
+                    <h3>Notifications</h3>
+
+                    <p>
+                        Keep track of deadlines and important
+                        application dates.
+                    </p>
+
+                </div>
 
 
-      <div class="feature-card">
-        <div class="icon">🌾</div>
-        <h3>Farmer Market Prices</h3>
-        <p>
-          Check demonstration market prices and compare nearby markets.
-        </p>
-        <button class="btn" onclick="showScreen('market')">
-          Open
-        </button>
-      </div>
+                <div class="service-card"
+                     onclick="showScreen('priority')">
+
+                    <div class="service-icon">⚡</div>
+
+                    <h3>Application Priority</h3>
+
+                    <p>
+                        See which application may deserve attention first.
+                    </p>
+
+                </div>
+
+
+                <div class="service-card"
+                     onclick="showScreen('locations')">
+
+                    <div class="service-icon">📍</div>
+
+                    <h3>Nearby Centres</h3>
+
+                    <p>
+                        Find example CSC, government and employment
+                        service locations.
+                    </p>
+
+                </div>
+
+
+                <div class="service-card"
+                     onclick="showScreen('exams')">
+
+                    <div class="service-icon">📝</div>
+
+                    <h3>Competitive Exams</h3>
+
+                    <p>
+                        Check upcoming exam information and important dates.
+                    </p>
+
+                </div>
+
+
+                <div class="service-card"
+                     onclick="showScreen('market')">
+
+                    <div class="service-icon">🌾</div>
+
+                    <h3>Farmer Market Prices</h3>
+
+                    <p>
+                        Compare demonstration crop prices by market.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
-  </div>
 
-</div>
 </section>
 
 
-<!-- ================= SCHEME DETAIL ================= -->
+<!-- =====================================================
+     SCREEN 7 — SCHEME DETAIL
+     ===================================================== -->
 
 <section id="schemeDetail" class="screen">
-<div class="container">
 
-  <button class="btn light back" onclick="showScreen('results')">
-    ← Back to Results
-  </button>
+    <div class="container">
 
-  <div class="card" id="schemeDetailContent"></div>
+        <div id="schemeDetailContent"></div>
 
-</div>
+    </div>
+
 </section>
 
 
-<!-- ================= LOANS ================= -->
+<!-- =====================================================
+     SCREEN 8 — LOANS & EMI
+     ===================================================== -->
 
 <section id="loans" class="screen">
-<div class="container">
 
-  <button class="btn light" onclick="showScreen('results')">
-    ← Back
-  </button>
+    <div class="container">
 
-  <div class="card">
+        <div class="card service-screen-card">
 
-    <h2>Loans & EMI Calculator</h2>
+            <button class="btn secondary"
+                    onclick="showScreen('results')">
+                ← Back to results
+            </button>
 
-    <label>Loan Amount (₹)</label>
-    <input id="loanAmount" type="number" placeholder="Example: 200000">
+            <br><br>
 
-    <label>Annual Interest Rate (%)</label>
-    <input id="interestRate" type="number" step="0.01" placeholder="Example: 8.5">
+            <h2>Loans & EMI Calculator</h2>
 
-    <label>Tenure (Years)</label>
-    <input id="loanYears" type="number" placeholder="Example: 5">
+            <p>
+                Enter the loan details to estimate the monthly
+                repayment amount.
+            </p>
 
-    <button class="btn" onclick="calculateEMI()">
-      Calculate EMI
-    </button>
+            <br>
 
-  </div>
+            <div class="form-grid">
 
-  <div id="emiResult"></div>
+                <div class="input-group">
 
-  <div class="card">
+                    <label>Loan amount (₹)</label>
 
-    <h3>Possible loan categories</h3>
+                    <input id="loanAmount"
+                           type="number"
+                           placeholder="Example: 200000">
 
-    <div class="grid">
+                </div>
 
-      <div class="feature-card">
-        <h3>Education</h3>
-        <p>For eligible education-related expenses.</p>
-      </div>
 
-      <div class="feature-card">
-        <h3>Agriculture</h3>
-        <p>For eligible agricultural activities and requirements.</p>
-      </div>
+                <div class="input-group">
 
-      <div class="feature-card">
-        <h3>Business</h3>
-        <p>For eligible self-employment and business activities.</p>
-      </div>
+                    <label>Annual interest rate (%)</label>
 
-      <div class="feature-card">
-        <h3>Housing</h3>
-        <p>For eligible housing-related requirements.</p>
-      </div>
+                    <input id="loanRate"
+                           type="number"
+                           step="0.01"
+                           placeholder="Example: 8.5">
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Loan tenure (years)</label>
+
+                    <input id="loanYears"
+                           type="number"
+                           placeholder="Example: 5">
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="btn green"
+                    onclick="calculateEMI()">
+                Calculate EMI
+            </button>
+
+            <div id="emiResult"></div>
+
+        </div>
 
     </div>
 
-  </div>
-
-</div>
 </section>
 
 
-<!-- ================= JOBS ================= -->
+<!-- =====================================================
+     SCREEN 9 — JOBS & INTERNSHIPS
+     ===================================================== -->
 
 <section id="jobs" class="screen">
-<div class="container">
 
-  <button class="btn light" onclick="showScreen('results')">
-    ← Back
-  </button>
+    <div class="container">
 
-  <div class="card">
+        <div class="card">
 
-    <h2>Jobs & Internships</h2>
+            <button class="btn secondary"
+                    onclick="showScreen('results')">
+                ← Back to results
+            </button>
 
-    <label>Opportunity Type</label>
+            <br><br>
 
-    <select id="jobType" onchange="renderJobs()">
-      <option value="all">All</option>
-      <option value="internship">Internships</option>
-      <option value="fresher">Fresher Jobs</option>
-      <option value="job">Jobs</option>
-    </select>
+            <h2>Jobs & Internships</h2>
 
-    <label>Education / Skill</label>
+            <p>
+                Opportunities are shown according to education,
+                skills and location in this prototype.
+            </p>
 
-    <select id="jobSkill" onchange="renderJobs()">
-      <option value="all">All</option>
-      <option value="student">Student</option>
-      <option value="graduate">Graduate</option>
-      <option value="computer">Computer / IT</option>
-      <option value="general">General</option>
-    </select>
+            <br>
 
-  </div>
+            <div class="form-grid">
 
-  <div id="jobsList"></div>
+                <div class="input-group">
 
-</div>
+                    <label>Opportunity type</label>
+
+                    <select id="jobType"
+                            onchange="renderJobs()">
+
+                        <option value="all">All</option>
+                        <option value="internship">Internship</option>
+                        <option value="fresher">Fresher</option>
+                        <option value="job">Job</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Location</label>
+
+                    <select id="jobLocation"
+                            onchange="renderJobs()">
+
+                        <option value="all">All locations</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Remote">Remote</option>
+                        <option value="India">India</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="jobResults"></div>
+
+    </div>
+
 </section>
 
 
-<!-- ================= NOTIFICATIONS ================= -->
+<!-- =====================================================
+     SCREEN 10 — NOTIFICATIONS
+     ===================================================== -->
 
 <section id="notifications" class="screen">
-<div class="container">
 
-  <button class="btn light" onclick="showScreen('results')">
-    ← Back
-  </button>
+    <div class="container">
 
-  <div class="card">
+        <div class="card">
 
-    <h2>Notifications & Deadlines</h2>
+            <button class="btn secondary"
+                    onclick="showScreen('results')">
+                ← Back to results
+            </button>
 
-    <p class="small">
-      The dates below are demonstration data for the prototype.
-      Connect an official data source before using them as live deadlines.
-    </p>
+            <br><br>
 
-    <div id="notificationList"></div>
+            <h2>Notifications & Deadlines</h2>
 
-  </div>
+            <p>
+                Important dates can be kept together so that
+                applications are not missed.
+            </p>
 
-  <div class="card">
+            <br>
 
-    <h3>Reminder preference</h3>
+            <div class="notification-card">
 
-    <label>
-      <input type="checkbox" id="reminderCheck">
-      Remind me before an important deadline
-    </label>
+                <h3>Scholarship application</h3>
 
-    <button class="btn" onclick="saveReminder()">
-      Save Preference
-    </button>
+                <p>
+                    Example closing date:
+                    <b>30 November 2026</b>
+                </p>
 
-    <div id="reminderMessage"></div>
+                <br>
 
-  </div>
+                <button class="btn gold"
+                        onclick="setReminder('Scholarship application')">
+                    Set reminder
+                </button>
 
-</div>
+            </div>
+
+
+            <div class="notification-card">
+
+                <h3>Competitive examination application</h3>
+
+                <p>
+                    Example closing date:
+                    <b>15 December 2026</b>
+                </p>
+
+                <br>
+
+                <button class="btn gold"
+                        onclick="setReminder('Competitive examination application')">
+                    Set reminder
+                </button>
+
+            </div>
+
+
+            <div class="notification-card">
+
+                <h3>Government scheme application</h3>
+
+                <p>
+                    Check the official source before relying on
+                    any deadline shown here.
+                </p>
+
+                <br>
+
+                <button class="btn gold"
+                        onclick="setReminder('Government scheme application')">
+                    Set reminder
+                </button>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <b>Prototype note:</b>
+
+                These dates are demonstration data.
+                A production version should connect to verified
+                official notification sources.
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
 
 
-<!-- ================= PRIORITY ================= -->
+<!-- =====================================================
+     SCREEN 11 — APPLICATION PRIORITY
+     ===================================================== -->
 
 <section id="priority" class="screen">
-<div class="container">
 
-  <button class="btn light" onclick="showScreen('results')">
-    ← Back
-  </button>
+    <div class="container">
 
-  <div class="card">
+        <div class="card">
 
-    <h2>Application Priority Guide</h2>
+            <button class="btn secondary"
+                    onclick="showScreen('results')">
+                ← Back to results
+            </button>
 
-    <p>
-      When several applications are possible, ONEVISIT can arrange them
-      using deadline, eligibility confidence, document readiness and effort.
-    </p>
+            <br><br>
 
-    <div class="notice">
-      This is a priority recommendation only. It does not decide whether
-      an application should be submitted.
+            <h2>Application Priority</h2>
+
+            <p>
+                This guide helps you decide which application
+                may deserve attention first.
+            </p>
+
+            <div class="info-box">
+
+                The priority is only a recommendation.
+                It does not decide eligibility or guarantee approval.
+
+            </div>
+
+            <div id="priorityResults"></div>
+
+        </div>
+
     </div>
 
-    <button class="btn" onclick="calculatePriority()">
-      Arrange Priority
-    </button>
-
-  </div>
-
-  <div id="priorityList"></div>
-
-</div>
 </section>
 
 
-<!-- ================= LOCATIONS ================= -->
+<!-- =====================================================
+     SCREEN 12 — APPLICATION CENTRES
+     ===================================================== -->
 
 <section id="locations" class="screen">
-<div class="container">
 
-  <button class="btn light" onclick="showScreen('results')">
-    ← Back
-  </button>
+    <div class="container">
 
-  <div class="card">
+        <div class="card">
 
-    <h2>Nearby Application Centres</h2>
+            <button class="btn secondary"
+                    onclick="showScreen('results')">
+                ← Back to results
+            </button>
 
-    <p class="small">
-      Demonstration locations are shown here. A live version should connect
-      to official centre/location data.
-    </p>
+            <br><br>
 
-    <label>Location</label>
+            <h2>Application Centres</h2>
 
-    <input id="locationSearch"
-           placeholder="Enter district / town"
-           oninput="renderLocations()">
+            <p>
+                Example service locations where people may seek
+                assistance with applications.
+            </p>
 
-  </div>
+            <br>
 
-  <div id="locationList"></div>
+            <div class="form-grid">
 
-</div>
-</section>
+                <div class="input-group">
 
+                    <label>Service type</label>
 
-<!-- ================= EXAMS ================= -->
+                    <select id="locationType"
+                            onchange="renderLocations()">
 
-<section id="exams" class="screen">
-<div class="container">
+                        <option value="all">All</option>
+                        <option value="CSC">CSC</option>
+                        <option value="Government Office">Government Office</option>
+                        <option value="Employment Office">Employment Office</option>
+                        <option value="Exam Centre">Exam Centre</option>
 
-  <button class="btn light" onclick="showScreen('results')">
-    ← Back
-  </button>
+                    </select>
 
-  <div class="card">
+                </div>
 
-    <h2>Competitive Exams</h2>
+                <div class="input-group">
 
-    <p class="small">
-      Demonstration exam information. Always verify dates and eligibility
-      from the official examination authority before applying.
-    </p>
+                    <label>State</label>
 
-  </div>
+                    <select id="locationState"
+                            onchange="renderLocations()">
 
-  <div id="examList"></div>
+                        <option value="all">All</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
 
-</div>
-</section>
+                    </select>
 
+                </div>
 
-<!-- ================= MARKET ================= -->
+            </div>
 
-<section id="market" class="screen">
-<div class="container">
+        </div>
 
-  <button class="btn light" onclick="showScreen('results')">
-    ← Back
-  </button>
+        <div id="locationResults"></div>
 
-  <div class="card">
-
-    <h2>Farmer Market Prices</h2>
-
-    <p class="small">
-      Demonstration market data. Prices can change frequently and should
-      be verified with the relevant official market source.
-    </p>
-
-    <label>Location</label>
-
-    <select id="marketLocation" onchange="renderMarket()">
-      <option value="all">All</option>
-      <option value="Bengaluru">Bengaluru</option>
-      <option value="Mysuru">Mysuru</option>
-      <option value="Davanagere">Davanagere</option>
-      <option value="Hubballi">Hubballi</option>
-    </select>
-
-    <label>Crop / Product</label>
-
-    <select id="marketCrop" onchange="renderMarket()">
-      <option value="all">All</option>
-      <option value="Tomato">Tomato</option>
-      <option value="Onion">Onion</option>
-      <option value="Maize">Maize</option>
-      <option value="Potato">Potato</option>
-    </select>
-
-  </div>
-
-  <div id="marketList"></div>
-
-</div>
-</section>
-
-
-<!-- ================= ABOUT ================= -->
-
-<section id="about" class="screen">
-<div class="container">
-
-  <div class="card">
-    <h2>About ONEVISIT</h2>
-
-    <p>
-      ONEVISIT brings family information, possible government support,
-      application requirements and useful opportunities into one family-level
-      workflow.
-    </p>
-  </div>
-
-</div>
-</section>
-
-
-<!-- ================= CHATBOT ================= -->
-
-<button class="chat-button" onclick="toggleChat()">💬</button>
-
-<div class="chat-box" id="chatBox">
-
-  <div class="chat-header">
-    ONEVISIT Assistant
-  </div>
-
-  <div class="chat-messages" id="chatMessages">
-
-    <div class="message">
-      Hello. Ask me about schemes, documents, loans, jobs, exams,
-      deadlines or applications.
     </div>
 
-  </div>
+</section>
 
-  <div class="chat-input">
 
-    <input id="chatInput"
-           placeholder="Type your question..."
-           onkeydown="if(event.key==='Enter') sendChat()">
+<!-- =====================================================
+     SCREEN 13 — COMPETITIVE EXAMS
+     ===================================================== -->
 
-    <button class="btn" onclick="sendChat()">
-      Send
-    </button>
+<section id="exams" class="screen">
 
-  </div>
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn secondary"
+                    onclick="showScreen('results')">
+                ← Back to results
+            </button>
+
+            <br><br>
+
+            <h2>Competitive Exams</h2>
+
+            <p>
+                Upcoming examination information can be checked
+                here before applying through the official source.
+            </p>
+
+            <br>
+
+            <div id="examResults"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SCREEN 14 — FARMER MARKET PRICES
+     ===================================================== -->
+
+<section id="market" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <button class="btn secondary"
+                    onclick="showScreen('results')">
+                ← Back to results
+            </button>
+
+            <br><br>
+
+            <h2>Farmer Market Prices</h2>
+
+            <p>
+                Compare demonstration market prices for selected
+                crops.
+            </p>
+
+            <div class="info-box">
+
+                <b>Important:</b>
+                The prices below are demonstration data.
+                A production version must connect to a verified
+                live market-price source and show its update date.
+
+            </div>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Crop / product</label>
+
+                    <select id="marketCrop"
+                            onchange="renderMarketPrices()">
+
+                        <option value="all">All</option>
+                        <option value="Tomato">Tomato</option>
+                        <option value="Onion">Onion</option>
+                        <option value="Paddy">Paddy</option>
+                        <option value="Maize">Maize</option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Market</label>
+
+                    <select id="marketPlace"
+                            onchange="renderMarketPrices()">
+
+                        <option value="all">All markets</option>
+                        <option value="Bengaluru">Bengaluru</option>
+                        <option value="Mysuru">Mysuru</option>
+                        <option value="Hubballi">Hubballi</option>
+                        <option value="Shivamogga">Shivamogga</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="marketResults"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SCREEN 15 — ABOUT / HOW IT WORKS
+     ===================================================== -->
+
+<section id="about" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>How ONEVISIT works</h2>
+
+            <div class="member-list">
+
+                <div class="member-card">
+                    <div class="member-icon">1</div>
+                    <h3>Enter</h3>
+                    <p>
+                        Create a family profile and add the people
+                        whose circumstances matter.
+                    </p>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-icon">2</div>
+                    <h3>Describe</h3>
+                    <p>
+                        Add occupation, age, income, location,
+                        education and other relevant circumstances.
+                    </p>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-icon">3</div>
+                    <h3>Compare</h3>
+                    <p>
+                        ONEVISIT compares the entered information
+                        with the scheme records in its prototype database.
+                    </p>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-icon">4</div>
+                    <h3>Understand</h3>
+                    <p>
+                        Each result explains why it appeared and
+                        which information may still need verification.
+                    </p>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-icon">5</div>
+                    <h3>Prepare</h3>
+                    <p>
+                        The user can see documents, next steps and
+                        the official source before applying.
+                    </p>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="btn"
+                    onclick="showScreen('login')">
+                Start
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CHATBOT
+     ===================================================== -->
+
+<button class="chat-button"
+        onclick="toggleChat()">
+    💬
+</button>
+
+
+<div id="chatWindow" class="chat-window">
+
+    <div class="chat-header">
+
+        <b>ONEVISIT Help</b>
+
+        <button onclick="toggleChat()"
+                style="background:none;color:white;font-size:20px">
+            ×
+        </button>
+
+    </div>
+
+    <div id="chatBody" class="chat-body">
+
+        <div class="message bot">
+            Hello. Tell me about your situation. For example:
+            "My father is 67 and needs senior citizen support."
+        </div>
+
+    </div>
+
+    <div class="chat-input">
+
+        <input id="chatInput"
+               placeholder="Describe your situation..."
+               onkeydown="if(event.key==='Enter') sendChat()">
+
+        <button class="btn"
+                onclick="sendChat()">
+            Send
+        </button>
+
+    </div>
 
 </div>
 
@@ -1130,971 +2025,1655 @@ th{
 <script>
 
 /* =========================================================
-   MAIN DATA
-========================================================= */
+   ONEVISIT DATA
+   ========================================================= */
+
+let currentScreen = "home";
 
 let familyMembers = [];
+
 let currentResults = [];
+
 let selectedScheme = null;
 
-let userName = "";
 
+/*
+   IMPORTANT:
+   This is prototype data.
 
-/* =========================================================
-   SCREEN CONTROL
-========================================================= */
+   For the hackathon, connect these records to a verified
+   database/API containing current official scheme information.
+*/
 
-function showScreen(id){
+const schemes = [
 
-  document.querySelectorAll(".screen").forEach(screen=>{
-    screen.classList.remove("active");
-  });
-
-  const target=document.getElementById(id);
-
-  if(target){
-    target.classList.add("active");
-    window.scrollTo(0,0);
-  }
-
-  if(id==="jobs") renderJobs();
-  if(id==="notifications") renderNotifications();
-  if(id==="locations") renderLocations();
-  if(id==="exams") renderExams();
-  if(id==="market") renderMarket();
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-function loginUser(){
-
-  const mobile=document.getElementById("mobile").value.trim();
-  userName=document.getElementById("loginName").value.trim();
-
-  if(!mobile || !userName){
-    alert("Please enter your name and mobile number.");
-    return;
-  }
-
-  showScreen("family");
-}
-
-
-/* =========================================================
-   FAMILY MEMBERS
-========================================================= */
-
-function addMember(){
-
-  const name=document.getElementById("memberName").value.trim();
-  const age=parseInt(document.getElementById("memberAge").value);
-  const relation=document.getElementById("memberRelation").value;
-
-  if(!name || !age){
-    alert("Please enter member name and age.");
-    return;
-  }
-
-  familyMembers.push({
-    id:Date.now(),
-    name:name,
-    age:age,
-    relation:relation,
-    situations:[]
-  });
-
-  document.getElementById("memberName").value="";
-  document.getElementById("memberAge").value="";
-
-  renderMembers();
-}
-
-
-function renderMembers(){
-
-  const list=document.getElementById("memberList");
-
-  if(familyMembers.length===0){
-    list.innerHTML="";
-    return;
-  }
-
-  list.innerHTML=familyMembers.map(member=>`
-
-    <div class="card member">
-
-      <h3>${escapeHTML(member.name)}</h3>
-
-      <p>
-        Age: ${member.age}
-        <br>
-        Relationship: ${escapeHTML(member.relation)}
-      </p>
-
-      <button class="btn danger"
-              onclick="removeMember(${member.id})">
-        Remove
-      </button>
-
-    </div>
-
-  `).join("");
-}
-
-
-function removeMember(id){
-
-  familyMembers=familyMembers.filter(member=>member.id!==id);
-
-  renderMembers();
-}
-
-
-/* =========================================================
-   SCHEME DATA
-========================================================= */
-
-const schemes=[
-
-  {
-    id:"pm-kisan",
+{
+    id:1,
     name:"PM-KISAN",
-    category:"Farmers / Agriculture",
-    match:["farmer"],
-    description:"Income support for eligible landholding farmer families.",
-    verify:"Landholding and other eligibility conditions must be verified.",
-    documents:["Aadhaar","Bank account details","Land records"],
-    source:"Official PM-KISAN portal"
-  },
+    category:"agriculture",
+    occupations:["farmer"],
+    description:"Income support scheme for eligible landholding farmer families.",
+    why:"The family profile contains an agriculture/farmer member.",
+    missing:"Land ownership and other scheme conditions must be verified.",
+    documents:["Aadhaar","Land records as applicable","Bank account details"],
+    benefit:"Financial support subject to official eligibility rules.",
+    source:"https://www.pmkisan.gov.in/"
+},
 
-  {
-    id:"ayushman",
-    name:"Ayushman Bharat PM-JAY",
-    category:"Healthcare",
-    match:["healthcare"],
-    description:"Health coverage support for eligible families.",
-    verify:"Beneficiary eligibility and hospital coverage must be verified.",
-    documents:["Identity document","Beneficiary details"],
-    source:"Official PM-JAY portal"
-  },
+{
+    id:2,
+    name:"Ayushman Bharat – PM-JAY",
+    category:"health",
+    occupations:["health","worker","farmer","senior","women","child","student"],
+    description:"Health coverage for eligible families under the scheme rules.",
+    why:"Healthcare support may be relevant to the family profile.",
+    missing:"Eligibility must be checked against the official beneficiary criteria.",
+    documents:["Aadhaar or accepted identity document","Other documents as required"],
+    benefit:"Health coverage according to scheme rules.",
+    source:"https://pmjay.gov.in/"
+},
 
-  {
-    id:"vishwakarma",
+{
+    id:3,
     name:"PM Vishwakarma",
-    category:"Artisans",
-    match:["artisan"],
+    category:"business",
+    occupations:["artisan"],
     description:"Support for eligible traditional artisans and craftspeople.",
-    verify:"Trade and beneficiary eligibility must be verified.",
-    documents:["Identity proof","Trade-related information"],
-    source:"Official PM Vishwakarma portal"
-  },
+    why:"The family profile contains an artisan/traditional worker.",
+    missing:"The specific trade and registration requirements need verification.",
+    documents:["Identity proof","Occupation/trade details","Other documents as required"],
+    benefit:"Training, toolkit and other support according to scheme rules.",
+    source:"https://pmvishwakarma.gov.in/"
+},
 
-  {
-    id:"pmegp",
+{
+    id:4,
     name:"PMEGP",
-    category:"Business / Self-employed",
-    match:["business","youth","employment"],
+    category:"business",
+    occupations:["business","unemployed","artisan"],
     description:"Credit-linked support for eligible new micro-enterprises.",
-    verify:"Project, applicant and financing conditions must be verified.",
-    documents:["Identity proof","Project details","Bank information"],
-    source:"Official KVIC / PMEGP information"
-  },
+    why:"The profile indicates entrepreneurship or self-employment interest.",
+    missing:"Project, age, education and other conditions must be verified.",
+    documents:["Identity proof","Project details","Bank-related documents"],
+    benefit:"Credit-linked subsidy subject to official conditions.",
+    source:"https://www.kviconline.gov.in/pmegpeportal/"
+},
 
-  {
-    id:"scholarship",
-    name:"National Scholarship Portal Schemes",
-    category:"Students / Education",
-    match:["student"],
-    description:"Scholarship opportunities available through the National Scholarship Portal.",
-    verify:"Course, institution, income and scheme-specific conditions must be checked.",
-    documents:["Student ID","Income certificate","Academic records"],
-    source:"National Scholarship Portal"
-  },
+{
+    id:5,
+    name:"National Scholarship Portal schemes",
+    category:"education",
+    occupations:["student"],
+    description:"Scholarship opportunities for eligible students under different schemes.",
+    why:"A student is present in the family profile.",
+    missing:"Course, institution, income and scheme-specific criteria need verification.",
+    documents:["Student ID","Academic records","Income/caste documents where applicable"],
+    benefit:"Scholarship support according to the selected scheme.",
+    source:"https://scholarships.gov.in/"
+},
 
-  {
-    id:"pmay",
-    name:"PMAY Housing Support",
-    category:"Housing",
-    match:["housing"],
-    description:"Housing assistance for eligible beneficiaries under applicable housing programmes.",
-    verify:"Household and housing eligibility must be verified.",
-    documents:["Identity proof","Address proof","Income information"],
-    source:"Official housing programme portal"
-  },
+{
+    id:6,
+    name:"PMAY – Housing support",
+    category:"housing",
+    occupations:["worker","farmer","business","women","senior","unemployed"],
+    description:"Housing support under applicable rural or urban housing programmes.",
+    why:"Housing assistance may be relevant depending on household circumstances.",
+    missing:"Existing house, income, location and programme-specific conditions must be checked.",
+    documents:["Identity proof","Address proof","Income/household documents"],
+    benefit:"Housing assistance according to applicable programme rules.",
+    source:"https://pmaymis.gov.in/"
+},
 
-  {
-    id:"social",
+{
+    id:7,
     name:"National Social Assistance Programme",
-    category:"Social Welfare / Senior Citizens",
-    match:["senior","social"],
-    description:"Social assistance for eligible beneficiaries under applicable components.",
-    verify:"Age, income and state-specific conditions must be verified.",
-    documents:["Identity proof","Age proof","Bank details"],
-    source:"Official government welfare information"
-  },
+    category:"senior",
+    occupations:["senior","women","disability"],
+    description:"Social assistance programmes for eligible vulnerable groups.",
+    why:"The family profile includes a person who may fall within a social assistance group.",
+    missing:"Age, income and state-specific implementation conditions must be verified.",
+    documents:["Identity proof","Age proof","Income-related documents"],
+    benefit:"Assistance according to the applicable component.",
+    source:"https://nsap.nic.in/"
+},
 
-  {
-    id:"disability",
-    name:"Disability-related Government Assistance",
-    category:"Persons with Disabilities",
-    match:["disability"],
-    description:"Different government benefits may be available to eligible persons with disabilities.",
-    verify:"Disability certification and scheme-specific eligibility must be checked.",
-    documents:["Disability certificate","Identity proof","Bank details"],
-    source:"Relevant official government department"
-  },
+{
+    id:8,
+    name:"Disability-related government assistance",
+    category:"disability",
+    occupations:["disability"],
+    description:"Potential support available through central and state disability programmes.",
+    why:"The profile indicates a disability-related circumstance.",
+    missing:"Disability percentage/certificate and scheme-specific conditions need verification.",
+    documents:["Disability certificate","Identity proof","Other documents as required"],
+    benefit:"Depends on the applicable scheme.",
+    source:"https://www.myscheme.gov.in/"
+},
 
-  {
-    id:"women-child",
-    name:"Women and Child Development Schemes",
-    category:"Women / Children",
-    match:["woman","child"],
-    description:"Support programmes for eligible women and children.",
-    verify:"Scheme-specific age, income and household conditions must be checked.",
-    documents:["Identity proof","Age proof","Other scheme-specific documents"],
-    source:"Relevant Women and Child Development department"
-  },
+{
+    id:9,
+    name:"Women and child development schemes",
+    category:"women",
+    occupations:["women","child"],
+    description:"Government programmes covering eligible women and children.",
+    why:"Women/child-related support may be relevant.",
+    missing:"Age, family situation, income and programme-specific conditions must be checked.",
+    documents:["Identity proof","Age proof","Income/family documents where required"],
+    benefit:"Depends on the selected programme.",
+    source:"https://wcd.nic.in/"
+},
 
-  {
-    id:"worker",
-    name:"Worker Welfare Support",
-    category:"Labour / Workers",
-    match:["worker"],
-    description:"Support available under applicable worker welfare programmes.",
-    verify:"Worker registration and scheme-specific conditions must be checked.",
-    documents:["Worker registration","Identity proof","Bank details"],
-    source:"Relevant Labour department"
-  },
-
-  {
-    id:"fisheries",
-    name:"Fisheries Support Programmes",
-    category:"Fisheries",
-    match:["fisheries"],
-    description:"Support opportunities for eligible fishers and fisheries activities.",
-    verify:"Occupation and programme-specific requirements must be checked.",
-    documents:["Identity proof","Fisheries-related registration/details"],
-    source:"Relevant Fisheries department"
-  },
-
-  {
-    id:"employment",
-    name:"Employment Support",
-    category:"Employment",
-    match:["employment","youth"],
-    description:"Employment and skill-related opportunities may be available.",
-    verify:"Education, skills, age and programme conditions vary.",
-    documents:["Identity proof","Education certificates","Skill information"],
-    source:"Relevant employment / skill department"
-  },
-
-  {
-    id:"exservicemen",
-    name:"Ex-servicemen Support",
-    category:"Ex-servicemen",
-    match:["exservicemen"],
-    description:"Applicable welfare and support programmes for eligible ex-servicemen.",
-    verify:"Service and beneficiary conditions must be checked.",
-    documents:["Service records","Identity proof"],
-    source:"Relevant official department"
-  }
+{
+    id:10,
+    name:"Worker welfare schemes",
+    category:"worker",
+    occupations:["worker"],
+    description:"Potential welfare and social-security programmes for eligible workers.",
+    why:"The family includes a labour/worker profile.",
+    missing:"Worker registration and state/sector-specific requirements need verification.",
+    documents:["Identity proof","Worker registration where applicable"],
+    benefit:"Depends on the relevant worker welfare programme.",
+    source:"https://www.myscheme.gov.in/"
+}
 
 ];
 
 
 /* =========================================================
-   FIND SCHEMES
-========================================================= */
+   SCREEN NAVIGATION
+   ========================================================= */
 
-function findSchemes(){
+function showScreen(id){
 
-  const selected=[...document.querySelectorAll(".situation:checked")]
-    .map(x=>x.value);
+    document.querySelectorAll(".screen")
+        .forEach(screen=>{
+            screen.classList.remove("active");
+        });
 
-  familyMembers.forEach(member=>{
-    member.situations=[...selected];
-  });
+    const target=document.getElementById(id);
 
-  currentResults=[];
+    if(target){
 
-  schemes.forEach(scheme=>{
+        target.classList.add("active");
 
-    let score=0;
+        currentScreen=id;
 
-    selected.forEach(condition=>{
-
-      if(scheme.match.includes(condition)){
-        score+=35;
-      }
-
-    });
-
-    if(score>0){
-
-      score=Math.min(95,score+35);
-
-      currentResults.push({
-        scheme:scheme,
-        score:score,
-        reasons:scheme.match.filter(x=>selected.includes(x))
-      });
+        window.scrollTo(0,0);
 
     }
 
-  });
+    if(id==="family"){
+        renderMembers();
+    }
 
-  if(currentResults.length===0){
+    if(id==="jobs"){
+        renderJobs();
+    }
 
-    currentResults.push({
+    if(id==="priority"){
+        renderPriority();
+    }
 
-      scheme:{
-        id:"general",
-        name:"No direct match yet",
-        category:"Information needed",
-        description:"No direct scheme match was found from the selected circumstances.",
-        verify:"Add more family information or circumstances.",
-        documents:["Additional family details"],
-        source:"Relevant government department"
-      },
+    if(id==="locations"){
+        renderLocations();
+    }
 
-      score:0,
-      reasons:[]
+    if(id==="exams"){
+        renderExams();
+    }
+
+    if(id==="market"){
+        renderMarketPrices();
+    }
+
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+function loginUser(){
+
+    const name=document.getElementById("loginName").value.trim();
+
+    const mobile=document.getElementById("loginMobile").value.trim();
+
+    if(!name){
+
+        alert("Please enter your name.");
+
+        return;
+    }
+
+    if(mobile.length!==10){
+
+        alert("Please enter a valid 10 digit mobile number.");
+
+        return;
+    }
+
+    localStorage.setItem("onevisitUser",name);
+
+    showScreen("family");
+
+}
+
+
+/* =========================================================
+   ADD FAMILY MEMBER
+   ========================================================= */
+
+function addMember(){
+
+    const name=document.getElementById("memberName").value.trim();
+
+    const age=parseInt(
+        document.getElementById("memberAge").value
+    );
+
+    if(!name || !age){
+
+        alert("Please enter member name and age.");
+
+        return;
+    }
+
+    const member={
+
+        id:Date.now(),
+
+        name:name,
+
+        age:age,
+
+        relation:
+        document.getElementById("memberRelation").value,
+
+        occupation:
+        document.getElementById("memberOccupation").value,
+
+        gender:
+        document.getElementById("memberGender").value,
+
+        state:
+        document.getElementById("memberState").value
+
+    };
+
+    familyMembers.push(member);
+
+    document.getElementById("memberName").value="";
+    document.getElementById("memberAge").value="";
+
+    showScreen("family");
+
+}
+
+
+/* =========================================================
+   DISPLAY FAMILY
+   ========================================================= */
+
+function renderMembers(){
+
+    const box=document.getElementById("memberList");
+
+    if(familyMembers.length===0){
+
+        box.innerHTML=`
+
+        <div class="member-card">
+
+            <div class="member-icon">👨‍👩‍👧‍👦</div>
+
+            <h3>No members added yet</h3>
+
+            <p>
+                Add yourself, parents, children or any other
+                family member whose circumstances you want to consider.
+            </p>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+    box.innerHTML=familyMembers.map(member=>`
+
+        <div class="member-card">
+
+            <div class="member-icon">👤</div>
+
+            <h3>${escapeHTML(member.name)}</h3>
+
+            <p>
+                ${member.relation} · ${member.age} years
+            </p>
+
+            <p>
+                ${occupationName(member.occupation)}
+            </p>
+
+            <button
+                class="btn secondary"
+                style="margin-top:10px"
+                onclick="removeMember(${member.id})">
+
+                Remove
+
+            </button>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+function removeMember(id){
+
+    familyMembers=
+        familyMembers.filter(member=>member.id!==id);
+
+    renderMembers();
+
+}
+
+
+function occupationName(value){
+
+    const names={
+
+        farmer:"Agriculture / Farmer",
+
+        business:"Business / Self-employed",
+
+        worker:"Labour / Worker",
+
+        employee:"Employment",
+
+        student:"Education / Student",
+
+        women:"Women & Family",
+
+        senior:"Senior Citizen",
+
+        artisan:"Artisan / Traditional Worker",
+
+        disability:"Disability Support",
+
+        social:"Social Welfare",
+
+        fisher:"Fisheries",
+
+        unemployed:"Unemployed Youth",
+
+        child:"Child",
+
+        exservice:"Ex-serviceman",
+
+        health:"Healthcare Assistance"
+
+    };
+
+    return names[value] || value;
+
+}
+
+
+/* =========================================================
+   FIND SCHEMES
+   ========================================================= */
+
+function findSchemes(){
+
+    if(familyMembers.length===0){
+
+        alert("Please add at least one family member.");
+
+        showScreen("family");
+
+        return;
+
+    }
+
+    currentResults=[];
+
+    const income=
+        document.getElementById("income").value;
+
+    const disability=
+        document.getElementById("disability").value;
+
+    const extra=
+        document.getElementById("extraSituation")
+        .value
+        .toLowerCase();
+
+
+    schemes.forEach(scheme=>{
+
+        let matchedMember=null;
+
+        for(const member of familyMembers){
+
+            if(scheme.occupations.includes(member.occupation)){
+
+                matchedMember=member;
+
+                break;
+
+            }
+
+        }
+
+        if(matchedMember){
+
+            currentResults.push({
+
+                ...scheme,
+
+                member:matchedMember,
+
+                score:calculateScore(
+                    scheme,
+                    matchedMember,
+                    income,
+                    disability,
+                    extra
+                )
+
+            });
+
+        }
 
     });
 
-  }
 
-  currentResults.sort((a,b)=>b.score-a.score);
+    currentResults.sort(
+        (a,b)=>b.score-a.score
+    );
 
-  renderResults();
+    document.getElementById("resultSummary").innerText=
 
-  showScreen("results");
+        `${currentResults.length} possible matches found for your family. `+
+        `These are potential matches, not final eligibility decisions.`;
+
+    renderResults();
+
+    showScreen("results");
+
+}
+
+
+function calculateScore(
+    scheme,
+    member,
+    income,
+    disability,
+    extra
+){
+
+    let score=70;
+
+    if(member.state==="Karnataka"){
+        score+=10;
+    }
+
+    if(disability==="Yes" &&
+       scheme.category==="disability"){
+
+        score+=15;
+
+    }
+
+    if(extra){
+
+        if(
+            extra.includes("student") &&
+            scheme.category==="education"
+        ){
+            score+=10;
+        }
+
+        if(
+            extra.includes("farmer") &&
+            scheme.category==="agriculture"
+        ){
+            score+=10;
+        }
+
+        if(
+            extra.includes("senior") &&
+            scheme.category==="senior"
+        ){
+            score+=10;
+        }
+
+    }
+
+    return Math.min(score,98);
+
 }
 
 
 /* =========================================================
-   RESULTS
-========================================================= */
+   RENDER RESULTS
+   ========================================================= */
 
 function renderResults(){
 
-  const container=document.getElementById("resultsList");
+    const box=
+        document.getElementById("schemeResults");
 
-  container.innerHTML=currentResults.map(item=>{
+    const filter=
+        document.getElementById("resultFilter").value;
 
-    const scheme=item.scheme;
+    let results=currentResults;
 
-    return `
+    if(filter!=="all"){
 
-      <div class="card result-card">
+        results=
+            results.filter(
+                scheme=>scheme.category===filter
+            );
 
-        <div class="score">
-          <div class="match">${item.score}%</div>
-          <div class="small">possible match</div>
+    }
+
+    if(results.length===0){
+
+        box.innerHTML=`
+
+            <div class="card empty">
+
+                <h2>No matching record in this prototype</h2>
+
+                <p>
+                    Try changing the family information or use
+                    the chat assistant to describe the situation.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    box.innerHTML=results.map(scheme=>`
+
+        <div class="scheme-card">
+
+            <div class="scheme-top">
+
+                <div>
+
+                    <h3>${escapeHTML(scheme.name)}</h3>
+
+                    <p>
+                        Potential match for
+                        <b>${escapeHTML(scheme.member.name)}</b>
+                    </p>
+
+                </div>
+
+                <span class="match">
+                    ${scheme.score}% profile match
+                </span>
+
+            </div>
+
+            <div class="scheme-meta">
+
+                <span class="tag">
+                    ${occupationName(scheme.member.occupation)}
+                </span>
+
+                <span class="tag">
+                    ${scheme.category}
+                </span>
+
+                <span class="tag">
+                    Karnataka
+                </span>
+
+            </div>
+
+            <p>
+                ${escapeHTML(scheme.description)}
+            </p>
+
+            <div class="why">
+
+                <b>Why it appeared:</b><br>
+
+                ${escapeHTML(scheme.why)}
+
+            </div>
+
+            <div class="missing">
+
+                <b>Still to verify:</b><br>
+
+                ${escapeHTML(scheme.missing)}
+
+            </div>
+
+            <div class="scheme-actions">
+
+                <button class="btn"
+                    onclick="openScheme(${scheme.id})">
+
+                    View details
+
+                </button>
+
+                <button class="btn secondary"
+                    onclick="askAboutScheme('${scheme.name.replace(/'/g,"\\'")}')">
+
+                    Ask assistant
+
+                </button>
+
+            </div>
+
         </div>
 
-        <h3>${escapeHTML(scheme.name)}</h3>
+    `).join("");
 
-        <span class="tag">
-          ${escapeHTML(scheme.category)}
-        </span>
-
-        <p>${escapeHTML(scheme.description)}</p>
-
-        <div class="success">
-          <strong>Why it appeared:</strong>
-          ${item.reasons.length
-            ? "Your selected circumstances include: "+
-              item.reasons.join(", ")
-            : "More information is required."
-          }
-        </div>
-
-        <div class="warning">
-          <strong>Still to verify:</strong>
-          ${escapeHTML(scheme.verify)}
-        </div>
-
-        <button class="btn"
-                onclick="openScheme('${scheme.id}')">
-          View details
-        </button>
-
-        <button class="btn light"
-                onclick="askScheme('${escapeHTML(scheme.name)}')">
-          Ask assistant
-        </button>
-
-      </div>
-
-    `;
-
-  }).join("");
 }
 
 
 /* =========================================================
-   SCHEME DETAIL
-========================================================= */
+   SCHEME DETAILS
+   ========================================================= */
 
 function openScheme(id){
 
-  const scheme=schemes.find(x=>x.id===id);
+    selectedScheme=
+        schemes.find(scheme=>scheme.id===id);
 
-  if(!scheme){
-    return;
-  }
+    if(!selectedScheme){
+        return;
+    }
 
-  selectedScheme=scheme;
+    const matched=
+        currentResults.find(
+            result=>result.id===id
+        );
 
-  document.getElementById("schemeDetailContent").innerHTML=`
+    const member=
+        matched ? matched.member : familyMembers[0];
 
-    <h2>${escapeHTML(scheme.name)}</h2>
+    document.getElementById(
+        "schemeDetailContent"
+    ).innerHTML=`
 
-    <span class="tag">
-      ${escapeHTML(scheme.category)}
-    </span>
+        <div class="card">
 
-    <h3>What it is</h3>
+            <button
+                class="btn secondary"
+                onclick="showScreen('results')">
 
-    <p>
-      ${escapeHTML(scheme.description)}
-    </p>
+                ← Back to results
 
-    <h3>Why it was shown</h3>
+            </button>
 
-    <p>
-      It matches one or more circumstances selected for your family.
-    </p>
+            <br><br>
 
-    <h3>What needs to be verified</h3>
+            <h2>${escapeHTML(selectedScheme.name)}</h2>
 
-    <div class="warning">
-      ${escapeHTML(scheme.verify)}
-    </div>
+            <p>
+                Potentially relevant for
+                <b>${escapeHTML(member.name)}</b>.
+            </p>
 
-    <h3>Possible documents</h3>
-
-    <ul>
-      ${scheme.documents.map(doc=>`
-        <li>${escapeHTML(doc)}</li>
-      `).join("")}
-    </ul>
-
-    <h3>Information source</h3>
-
-    <p>
-      ${escapeHTML(scheme.source)}
-    </p>
-
-    <div class="notice">
-      Check the latest official instructions before submitting an application.
-    </div>
-
-    <button class="btn green"
-            onclick="showScreen('priority')">
-      Check Application Priority
-    </button>
-
-    <button class="btn gold"
-            onclick="showScreen('notifications')">
-      Check Deadlines
-    </button>
-
-  `;
-
-  showScreen("schemeDetail");
-}
+        </div>
 
 
-function askScheme(name){
+        <div class="detail-grid">
 
-  openChat();
+            <div>
 
-  document.getElementById("chatInput").value=
-    "Tell me what I should check before applying for "+name;
+                <div class="card">
 
-  sendChat();
+                    <h3>What this scheme covers</h3>
+
+                    <p>
+                        ${escapeHTML(selectedScheme.description)}
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Why ONEVISIT showed this</h3>
+
+                    <p>
+                        ${escapeHTML(selectedScheme.why)}
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Information still to verify</h3>
+
+                    <p>
+                        ${escapeHTML(selectedScheme.missing)}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div class="card">
+
+                    <h3>Documents to prepare</h3>
+
+                    <ul class="checklist">
+
+                        ${selectedScheme.documents
+                            .map(doc=>`<li>${escapeHTML(doc)}</li>`)
+                            .join("")}
+
+                    </ul>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Next step</h3>
+
+                    <p>
+                        Verify the current eligibility conditions
+                        from the official source before applying.
+                    </p>
+
+                    <br>
+
+                    <a
+                        href="${selectedScheme.source}"
+                        target="_blank"
+                        class="btn"
+                        style="display:inline-block;text-decoration:none">
+
+                        Open official source
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    showScreen("schemeDetail");
+
 }
 
 
 /* =========================================================
-   EMI CALCULATOR
-========================================================= */
+   CHATBOT
+   ========================================================= */
+
+function toggleChat(){
+
+    document
+        .getElementById("chatWindow")
+        .classList.toggle("open");
+
+}
+
+
+function addChatMessage(text,type){
+
+    const body=
+        document.getElementById("chatBody");
+
+    const div=
+        document.createElement("div");
+
+    div.className="message "+type;
+
+    div.innerText=text;
+
+    body.appendChild(div);
+
+    body.scrollTop=body.scrollHeight;
+
+}
+
+
+function sendChat(){
+
+    const input=
+        document.getElementById("chatInput");
+
+    const message=
+        input.value.trim();
+
+    if(!message){
+        return;
+    }
+
+    addChatMessage(message,"user");
+
+    input.value="";
+
+    setTimeout(()=>{
+
+        const reply=
+            chatbotReply(message);
+
+        addChatMessage(reply,"bot");
+
+    },300);
+
+}
+
+
+function chatbotReply(message){
+
+    const text=
+        message.toLowerCase();
+
+
+    if(
+        text.includes("student") ||
+        text.includes("college") ||
+        text.includes("scholarship")
+    ){
+
+        return "If the person is a student, ONEVISIT can check education and scholarship-related records. Course, institution, income and category may affect eligibility. Try adding the student as a family member.";
+
+    }
+
+
+    if(
+        text.includes("farmer") ||
+        text.includes("agriculture") ||
+        text.includes("farming")
+    ){
+
+        return "For a farmer, agriculture-related records such as PM-KISAN may become relevant. Land ownership and the current official eligibility conditions still need to be verified.";
+
+    }
+
+
+    if(
+        text.includes("senior") ||
+        text.includes("old") ||
+        text.includes("elderly") ||
+        text.includes("pension")
+    ){
+
+        return "For an older family member, social assistance and pension-related programmes may be relevant. Age, income and state-specific rules should be checked.";
+
+    }
+
+
+    if(
+        text.includes("disability") ||
+        text.includes("disabled") ||
+        text.includes("pwd")
+    ){
+
+        return "Disability-related assistance may depend on the disability certificate, percentage of disability, income and the particular programme. Add the person and mark the disability situation.";
+
+    }
+
+
+    if(
+        text.includes("woman") ||
+        text.includes("women") ||
+        text.includes("widow") ||
+        text.includes("mother")
+    ){
+
+        return "Women and family-related programmes can depend on age, income, marital/family situation and other conditions. ONEVISIT can use these details when matching records.";
+
+    }
+
+
+    if(
+        text.includes("business") ||
+        text.includes("shop") ||
+        text.includes("startup") ||
+        text.includes("entrepreneur")
+    ){
+
+        return "Business and self-employment records may be relevant. For example, PMEGP or artisan-related support can appear depending on the person's occupation and the official conditions.";
+
+    }
+
+
+    if(
+        text.includes("worker") ||
+        text.includes("labour") ||
+        text.includes("construction") ||
+        text.includes("daily wage")
+    ){
+
+        return "Worker welfare programmes may depend on worker registration, occupation, state and other conditions. Add the worker to the family profile for matching.";
+
+    }
+
+
+    if(
+        text.includes("house") ||
+        text.includes("housing") ||
+        text.includes("home")
+    ){
+
+        return "Housing support can depend on household income, location and existing housing conditions. ONEVISIT can flag potentially relevant housing records.";
+
+    }
+
+
+    if(
+        text.includes("loan") ||
+        text.includes("emi") ||
+        text.includes("borrow")
+    ){
+
+        return "You can use the Loans & EMI section to enter the loan amount, interest rate and tenure. ONEVISIT will calculate the estimated monthly EMI, total interest and repayment.";
+
+    }
+
+
+    if(
+        text.includes("job") ||
+        text.includes("internship") ||
+        text.includes("career")
+    ){
+
+        return "You can open Jobs & Internships from the Results page and filter opportunities by type and location.";
+
+    }
+
+
+    if(
+        text.includes("exam") ||
+        text.includes("upsc") ||
+        text.includes("ssc") ||
+        text.includes("ibps")
+    ){
+
+        return "You can open Competitive Exams from the Results page to see examination information and official sources.";
+
+    }
+
+
+    if(
+        text.includes("market price") ||
+        text.includes("mandi") ||
+        text.includes("crop price")
+    ){
+
+        return "The Farmer Market Prices section lets you compare demonstration prices by crop and market. A production version should connect it to verified live market data.";
+
+    }
+
+
+    return "Tell me about the person and their situation. For example: age, occupation, income, student/farmer/worker status, disability, family situation or housing need. I can then explain which type of scheme may be relevant.";
+
+}
+
+
+function askAboutScheme(name){
+
+    toggleChat();
+
+    addChatMessage(
+        "Tell me what you want to know about "+name+".",
+        "bot"
+    );
+
+}
+
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+const translations={
+
+    en:{
+        home:
+        "Start with your family. Add each member, describe their situation and find government schemes that may be relevant."
+    },
+
+    kn:{
+        home:
+        "ನಿಮ್ಮ ಕುಟುಂಬದಿಂದ ಪ್ರಾರಂಭಿಸಿ. ಪ್ರತಿಯೊಬ್ಬ ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ, ಅವರ ಪರಿಸ್ಥಿತಿಯನ್ನು ತಿಳಿಸಿ ಮತ್ತು ಸಂಬಂಧಿತ ಸರ್ಕಾರಿ ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ."
+    },
+
+    hi:{
+        home:
+        "अपने परिवार से शुरू करें। प्रत्येक सदस्य को जोड़ें, उनकी स्थिति बताएं और संबंधित सरकारी योजनाओं को खोजें।"
+    }
+
+};
+
+
+function changeLanguage(){
+
+    const language=
+        document.getElementById("language").value;
+
+    document.getElementById("homeText").innerText=
+        translations[language].home;
+
+}
+
+
+/* =========================================================
+   LOANS + EMI CALCULATOR
+   ========================================================= */
 
 function calculateEMI(){
 
-  const P=parseFloat(document.getElementById("loanAmount").value);
-  const annual=parseFloat(document.getElementById("interestRate").value);
-  const years=parseFloat(document.getElementById("loanYears").value);
+    const amount=
+        parseFloat(document.getElementById("loanAmount").value);
 
-  if(!P || !annual || !years){
+    const annualRate=
+        parseFloat(document.getElementById("loanRate").value);
 
-    alert("Please enter loan amount, interest rate and tenure.");
+    const years=
+        parseFloat(document.getElementById("loanYears").value);
 
-    return;
-  }
+    if(
+        !amount ||
+        amount<=0 ||
+        isNaN(annualRate) ||
+        !years ||
+        years<=0
+    ){
 
-  const r=annual/12/100;
-  const n=years*12;
+        alert(
+            "Please enter valid loan amount, interest rate and tenure."
+        );
 
-  let emi;
+        return;
+    }
 
-  if(r===0){
-    emi=P/n;
-  }else{
-    emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-  }
+    const months=years*12;
 
-  const total=emi*n;
-  const interest=total-P;
+    const monthlyRate=
+        annualRate/(12*100);
 
-  document.getElementById("emiResult").innerHTML=`
+    let emi;
 
-    <div class="card success">
+    if(monthlyRate===0){
 
-      <h2>EMI Result</h2>
+        emi=amount/months;
 
-      <table>
+    }else{
 
-        <tr>
-          <th>Monthly EMI</th>
-          <td>₹${formatMoney(emi)}</td>
-        </tr>
+        emi=
+            amount *
+            monthlyRate *
+            Math.pow(1+monthlyRate,months) /
+            (Math.pow(1+monthlyRate,months)-1);
 
-        <tr>
-          <th>Total Interest</th>
-          <td>₹${formatMoney(interest)}</td>
-        </tr>
+    }
 
-        <tr>
-          <th>Total Repayment</th>
-          <td>₹${formatMoney(total)}</td>
-        </tr>
+    const totalPayment=emi*months;
 
-      </table>
+    const totalInterest=
+        totalPayment-amount;
 
-      <p class="small">
-        EMI is an estimate based on the entered rate and tenure.
-        Actual loan terms depend on the lender.
-      </p>
+    let category="General loan";
 
-    </div>
+    if(
+        familyMembers.some(
+            m=>m.occupation==="farmer"
+        )
+    ){
 
-  `;
+        category=
+            "Agriculture / farmer-related loan";
+
+    }
+    else if(
+        familyMembers.some(
+            m=>
+                m.occupation==="business" ||
+                m.occupation==="artisan"
+        )
+    ){
+
+        category=
+            "Business / self-employment loan";
+
+    }
+    else if(
+        familyMembers.some(
+            m=>m.occupation==="student"
+        )
+    ){
+
+        category=
+            "Education-related loan";
+
+    }
+
+    document.getElementById("emiResult").innerHTML=`
+
+        <div class="calculator-result">
+
+            <h3>Estimated repayment</h3>
+
+            <p>
+                Monthly EMI:
+                <strong>
+                    ₹${emi.toLocaleString("en-IN",{
+                        maximumFractionDigits:2
+                    })}
+                </strong>
+            </p>
+
+            <p>
+                Total interest:
+                <strong>
+                    ₹${totalInterest.toLocaleString("en-IN",{
+                        maximumFractionDigits:2
+                    })}
+                </strong>
+            </p>
+
+            <p>
+                Total repayment:
+                <strong>
+                    ₹${totalPayment.toLocaleString("en-IN",{
+                        maximumFractionDigits:2
+                    })}
+                </strong>
+            </p>
+
+            <br>
+
+            <p>
+                Possible category based on the family profile:
+                <b>${category}</b>
+            </p>
+
+        </div>
+
+    `;
+
 }
 
 
 /* =========================================================
    JOBS + INTERNSHIPS
-========================================================= */
+   ========================================================= */
 
-const jobsData=[
+const jobOpportunities=[
 
-  {
-    title:"Student Internship",
+{
+    title:"Software Development Internship",
     type:"internship",
-    skill:"student",
-    location:"Bengaluru",
-    description:"Demonstration internship opportunity for students."
-  },
+    location:"Karnataka",
+    education:"Students / recent graduates",
+    skill:"Programming",
+    description:
+    "Example internship opportunity for students or recent graduates."
+},
 
-  {
-    title:"Graduate Fresher Opportunity",
+{
+    title:"Graduate Trainee",
     type:"fresher",
-    skill:"graduate",
-    location:"Mysuru",
-    description:"Demonstration opportunity for recent graduates."
-  },
+    location:"India",
+    education:"Graduates",
+    skill:"General / technical",
+    description:
+    "Example fresher opportunity for graduates."
+},
 
-  {
-    title:"Computer / IT Opportunity",
+{
+    title:"Customer Support Executive",
     type:"job",
-    skill:"computer",
-    location:"Bengaluru",
-    description:"Demonstration entry-level technology opportunity."
-  },
+    location:"Karnataka",
+    education:"12th / Graduate",
+    skill:"Communication",
+    description:
+    "Example employment opportunity for job seekers."
+},
 
-  {
-    title:"General Employment Opportunity",
-    type:"job",
-    skill:"general",
-    location:"Davanagere",
-    description:"Demonstration employment opportunity."
-  },
-
-  {
-    title:"Student Skill Internship",
+{
+    title:"Data Entry Internship",
     type:"internship",
-    skill:"student",
-    location:"Hubballi",
-    description:"Demonstration internship for students developing skills."
-  }
+    location:"Remote",
+    education:"Students",
+    skill:"Computer basics",
+    description:
+    "Example remote internship opportunity."
+}
 
 ];
 
 
 function renderJobs(){
 
-  const type=document.getElementById("jobType").value;
-  const skill=document.getElementById("jobSkill").value;
+    const box=
+        document.getElementById("jobResults");
 
-  let filtered=jobsData.filter(job=>{
+    if(!box){
+        return;
+    }
 
-    const typeMatch=type==="all" || job.type===type;
-    const skillMatch=skill==="all" || job.skill===skill;
+    const type=
+        document.getElementById("jobType").value;
 
-    return typeMatch && skillMatch;
+    const location=
+        document.getElementById("jobLocation").value;
 
-  });
+    let list=jobOpportunities;
 
-  const container=document.getElementById("jobsList");
+    if(type!=="all"){
 
-  if(filtered.length===0){
+        list=list.filter(
+            job=>job.type===type
+        );
 
-    container.innerHTML=`
+    }
 
-      <div class="card">
-        <p>No matching demonstration opportunities found.</p>
-      </div>
+    if(location!=="all"){
 
-    `;
+        list=list.filter(
+            job=>
+                job.location===location ||
+                job.location==="India" ||
+                job.location==="Remote"
+        );
 
-    return;
-  }
+    }
 
-  container.innerHTML=filtered.map(job=>`
+    if(list.length===0){
 
-    <div class="card">
+        box.innerHTML=`
 
-      <h3>${escapeHTML(job.title)}</h3>
+            <div class="card empty">
 
-      <span class="tag">${escapeHTML(job.type)}</span>
-      <span class="tag">${escapeHTML(job.location)}</span>
+                <h2>No opportunity in this filter</h2>
 
-      <p>${escapeHTML(job.description)}</p>
+                <p>
+                    Try another opportunity type or location.
+                </p>
 
-      <p class="small">
-        Education/skill: ${escapeHTML(job.skill)}
-      </p>
+            </div>
 
-      <button class="btn">
-        View opportunity
-      </button>
+        `;
 
-    </div>
+        return;
+    }
 
-  `).join("");
-}
+    box.innerHTML=list.map(job=>`
 
+        <div class="job-card">
 
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
+            <h3>${escapeHTML(job.title)}</h3>
 
-const notifications=[
+            <div class="scheme-meta">
 
-  {
-    title:"Scholarship application",
-    category:"Education",
-    deadline:"15 October 2026",
-    note:"Check the applicable scholarship and institution requirements."
-  },
+                <span class="tag">
+                    ${escapeHTML(job.type)}
+                </span>
 
-  {
-    title:"Employment registration",
-    category:"Employment",
-    deadline:"25 October 2026",
-    note:"Keep education and identity documents ready."
-  },
+                <span class="tag">
+                    ${escapeHTML(job.location)}
+                </span>
 
-  {
-    title:"Agriculture support application",
-    category:"Agriculture",
-    deadline:"30 October 2026",
-    note:"Verify land and bank details before application."
-  },
+                <span class="tag">
+                    ${escapeHTML(job.education)}
+                </span>
 
-  {
-    title:"Competitive examination application",
-    category:"Exam",
-    deadline:"10 November 2026",
-    note:"Verify eligibility and examination authority instructions."
-  }
+            </div>
 
-];
+            <p>
+                ${escapeHTML(job.description)}
+            </p>
 
+            <br>
 
-function renderNotifications(){
-
-  const container=document.getElementById("notificationList");
-
-  container.innerHTML=notifications.map(item=>`
-
-    <div class="card">
-
-      <h3>${escapeHTML(item.title)}</h3>
-
-      <span class="tag">${escapeHTML(item.category)}</span>
-
-      <p>
-        <strong>Deadline:</strong>
-        ${escapeHTML(item.deadline)}
-      </p>
-
-      <p>${escapeHTML(item.note)}</p>
-
-      <button class="btn gold"
-              onclick="setReminder('${escapeHTML(item.title)}')">
-        Set Reminder
-      </button>
-
-    </div>
-
-  `).join("");
-}
-
-
-function setReminder(title){
-
-  document.getElementById("reminderCheck").checked=true;
-
-  document.getElementById("reminderMessage").innerHTML=`
-
-    <div class="notice">
-      Reminder selected for <strong>${escapeHTML(title)}</strong>.
-      This prototype stores the preference only on this page.
-    </div>
-
-  `;
-}
-
-
-function saveReminder(){
-
-  const checked=document.getElementById("reminderCheck").checked;
-
-  document.getElementById("reminderMessage").innerHTML=`
-
-    <div class="${checked ? "success" : "notice"}">
-
-      ${
-        checked
-        ? "Reminder preference saved for this prototype."
-        : "Reminder preference is currently off."
-      }
-
-    </div>
-
-  `;
-}
-
-
-/* =========================================================
-   PRIORITY GUIDE
-========================================================= */
-
-const priorityApplications=[
-
-  {
-    name:"Application with nearest deadline",
-    deadlineScore:5,
-    eligibility:4,
-    documents:4,
-    effort:3
-  },
-
-  {
-    name:"Application with documents already ready",
-    deadlineScore:3,
-    eligibility:5,
-    documents:5,
-    effort:4
-  },
-
-  {
-    name:"Application requiring additional documents",
-    deadlineScore:4,
-    eligibility:3,
-    documents:2,
-    effort:2
-  },
-
-  {
-    name:"Application with more information to verify",
-    deadlineScore:2,
-    eligibility:2,
-    documents:2,
-    effort:3
-  }
-
-];
-
-
-function calculatePriority(){
-
-  const sorted=[...priorityApplications].sort((a,b)=>{
-
-    const scoreA=
-      a.deadlineScore+
-      a.eligibility+
-      a.documents+
-      a.effort;
-
-    const scoreB=
-      b.deadlineScore+
-      b.eligibility+
-      b.documents+
-      b.effort;
-
-    return scoreB-scoreA;
-
-  });
-
-  document.getElementById("priorityList").innerHTML=
-
-    sorted.map((item,index)=>{
-
-      const total=
-        item.deadlineScore+
-        item.eligibility+
-        item.documents+
-        item.effort;
-
-      return `
-
-        <div class="card">
-
-          <h3>
-            ${index+1}. ${escapeHTML(item.name)}
-          </h3>
-
-          <p>
-            Priority score:
-            <strong>${total}/20</strong>
-          </p>
-
-          <table>
-
-            <tr>
-              <th>Deadline</th>
-              <td>${item.deadlineScore}/5</td>
-            </tr>
-
-            <tr>
-              <th>Eligibility confidence</th>
-              <td>${item.eligibility}/5</td>
-            </tr>
-
-            <tr>
-              <th>Documents ready</th>
-              <td>${item.documents}/5</td>
-            </tr>
-
-            <tr>
-              <th>Application effort</th>
-              <td>${item.effort}/5</td>
-            </tr>
-
-          </table>
+            <p>
+                <b>Useful skill:</b>
+                ${escapeHTML(job.skill)}
+            </p>
 
         </div>
 
-      `;
+    `).join("");
 
-    }).join("");
 }
 
 
 /* =========================================================
-   LOCATIONS
-========================================================= */
+   NOTIFICATION REMINDERS
+   ========================================================= */
 
-const locations=[
+function setReminder(name){
 
-  {
+    const reminderDate=
+        prompt(
+            "Enter reminder date (example: 25/11/2026)"
+        );
+
+    if(!reminderDate){
+        return;
+    }
+
+    localStorage.setItem(
+        "onevisitReminder_"+name,
+        reminderDate
+    );
+
+    alert(
+        "Reminder saved for " +
+        name +
+        " on " +
+        reminderDate +
+        "."
+    );
+
+}
+
+
+/* =========================================================
+   APPLICATION PRIORITY
+   ========================================================= */
+
+function renderPriority(){
+
+    const box=
+        document.getElementById("priorityResults");
+
+    if(!box){
+        return;
+    }
+
+    if(currentResults.length===0){
+
+        box.innerHTML=`
+
+            <div class="empty">
+
+                <p>
+                    Find scheme matches first to generate
+                    a priority recommendation.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    const priorityData=
+        currentResults.map((scheme,index)=>{
+
+            let score=scheme.score;
+
+            let reason="";
+
+            if(scheme.score>=90){
+
+                score+=10;
+
+                reason=
+                    "Higher profile match.";
+
+            }
+            else if(scheme.score>=80){
+
+                score+=6;
+
+                reason=
+                    "Good profile match.";
+
+            }
+            else{
+
+                score+=2;
+
+                reason=
+                    "Potential match requiring more verification.";
+
+            }
+
+            if(scheme.missing){
+
+                score-=2;
+
+            }
+
+            return{
+
+                ...scheme,
+
+                priorityScore:score,
+
+                priorityReason:reason
+
+            };
+
+        }).sort(
+            (a,b)=>
+                b.priorityScore-a.priorityScore
+        );
+
+    box.innerHTML=priorityData.map(
+        (scheme,index)=>{
+
+            let level="Medium";
+
+            if(index===0){
+                level="High";
+            }
+            else if(index>=3){
+                level="Low";
+            }
+
+            return`
+
+                <div class="priority-card
+                    ${
+                        level==="High"
+                        ? "priority-high"
+                        : level==="Medium"
+                        ? "priority-medium"
+                        : ""
+                    }">
+
+                    <h3>
+                        ${index+1}.
+                        ${escapeHTML(scheme.name)}
+                    </h3>
+
+                    <p>
+                        Member:
+                        <b>
+                            ${escapeHTML(scheme.member.name)}
+                        </b>
+                    </p>
+
+                    <br>
+
+                    <p>
+                        Priority:
+                        <b>${level}</b>
+                    </p>
+
+                    <p>
+                        ${escapeHTML(scheme.priorityReason)}
+                    </p>
+
+                    <br>
+
+                    <button class="btn"
+                        onclick="openScheme(${scheme.id})">
+
+                        View application details
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+    ).join("");
+
+}
+
+
+/* =========================================================
+   APPLICATION CENTRES
+   ========================================================= */
+
+const serviceLocations=[
+
+{
     name:"Common Service Centre",
     type:"CSC",
-    location:"Bengaluru",
-    note:"Demonstration location. Verify the nearest active centre."
-  },
+    state:"Karnataka",
+    area:"Local service point",
+    purpose:
+    "Digital government and citizen services."
+},
 
-  {
-    name:"Employment Service Office",
-    type:"Employment Office",
-    location:"Mysuru",
-    note:"Demonstration location. Verify current office details."
-  },
-
-  {
-    name:"Government Service Centre",
+{
+    name:"Government Service Office",
     type:"Government Office",
-    location:"Davanagere",
-    note:"Demonstration location. Verify the concerned department."
-  },
+    state:"Karnataka",
+    area:"District / Taluk level",
+    purpose:
+    "Government application assistance."
+},
 
-  {
-    name:"Application / Exam Centre",
+{
+    name:"Employment Office",
+    type:"Employment Office",
+    state:"Karnataka",
+    area:"District level",
+    purpose:
+    "Employment registration and related services."
+},
+
+{
+    name:"Competitive Exam Centre",
     type:"Exam Centre",
-    location:"Hubballi",
-    note:"Demonstration location. Centre depends on the examination."
-  },
+    state:"Karnataka",
+    area:"Location announced with examination",
+    purpose:
+    "Examination venue."
+},
 
-  {
+{
     name:"Common Service Centre",
     type:"CSC",
-    location:"Mysuru",
-    note:"Demonstration location. Verify current availability."
-  }
+    state:"Kerala",
+    area:"Local service point",
+    purpose:
+    "Digital citizen services."
+},
+
+{
+    name:"Common Service Centre",
+    type:"CSC",
+    state:"Tamil Nadu",
+    area:"Local service point",
+    purpose:
+    "Digital citizen services."
+}
 
 ];
 
 
 function renderLocations(){
 
-  const search=document
-    .getElementById("locationSearch")
-    .value
-    .trim()
-    .toLowerCase();
+    const box=
+        document.getElementById("locationResults");
 
-  const filtered=locations.filter(location=>{
+    if(!box){
+        return;
+    }
 
-    return !search ||
-      location.location.toLowerCase().includes(search) ||
-      location.type.toLowerCase().includes(search);
+    const type=
+        document.getElementById("locationType").value;
 
-  });
+    const state=
+        document.getElementById("locationState").value;
 
-  document.getElementById("locationList").innerHTML=
+    let list=serviceLocations;
 
-    filtered.map(location=>`
+    if(type!=="all"){
 
-      <div class="card">
+        list=list.filter(
+            item=>item.type===type
+        );
 
-        <h3>${escapeHTML(location.name)}</h3>
+    }
 
-        <span class="tag">
-          ${escapeHTML(location.type)}
-        </span>
+    if(state!=="all"){
 
-        <p>
-          <strong>Location:</strong>
-          ${escapeHTML(location.location)}
-        </p>
+        list=list.filter(
+            item=>item.state===state
+        );
 
-        <p class="small">
-          ${escapeHTML(location.note)}
-        </p>
+    }
 
-        <button class="btn">
-          Check location
-        </button>
+    box.innerHTML=list.map(item=>`
 
-      </div>
+        <div class="location-card">
+
+            <h3>
+                ${escapeHTML(item.name)}
+            </h3>
+
+            <div class="scheme-meta">
+
+                <span class="tag">
+                    ${escapeHTML(item.type)}
+                </span>
+
+                <span class="tag">
+                    ${escapeHTML(item.state)}
+                </span>
+
+            </div>
+
+            <p>
+                <b>Area:</b>
+                ${escapeHTML(item.area)}
+            </p>
+
+            <p>
+                <b>Purpose:</b>
+                ${escapeHTML(item.purpose)}
+            </p>
+
+            <br>
+
+            <p>
+                Check the current official location and
+                opening hours before visiting.
+            </p>
+
+        </div>
 
     `).join("");
 
@@ -2103,71 +3682,114 @@ function renderLocations(){
 
 /* =========================================================
    COMPETITIVE EXAMS
-========================================================= */
+   ========================================================= */
 
-const exams=[
+const competitiveExams=[
 
-  {
-    name:"SSC-type recruitment examination",
-    eligibility:"Depends on post, age and educational qualification.",
-    application:"Demonstration: application period shown for prototype.",
-    examDate:"Demonstration exam date",
-    documents:"Identity proof, photograph, educational records",
-    source:"Official examination authority"
-  },
+{
+    name:"UPSC Civil Services Examination",
+    eligibility:
+    "Graduation is generally required; check the current notification.",
+    application:
+    "Application dates depend on the official annual notification.",
+    exam:
+    "Examination dates are announced by UPSC.",
+    documents:
+    "Identity, photograph, signature and educational details as required.",
+    source:
+    "https://upsc.gov.in/"
+},
 
-  {
-    name:"Banking recruitment examination",
-    eligibility:"Depends on post and educational qualification.",
-    application:"Check the official recruitment notification.",
-    examDate:"As announced by the authority",
-    documents:"Identity proof, photograph, educational records",
-    source:"Official banking examination authority"
-  },
+{
+    name:"SSC examinations",
+    eligibility:
+    "Eligibility varies by examination and post.",
+    application:
+    "Dates depend on the current SSC notification.",
+    exam:
+    "Exam dates depend on the selected examination.",
+    documents:
+    "Identity and educational documents as required.",
+    source:
+    "https://ssc.gov.in/"
+},
 
-  {
-    name:"State Government Recruitment Examination",
-    eligibility:"Depends on the notified post.",
-    application:"Check the relevant state recruitment notification.",
-    examDate:"As announced by the authority",
-    documents:"Identity proof, educational certificates",
-    source:"Official state recruitment authority"
-  }
+{
+    name:"IBPS examinations",
+    eligibility:
+    "Eligibility varies by banking examination and post.",
+    application:
+    "Application dates depend on the current official notification.",
+    exam:
+    "Dates depend on the selected examination.",
+    documents:
+    "Identity and educational details as required.",
+    source:
+    "https://www.ibps.in/"
+}
 
 ];
 
 
 function renderExams(){
 
-  document.getElementById("examList").innerHTML=
+    const box=
+        document.getElementById("examResults");
 
-    exams.map(exam=>`
+    if(!box){
+        return;
+    }
 
-      <div class="card">
+    box.innerHTML=competitiveExams.map(exam=>`
 
-        <h3>${escapeHTML(exam.name)}</h3>
+        <div class="exam-card">
 
-        <h4>Eligibility</h4>
-        <p>${escapeHTML(exam.eligibility)}</p>
+            <h3>
+                ${escapeHTML(exam.name)}
+            </h3>
 
-        <h4>Application</h4>
-        <p>${escapeHTML(exam.application)}</p>
+            <br>
 
-        <h4>Exam date</h4>
-        <p>${escapeHTML(exam.examDate)}</p>
+            <p>
+                <b>Eligibility:</b><br>
+                ${escapeHTML(exam.eligibility)}
+            </p>
 
-        <h4>Documents</h4>
-        <p>${escapeHTML(exam.documents)}</p>
+            <br>
 
-        <p class="small">
-          Source: ${escapeHTML(exam.source)}
-        </p>
+            <p>
+                <b>Application:</b><br>
+                ${escapeHTML(exam.application)}
+            </p>
 
-        <button class="btn">
-          Check official notification
-        </button>
+            <br>
 
-      </div>
+            <p>
+                <b>Exam:</b><br>
+                ${escapeHTML(exam.exam)}
+            </p>
+
+            <br>
+
+            <p>
+                <b>Documents:</b><br>
+                ${escapeHTML(exam.documents)}
+            </p>
+
+            <br>
+
+            <a
+                href="${exam.source}"
+                target="_blank"
+                class="btn"
+                style="display:inline-block;
+                       text-decoration:none">
+
+                Official source
+
+            </a>
+
+        </div>
 
     `).join("");
 
@@ -2175,330 +3797,188 @@ function renderExams(){
 
 
 /* =========================================================
-   FARMER MARKET
-========================================================= */
+   FARMER MARKET PRICES
+   ========================================================= */
 
-const marketData=[
+const marketPrices=[
 
-  {
-    location:"Bengaluru",
+{
     crop:"Tomato",
+    market:"Bengaluru",
     price:2200,
     unit:"quintal",
-    date:"04 October 2026"
-  },
+    updated:"Demo date"
+},
 
-  {
-    location:"Mysuru",
+{
     crop:"Tomato",
+    market:"Mysuru",
     price:2050,
     unit:"quintal",
-    date:"04 October 2026"
-  },
+    updated:"Demo date"
+},
 
-  {
-    location:"Davanagere",
+{
     crop:"Onion",
-    price:2600,
-    unit:"quintal",
-    date:"04 October 2026"
-  },
-
-  {
-    location:"Hubballi",
-    crop:"Maize",
-    price:2350,
-    unit:"quintal",
-    date:"04 October 2026"
-  },
-
-  {
-    location:"Bengaluru",
-    crop:"Potato",
+    market:"Bengaluru",
     price:2800,
     unit:"quintal",
-    date:"04 October 2026"
-  },
+    updated:"Demo date"
+},
 
-  {
-    location:"Mysuru",
+{
     crop:"Onion",
-    price:2500,
+    market:"Hubballi",
+    price:2650,
     unit:"quintal",
-    date:"04 October 2026"
-  }
+    updated:"Demo date"
+},
+
+{
+    crop:"Paddy",
+    market:"Shivamogga",
+    price:2300,
+    unit:"quintal",
+    updated:"Demo date"
+},
+
+{
+    crop:"Paddy",
+    market:"Mysuru",
+    price:2250,
+    unit:"quintal",
+    updated:"Demo date"
+},
+
+{
+    crop:"Maize",
+    market:"Hubballi",
+    price:2100,
+    unit:"quintal",
+    updated:"Demo date"
+},
+
+{
+    crop:"Maize",
+    market:"Bengaluru",
+    price:2180,
+    unit:"quintal",
+    updated:"Demo date"
+}
 
 ];
 
 
-function renderMarket(){
+function renderMarketPrices(){
 
-  const location=document.getElementById("marketLocation").value;
-  const crop=document.getElementById("marketCrop").value;
+    const box=
+        document.getElementById("marketResults");
 
-  const filtered=marketData.filter(item=>{
+    if(!box){
+        return;
+    }
 
-    const locationMatch=
-      location==="all" || item.location===location;
+    const crop=
+        document.getElementById("marketCrop").value;
 
-    const cropMatch=
-      crop==="all" || item.crop===crop;
+    const market=
+        document.getElementById("marketPlace").value;
 
-    return locationMatch && cropMatch;
+    let list=marketPrices;
 
-  });
+    if(crop!=="all"){
 
-  const container=document.getElementById("marketList");
+        list=list.filter(
+            item=>item.crop===crop
+        );
 
-  if(filtered.length===0){
+    }
 
-    container.innerHTML=`
+    if(market!=="all"){
 
-      <div class="card">
-        No demonstration market data found for this selection.
-      </div>
+        list=list.filter(
+            item=>item.market===market
+        );
 
-    `;
+    }
 
-    return;
-  }
+    if(list.length===0){
 
-  container.innerHTML=filtered.map(item=>`
+        box.innerHTML=`
 
-    <div class="card">
+            <div class="card empty">
 
-      <h3>${escapeHTML(item.crop)}</h3>
+                <h2>No market record</h2>
 
-      <span class="tag">
-        ${escapeHTML(item.location)}
-      </span>
+                <p>
+                    Try another crop or market.
+                </p>
 
-      <h2>
-        ₹${formatMoney(item.price)}
-        <span class="small">/ ${escapeHTML(item.unit)}</span>
-      </h2>
+            </div>
 
-      <p>
-        Price update:
-        ${escapeHTML(item.date)}
-      </p>
+        `;
 
-      <p class="small">
-        Demonstration data. Verify current mandi/market price before
-        making a sale decision.
-      </p>
+        return;
+    }
 
-    </div>
+    box.innerHTML=list.map(item=>`
 
-  `).join("");
+        <div class="market-card">
+
+            <h3>
+                ${escapeHTML(item.crop)}
+            </h3>
+
+            <p>
+                Market:
+                <b>${escapeHTML(item.market)}</b>
+            </p>
+
+            <br>
+
+            <div class="price-value">
+                ₹${item.price.toLocaleString("en-IN")}
+            </div>
+
+            <p>
+                per ${escapeHTML(item.unit)}
+            </p>
+
+            <br>
+
+            <p>
+                Price update:
+                <b>${escapeHTML(item.updated)}</b>
+            </p>
+
+        </div>
+
+    `).join("");
 
 }
 
 
 /* =========================================================
-   CHATBOT
-========================================================= */
-
-function toggleChat(){
-
-  const box=document.getElementById("chatBox");
-
-  box.style.display=
-    box.style.display==="block"
-    ? "none"
-    : "block";
-
-}
-
-
-function openChat(){
-
-  document.getElementById("chatBox").style.display="block";
-
-}
-
-
-function sendChat(){
-
-  const input=document.getElementById("chatInput");
-
-  const text=input.value.trim();
-
-  if(!text){
-    return;
-  }
-
-  const messages=document.getElementById("chatMessages");
-
-  messages.innerHTML+=`
-
-    <div class="message user">
-      ${escapeHTML(text)}
-    </div>
-
-  `;
-
-  const reply=getBotReply(text.toLowerCase());
-
-  messages.innerHTML+=`
-
-    <div class="message">
-      ${escapeHTML(reply)}
-    </div>
-
-  `;
-
-  input.value="";
-
-  messages.scrollTop=messages.scrollHeight;
-}
-
-
-function getBotReply(text){
-
-  if(
-    text.includes("loan") ||
-    text.includes("emi")
-  ){
-
-    return "You can open Loans & EMI from the Results page. Enter the loan amount, interest rate and tenure to calculate the estimated EMI.";
-
-  }
-
-  if(
-    text.includes("job") ||
-    text.includes("internship")
-  ){
-
-    return "Open Jobs & Internships from the Results page. You can filter demonstration opportunities by type and skill.";
-
-  }
-
-  if(
-    text.includes("exam")
-  ){
-
-    return "Open Competitive Exams to check eligibility, application information, exam dates and required documents.";
-
-  }
-
-  if(
-    text.includes("deadline") ||
-    text.includes("notification")
-  ){
-
-    return "Open Notifications & Deadlines to see important application dates and set a reminder preference.";
-
-  }
-
-  if(
-    text.includes("farmer") ||
-    text.includes("market") ||
-    text.includes("price")
-  ){
-
-    return "Open Farmer Market Prices to compare demonstration prices by crop and location. Verify current market prices before selling.";
-
-  }
-
-  if(
-    text.includes("document")
-  ){
-
-    return "Open a scheme's details to see the documents that may need to be verified. Requirements can differ by scheme.";
-
-  }
-
-  if(
-    text.includes("near") ||
-    text.includes("centre") ||
-    text.includes("center")
-  ){
-
-    return "Open Nearby Centres to see demonstration CSC, employment office and government service locations.";
-
-  }
-
-  if(
-    text.includes("scheme")
-  ){
-
-    return "The Results page shows possible matches based on the family circumstances you selected. Final eligibility must be verified with the concerned department.";
-
-  }
-
-  return "I can help with schemes, documents, loans, EMI, jobs, internships, exams, deadlines, application priority, nearby centres and farmer market information.";
-
-}
-
-
-/* =========================================================
-   LANGUAGE
-========================================================= */
-
-function changeLanguage(){
-
-  const language=document.getElementById("language").value;
-
-  const homeText=document.getElementById("homeText");
-
-  if(language==="kn"){
-
-    homeText.innerText=
-      "ನಿಮ್ಮ ಕುಟುಂಬದ ಮಾಹಿತಿಯನ್ನು ಒಂದೇ ಸ್ಥಳದಲ್ಲಿ ಇಟ್ಟುಕೊಂಡು, ಯೋಜನೆಗಳು, ಅವಕಾಶಗಳು ಮತ್ತು ಅರ್ಜಿಗೆ ಬೇಕಾದ ಮಾಹಿತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ.";
-
-  }
-  else if(language==="hi"){
-
-    homeText.innerText=
-      "अपने परिवार की जानकारी एक जगह रखें और योजनाओं, अवसरों तथा आवेदन के लिए आवश्यक जानकारी देखें.";
-
-  }
-  else{
-
-    homeText.innerText=
-      "Keep your family's information together and check support, schemes, opportunities and application requirements in one place.";
-
-  }
-
-}
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
+   SECURITY / DISPLAY HELPERS
+   ========================================================= */
 
 function escapeHTML(value){
 
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function formatMoney(value){
-
-  return Number(value).toLocaleString("en-IN",{
-    maximumFractionDigits:2
-  });
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
 
 }
 
 
 /* =========================================================
-   INITIAL LOAD
-========================================================= */
+   STARTUP
+   ========================================================= */
 
 renderMembers();
-renderNotifications();
-renderJobs();
-renderLocations();
-renderExams();
-renderMarket();
 
 </script>
 
