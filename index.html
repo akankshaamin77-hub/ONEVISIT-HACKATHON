@@ -6758,5 +6758,554 @@ setTimeout(
 
 })();
 </script>
+  <script>
+/* =========================================================
+   ONEVISIT - FULL LANGUAGE FIX
+   English / Kannada / Hindi
+========================================================= */
+
+(function () {
+
+  const LANG = {
+
+    en: {
+      "Start": "Start",
+      "About ONEVISIT": "About ONEVISIT",
+      "Home": "Home",
+      "Family": "Family",
+      "Family Members": "Family Members",
+      "Add Family Member": "Add Family Member",
+      "Continue": "Continue",
+      "Back": "Back",
+      "Next": "Next",
+      "Save": "Save",
+      "Remove": "Remove",
+      "Switch Profile": "Switch Profile",
+      "Logout": "Logout",
+      "Selected": "Selected",
+
+      "Schemes": "Schemes",
+      "Government Schemes": "Government Schemes",
+      "Results": "Results",
+      "Find Relevant Support": "Find Relevant Support",
+      "View Details": "View Details",
+
+      "Loans & EMI": "Loans & EMI",
+      "Loans and EMI calculation": "Loans and EMI calculation",
+      "Calculate EMI": "Calculate EMI",
+      "Loan Amount": "Loan Amount",
+      "Interest Rate": "Interest Rate",
+      "Loan Tenure": "Loan Tenure",
+      "Loan Purpose": "Loan Purpose",
+
+      "Jobs & Internships": "Jobs & Internships",
+      "Jobs and internships": "Jobs and internships",
+
+      "Application deadlines": "Application deadlines",
+      "Notifications": "Notifications",
+      "Priority": "Priority",
+
+      "Nearby application locations": "Nearby application locations",
+      "Locations": "Locations",
+      "Nearby Centres": "Nearby Centres",
+
+      "Farmer market information": "Farmer market information",
+      "Farmer Market Information": "Farmer Market Information",
+      "Market": "Market",
+
+      "Exams": "Exams",
+      "Jobs": "Jobs",
+      "Chat": "Chat",
+      "Assistant": "Assistant",
+
+      "Application Readiness": "Application Readiness",
+      "Why this document is needed": "Why this document is needed",
+      "Set Reminder": "Set Reminder",
+      "Official Source": "Official Source",
+
+      "Gender": "Gender",
+      "Male": "Male",
+      "Female": "Female",
+      "Other": "Other",
+      "Age": "Age",
+      "Occupation": "Occupation",
+      "Relationship": "Relationship",
+      "Disability status": "Disability status",
+      "Yes": "Yes",
+      "No": "No",
+
+      "Student": "Student",
+      "Farmer / Agriculture": "Farmer / Agriculture",
+      "Business / Self-employed": "Business / Self-employed",
+      "Labour / Worker": "Labour / Worker",
+      "Employee": "Employee",
+      "Women / Family": "Women / Family",
+      "Senior Citizen": "Senior Citizen",
+      "Artisan": "Artisan",
+      "Person with Disability": "Person with Disability",
+      "Fisheries": "Fisheries",
+      "Unemployed Youth": "Unemployed Youth",
+      "Child": "Child",
+      "Ex-serviceman": "Ex-serviceman",
+
+      "English": "English",
+      "Kannada": "Kannada",
+      "Hindi": "Hindi"
+    },
+
+
+    kn: {
+      "Start": "ಪ್ರಾರಂಭಿಸಿ",
+      "About ONEVISIT": "ONEVISIT ಬಗ್ಗೆ",
+      "Home": "ಮುಖಪುಟ",
+      "Family": "ಕುಟುಂಬ",
+      "Family Members": "ಕುಟುಂಬ ಸದಸ್ಯರು",
+      "Add Family Member": "ಕುಟುಂಬ ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ",
+      "Continue": "ಮುಂದುವರಿಸಿ",
+      "Back": "ಹಿಂದೆ",
+      "Next": "ಮುಂದೆ",
+      "Save": "ಉಳಿಸಿ",
+      "Remove": "ತೆಗೆದುಹಾಕಿ",
+      "Switch Profile": "ಪ್ರೊಫೈಲ್ ಬದಲಿಸಿ",
+      "Logout": "ಲಾಗ್ ಔಟ್",
+      "Selected": "ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ",
+
+      "Schemes": "ಯೋಜನೆಗಳು",
+      "Government Schemes": "ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು",
+      "Results": "ಫಲಿತಾಂಶಗಳು",
+      "Find Relevant Support": "ಸಂಬಂಧಿತ ಸಹಾಯ ಹುಡುಕಿ",
+      "View Details": "ವಿವರಗಳನ್ನು ನೋಡಿ",
+
+      "Loans & EMI": "ಸಾಲಗಳು ಮತ್ತು EMI",
+      "Loans and EMI calculation": "ಸಾಲ ಮತ್ತು EMI ಲೆಕ್ಕಾಚಾರ",
+      "Calculate EMI": "EMI ಲೆಕ್ಕಿಸಿ",
+      "Loan Amount": "ಸಾಲದ ಮೊತ್ತ",
+      "Interest Rate": "ಬಡ್ಡಿ ದರ",
+      "Loan Tenure": "ಸಾಲದ ಅವಧಿ",
+      "Loan Purpose": "ಸಾಲದ ಉದ್ದೇಶ",
+
+      "Jobs & Internships": "ಉದ್ಯೋಗಗಳು ಮತ್ತು ಇಂಟರ್ನ್‌ಶಿಪ್‌ಗಳು",
+      "Jobs and internships": "ಉದ್ಯೋಗಗಳು ಮತ್ತು ಇಂಟರ್ನ್‌ಶಿಪ್‌ಗಳು",
+
+      "Application deadlines": "ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಕೊನೆಯ ದಿನಾಂಕಗಳು",
+      "Notifications": "ಅಧಿಸೂಚನೆಗಳು",
+      "Priority": "ಆದ್ಯತೆ",
+
+      "Nearby application locations": "ಹತ್ತಿರದ ಅರ್ಜಿ ಕೇಂದ್ರಗಳು",
+      "Locations": "ಸ್ಥಳಗಳು",
+      "Nearby Centres": "ಹತ್ತಿರದ ಕೇಂದ್ರಗಳು",
+
+      "Farmer market information": "ರೈತರ ಮಾರುಕಟ್ಟೆ ಮಾಹಿತಿ",
+      "Farmer Market Information": "ರೈತರ ಮಾರುಕಟ್ಟೆ ಮಾಹಿತಿ",
+      "Market": "ಮಾರುಕಟ್ಟೆ",
+
+      "Exams": "ಪರೀಕ್ಷೆಗಳು",
+      "Jobs": "ಉದ್ಯೋಗಗಳು",
+      "Chat": "ಚಾಟ್",
+      "Assistant": "ಸಹಾಯಕ",
+
+      "Application Readiness": "ಅರ್ಜಿ ಸಿದ್ಧತೆ",
+      "Why this document is needed": "ಈ ದಾಖಲೆ ಏಕೆ ಬೇಕು",
+      "Set Reminder": "ಜ್ಞಾಪನೆ ಹೊಂದಿಸಿ",
+      "Official Source": "ಅಧಿಕೃತ ಮೂಲ",
+
+      "Gender": "ಲಿಂಗ",
+      "Male": "ಪುರುಷ",
+      "Female": "ಮಹಿಳೆ",
+      "Other": "ಇತರೆ",
+      "Age": "ವಯಸ್ಸು",
+      "Occupation": "ಉದ್ಯೋಗ",
+      "Relationship": "ಸಂಬಂಧ",
+      "Disability status": "ಅಂಗವೈಕಲ್ಯ ಸ್ಥಿತಿ",
+      "Yes": "ಹೌದು",
+      "No": "ಇಲ್ಲ",
+
+      "Student": "ವಿದ್ಯಾರ್ಥಿ",
+      "Farmer / Agriculture": "ರೈತ / ಕೃಷಿ",
+      "Business / Self-employed": "ವ್ಯಾಪಾರ / ಸ್ವಯಂ ಉದ್ಯೋಗ",
+      "Labour / Worker": "ಕಾರ್ಮಿಕ / ಕೆಲಸಗಾರ",
+      "Employee": "ಉದ್ಯೋಗಿ",
+      "Women / Family": "ಮಹಿಳೆ / ಕುಟುಂಬ",
+      "Senior Citizen": "ಹಿರಿಯ ನಾಗರಿಕ",
+      "Artisan": "ಕುಶಲಕರ್ಮಿ",
+      "Person with Disability": "ಅಂಗವೈಕಲ್ಯ ಹೊಂದಿರುವ ವ್ಯಕ್ತಿ",
+      "Fisheries": "ಮೀನುಗಾರಿಕೆ",
+      "Unemployed Youth": "ನಿರುದ್ಯೋಗಿ ಯುವಕರು",
+      "Child": "ಮಗು",
+      "Ex-serviceman": "ಮಾಜಿ ಸೈನಿಕ",
+
+      "English": "ಇಂಗ್ಲಿಷ್",
+      "Kannada": "ಕನ್ನಡ",
+      "Hindi": "ಹಿಂದಿ"
+    },
+
+
+    hi: {
+      "Start": "शुरू करें",
+      "About ONEVISIT": "ONEVISIT के बारे में",
+      "Home": "होम",
+      "Family": "परिवार",
+      "Family Members": "परिवार के सदस्य",
+      "Add Family Member": "परिवार का सदस्य जोड़ें",
+      "Continue": "जारी रखें",
+      "Back": "वापस",
+      "Next": "आगे",
+      "Save": "सहेजें",
+      "Remove": "हटाएं",
+      "Switch Profile": "प्रोफ़ाइल बदलें",
+      "Logout": "लॉग आउट",
+      "Selected": "चयनित",
+
+      "Schemes": "योजनाएं",
+      "Government Schemes": "सरकारी योजनाएं",
+      "Results": "परिणाम",
+      "Find Relevant Support": "संबंधित सहायता खोजें",
+      "View Details": "विवरण देखें",
+
+      "Loans & EMI": "ऋण और EMI",
+      "Loans and EMI calculation": "ऋण और EMI गणना",
+      "Calculate EMI": "EMI की गणना करें",
+      "Loan Amount": "ऋण राशि",
+      "Interest Rate": "ब्याज दर",
+      "Loan Tenure": "ऋण अवधि",
+      "Loan Purpose": "ऋण का उद्देश्य",
+
+      "Jobs & Internships": "नौकरियां और इंटर्नशिप",
+      "Jobs and internships": "नौकरियां और इंटर्नशिप",
+
+      "Application deadlines": "आवेदन की अंतिम तिथियां",
+      "Notifications": "सूचनाएं",
+      "Priority": "प्राथमिकता",
+
+      "Nearby application locations": "निकटतम आवेदन केंद्र",
+      "Locations": "स्थान",
+      "Nearby Centres": "निकटतम केंद्र",
+
+      "Farmer market information": "किसान बाजार जानकारी",
+      "Farmer Market Information": "किसान बाजार जानकारी",
+      "Market": "बाजार",
+
+      "Exams": "परीक्षाएं",
+      "Jobs": "नौकरियां",
+      "Chat": "चैट",
+      "Assistant": "सहायक",
+
+      "Application Readiness": "आवेदन की तैयारी",
+      "Why this document is needed": "यह दस्तावेज़ क्यों आवश्यक है",
+      "Set Reminder": "रिमाइंडर सेट करें",
+      "Official Source": "आधिकारिक स्रोत",
+
+      "Gender": "लिंग",
+      "Male": "पुरुष",
+      "Female": "महिला",
+      "Other": "अन्य",
+      "Age": "उम्र",
+      "Occupation": "व्यवसाय",
+      "Relationship": "रिश्ता",
+      "Disability status": "दिव्यांगता स्थिति",
+      "Yes": "हां",
+      "No": "नहीं",
+
+      "Student": "छात्र",
+      "Farmer / Agriculture": "किसान / कृषि",
+      "Business / Self-employed": "व्यवसाय / स्वरोजगार",
+      "Labour / Worker": "श्रमिक / कामगार",
+      "Employee": "कर्मचारी",
+      "Women / Family": "महिला / परिवार",
+      "Senior Citizen": "वरिष्ठ नागरिक",
+      "Artisan": "कारीगर",
+      "Person with Disability": "दिव्यांग व्यक्ति",
+      "Fisheries": "मत्स्य पालन",
+      "Unemployed Youth": "बेरोजगार युवा",
+      "Child": "बच्चा",
+      "Ex-serviceman": "पूर्व सैनिक",
+
+      "English": "अंग्रेज़ी",
+      "Kannada": "कन्नड़",
+      "Hindi": "हिंदी"
+    }
+
+  };
+
+
+  function currentLanguage() {
+    return localStorage.getItem("onevisitLanguage") || "en";
+  }
+
+
+  function translatePage() {
+
+    const lang = currentLanguage();
+
+    const dictionary = LANG[lang] || LANG.en;
+
+
+    /*
+       Save original English text the first time.
+       This lets us switch:
+       English → Kannada → Hindi → English
+       without losing the original text.
+    */
+
+    const walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT
+    );
+
+
+    const nodes = [];
+
+    while (walker.nextNode()) {
+      nodes.push(walker.currentNode);
+    }
+
+
+    nodes.forEach(function(node) {
+
+      const parent = node.parentElement;
+
+      if (!parent) return;
+
+      /*
+         Don't translate scripts/styles.
+      */
+      if (
+        parent.tagName === "SCRIPT" ||
+        parent.tagName === "STYLE"
+      ) {
+        return;
+      }
+
+
+      if (!node.dataset.ovOriginal) {
+
+        const original =
+          node.nodeValue.trim();
+
+        if (original) {
+          node.dataset.ovOriginal =
+            original;
+        }
+
+      }
+
+
+      const original =
+        node.dataset.ovOriginal;
+
+      if (!original) return;
+
+
+      const translated =
+        dictionary[original];
+
+
+      if (translated) {
+
+        /*
+           Preserve spaces around text.
+        */
+
+        const leading =
+          node.nodeValue.match(/^\s*/)[0];
+
+        const trailing =
+          node.nodeValue.match(/\s*$/)[0];
+
+        node.nodeValue =
+          leading +
+          translated +
+          trailing;
+
+      }
+
+    });
+
+
+    /*
+       Translate placeholders.
+    */
+
+    document
+      .querySelectorAll(
+        "input[placeholder], textarea[placeholder]"
+      )
+      .forEach(function(el) {
+
+        if (!el.dataset.ovPlaceholder) {
+
+          el.dataset.ovPlaceholder =
+            el.getAttribute(
+              "placeholder"
+            );
+
+        }
+
+        const original =
+          el.dataset.ovPlaceholder;
+
+        if (
+          dictionary[original]
+        ) {
+
+          el.setAttribute(
+            "placeholder",
+            dictionary[original]
+          );
+
+        }
+
+      });
+
+
+    /*
+       Translate option values/text.
+    */
+
+    document
+      .querySelectorAll("option")
+      .forEach(function(option) {
+
+        if (!option.dataset.ovOriginal) {
+
+          option.dataset.ovOriginal =
+            option.textContent.trim();
+
+        }
+
+        const original =
+          option.dataset.ovOriginal;
+
+        if (
+          dictionary[original]
+        ) {
+
+          option.textContent =
+            dictionary[original];
+
+        }
+
+      });
+
+  }
+
+
+  /*
+     Replace the existing language function.
+  */
+
+  window.changeLanguage = function() {
+
+    const selector =
+      document.getElementById(
+        "languageSelect"
+      );
+
+    if (!selector) return;
+
+
+    localStorage.setItem(
+      "onevisitLanguage",
+      selector.value
+    );
+
+
+    /*
+       Update the language immediately.
+    */
+
+    translatePage();
+
+
+    /*
+       Update ONEVISIT's own language
+       system if it exists.
+    */
+
+    if (
+      typeof applyLanguageV2 ===
+      "function"
+    ) {
+
+      try {
+        applyLanguageV2();
+      } catch (e) {
+        console.log(e);
+      }
+
+    }
+
+  };
+
+
+  /*
+     Translate newly-created screens too.
+     This is important because your website
+     creates many cards dynamically.
+  */
+
+  const observer =
+    new MutationObserver(
+      function() {
+
+        clearTimeout(
+          window.__onevisitTranslationTimer
+        );
+
+        window.__onevisitTranslationTimer =
+          setTimeout(
+            translatePage,
+            50
+          );
+
+      }
+    );
+
+
+  observer.observe(
+    document.body,
+    {
+      childList:true,
+      subtree:true
+    }
+  );
+
+
+  /*
+     Initial translation.
+  */
+
+  setTimeout(
+    translatePage,
+    300
+  );
+
+
+  /*
+     Make the language selector work
+     even if the original HTML did not
+     have onchange.
+  */
+
+  const selector =
+    document.getElementById(
+      "languageSelect"
+    );
+
+
+  if (selector) {
+
+    selector.addEventListener(
+      "change",
+      window.changeLanguage
+    );
+
+    selector.value =
+      currentLanguage();
+
+  }
+
+})();
+</script>
 </body>
 </html>
