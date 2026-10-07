@@ -3456,6 +3456,3307 @@ renderExams();
 renderMarkets();
 
 </script>
+<script>
+(function(){
 
+/* =========================================================
+   ONEVISIT V2
+   Profile-based matching + documents + loans + chatbot
+   + market assistant + Other occupation + language
+========================================================= */
+
+var OV2 = {
+  activeMemberId:null,
+  language:localStorage.getItem("onevisitLanguage") || "en",
+  accountKey:"",
+
+  T:{
+    en:{
+      active:"Active profile",
+      switchProfile:"Switch Profile",
+      logout:"Logout",
+      other:"Other",
+      customOccupation:"Enter occupation / job",
+      gender:"Gender",
+      male:"Male",
+      female:"Female",
+      otherGender:"Other",
+      disability:"Disability status",
+      yes:"Yes",
+      no:"No",
+      readiness:"Application Readiness",
+      haveDoc:"I have this document",
+      missing:"Missing",
+      ready:"Ready",
+      reminder:"Set Reminder",
+      whyNeeded:"Why this document is needed",
+      resultsFor:"Results for",
+      noMatch:"No strong match found for this profile.",
+      switchHint:"Switch profile to see only that person's results.",
+      verify:"Always verify eligibility and documents on the official source before applying.",
+      loanInfo:"Loan information to compare",
+      notGuarantee:"This does not guarantee loan eligibility. Check the lender's current rules.",
+      marketTitle:"Farmer Decision Assistant",
+      quantity:"Quantity (kg)",
+      estimate:"Estimated value",
+      best:"Highest displayed market",
+      demo:"Prototype/demo market data — not live mandi prices.",
+      profileSaved:"Profile selected",
+      noProfile:"Please select a family member first."
+    },
+
+    kn:{
+      active:"ಸಕ್ರಿಯ ಪ್ರೊಫೈಲ್",
+      switchProfile:"ಪ್ರೊಫೈಲ್ ಬದಲಿಸಿ",
+      logout:"ಲಾಗ್ ಔಟ್",
+      other:"ಇತರೆ",
+      customOccupation:"ಉದ್ಯೋಗವನ್ನು ನಮೂದಿಸಿ",
+      gender:"ಲಿಂಗ",
+      male:"ಪುರುಷ",
+      female:"ಮಹಿಳೆ",
+      otherGender:"ಇತರೆ",
+      disability:"ಅಂಗವೈಕಲ್ಯ ಸ್ಥಿತಿ",
+      yes:"ಹೌದು",
+      no:"ಇಲ್ಲ",
+      readiness:"ಅರ್ಜಿ ಸಿದ್ಧತೆ",
+      haveDoc:"ಈ ದಾಖಲೆ ನನ್ನ ಬಳಿ ಇದೆ",
+      missing:"ಬಾಕಿ",
+      ready:"ಸಿದ್ಧ",
+      reminder:"ಜ್ಞಾಪನೆ ಹೊಂದಿಸಿ",
+      whyNeeded:"ಈ ದಾಖಲೆ ಏಕೆ ಬೇಕು",
+      resultsFor:"ಫಲಿತಾಂಶ",
+      noMatch:"ಈ ಪ್ರೊಫೈಲ್‌ಗೆ ಬಲವಾದ ಹೊಂದಾಣಿಕೆ ಕಂಡುಬಂದಿಲ್ಲ.",
+      switchHint:"ಆ ವ್ಯಕ್ತಿಯ ಫಲಿತಾಂಶಗಳನ್ನು ಮಾತ್ರ ನೋಡಲು ಪ್ರೊಫೈಲ್ ಬದಲಿಸಿ.",
+      verify:"ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ಅಧಿಕೃತ ಮೂಲದಲ್ಲಿ ಅರ್ಹತೆ ಮತ್ತು ದಾಖಲೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
+      loanInfo:"ಹೋಲಿಕೆ ಮಾಡಲು ಸಾಲದ ಮಾಹಿತಿ",
+      notGuarantee:"ಇದು ಸಾಲದ ಅರ್ಹತೆಯ ಖಾತರಿ ಅಲ್ಲ. ಸಾಲದಾತರ ಪ್ರಸ್ತುತ ನಿಯಮಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
+      marketTitle:"ರೈತ ನಿರ್ಧಾರ ಸಹಾಯಕ",
+      quantity:"ಪ್ರಮಾಣ (ಕೆಜಿ)",
+      estimate:"ಅಂದಾಜು ಮೌಲ್ಯ",
+      best:"ತೋರಿಸಲಾದ ಮಾರುಕಟ್ಟೆಗಳಲ್ಲಿ ಗರಿಷ್ಠ ಬೆಲೆ",
+      demo:"ಪ್ರೋಟೋಟೈಪ್/ಡೆಮೊ ಮಾರುಕಟ್ಟೆ ಡೇಟಾ — ಲೈವ್ ಮಂಡಿ ಬೆಲೆಗಳಲ್ಲ.",
+      profileSaved:"ಪ್ರೊಫೈಲ್ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ",
+      noProfile:"ಮೊದಲು ಕುಟುಂಬ ಸದಸ್ಯರನ್ನು ಆಯ್ಕೆಮಾಡಿ."
+    },
+
+    hi:{
+      active:"सक्रिय प्रोफ़ाइल",
+      switchProfile:"प्रोफ़ाइल बदलें",
+      logout:"लॉग आउट",
+      other:"अन्य",
+      customOccupation:"अपना काम / नौकरी लिखें",
+      gender:"लिंग",
+      male:"पुरुष",
+      female:"महिला",
+      otherGender:"अन्य",
+      disability:"दिव्यांगता स्थिति",
+      yes:"हाँ",
+      no:"नहीं",
+      readiness:"आवेदन की तैयारी",
+      haveDoc:"मेरे पास यह दस्तावेज़ है",
+      missing:"बाकी",
+      ready:"तैयार",
+      reminder:"रिमाइंडर सेट करें",
+      whyNeeded:"यह दस्तावेज़ क्यों चाहिए",
+      resultsFor:"परिणाम",
+      noMatch:"इस प्रोफ़ाइल के लिए कोई मजबूत मिलान नहीं मिला।",
+      switchHint:"केवल उसी व्यक्ति के परिणाम देखने के लिए प्रोफ़ाइल बदलें।",
+      verify:"आवेदन करने से पहले आधिकारिक स्रोत पर पात्रता और दस्तावेज़ जांचें।",
+      loanInfo:"तुलना करने के लिए ऋण जानकारी",
+      notGuarantee:"यह ऋण पात्रता की गारंटी नहीं है। ऋणदाता के वर्तमान नियम जांचें।",
+      marketTitle:"किसान निर्णय सहायक",
+      quantity:"मात्रा (किलो)",
+      estimate:"अनुमानित मूल्य",
+      best:"दिखाए गए बाजारों में सबसे अधिक कीमत",
+      demo:"प्रोटोटाइप/डेमो बाजार डेटा — लाइव मंडी कीमतें नहीं।",
+      profileSaved:"प्रोफ़ाइल चुनी गई",
+      noProfile:"पहले परिवार का सदस्य चुनें।"
+    }
+  }
+};
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function ovT(key){
+  return (
+    OV2.T[OV2.language] &&
+    OV2.T[OV2.language][key]
+  ) ||
+  OV2.T.en[key] ||
+  key;
+}
+
+function ovEscape(value){
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function ovAttr(value){
+  return String(value)
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'");
+}
+
+function ovMember(id){
+  return familyMembers.find(function(member){
+    return String(member.id)===String(id);
+  }) || null;
+}
+
+function ovActive(){
+  return ovMember(OV2.activeMemberId);
+}
+
+
+/* =========================================================
+   SAVE / LOAD FAMILY PROFILES
+========================================================= */
+
+function ovSave(){
+
+  if(!OV2.accountKey){
+    return;
+  }
+
+  localStorage.setItem(
+    "onevisitProfiles_"+OV2.accountKey,
+    JSON.stringify(familyMembers)
+  );
+}
+
+function ovLoad(){
+
+  if(!OV2.accountKey){
+    return;
+  }
+
+  var saved=localStorage.getItem(
+    "onevisitProfiles_"+OV2.accountKey
+  );
+
+  if(!saved){
+    return;
+  }
+
+  try{
+
+    var data=JSON.parse(saved);
+
+    if(Array.isArray(data)){
+
+      familyMembers=data;
+
+      if(
+        familyMembers.length &&
+        !ovMember(OV2.activeMemberId)
+      ){
+
+        OV2.activeMemberId=
+          familyMembers[0].id;
+      }
+
+    }
+
+  }catch(error){
+
+    console.log("Profile loading error",error);
+
+  }
+}
+
+
+/* =========================================================
+   SITUATION SAVE / LOAD
+========================================================= */
+
+function ovSyncSituation(){
+
+  var member=ovActive();
+
+  if(!member){
+    return;
+  }
+
+  var income=document.getElementById("familyIncome");
+  var residence=document.getElementById("residence");
+  var category=document.getElementById("category");
+  var disability=document.getElementById("disability");
+  var extra=document.getElementById("extraSituation");
+
+  member.income=
+    income ? income.value : "below1";
+
+  member.residence=
+    residence ? residence.value : "rural";
+
+  member.category=
+    category ? category.value : "general";
+
+  member.disability=
+    disability ? disability.value : "no";
+
+  member.extraSituation=
+    extra ? extra.value : "";
+
+  var gender=document.getElementById("memberGender");
+
+  if(gender){
+    member.gender=gender.value;
+  }
+
+  ovSave();
+}
+
+
+function ovLoadSituation(){
+
+  var member=ovActive();
+
+  if(!member){
+    return;
+  }
+
+  var income=document.getElementById("familyIncome");
+  var residence=document.getElementById("residence");
+  var category=document.getElementById("category");
+  var disability=document.getElementById("disability");
+  var extra=document.getElementById("extraSituation");
+
+  if(income)
+    income.value=member.income || "below1";
+
+  if(residence)
+    residence.value=member.residence || "rural";
+
+  if(category)
+    category.value=member.category || "general";
+
+  if(disability)
+    disability.value=
+      member.disability ||
+      (member.occupation==="disability" ? "yes":"no");
+
+  if(extra)
+    extra.value=member.extraSituation || "";
+
+  updateProfileBar();
+}
+
+
+/* =========================================================
+   PROFILE BAR
+========================================================= */
+
+function updateProfileBar(){
+
+  var old=document.getElementById(
+    "onevisitProfileBar"
+  );
+
+  if(old){
+    old.remove();
+  }
+
+  var member=ovActive();
+
+  if(!member){
+    return;
+  }
+
+  var bar=document.createElement("div");
+
+  bar.id="onevisitProfileBar";
+
+  bar.style.cssText=
+    "position:fixed;"+
+    "right:18px;"+
+    "top:78px;"+
+    "z-index:1400;"+
+    "background:white;"+
+    "border:1px solid #ead7b7;"+
+    "border-radius:12px;"+
+    "padding:8px 10px;"+
+    "box-shadow:0 7px 22px rgba(0,0,0,.12);"+
+    "display:flex;"+
+    "gap:7px;"+
+    "align-items:center;"+
+    "max-width:calc(100vw - 30px);";
+
+  bar.innerHTML=
+
+    '<span class="tag tag-green">'+
+      ovEscape(ovT("active"))+
+      ': '+
+      ovEscape(member.name)+
+    '</span>'+
+
+    '<button class="btn btn-outline" '+
+    'style="padding:7px 10px" '+
+    'onclick="switchMemberProfile()">'+
+      ovEscape(ovT("switchProfile"))+
+    '</button>'+
+
+    '<button class="btn btn-danger" '+
+    'style="padding:7px 10px" '+
+    'onclick="oneVisitLogout()">'+
+      ovEscape(ovT("logout"))+
+    '</button>';
+
+  document.body.appendChild(bar);
+}
+
+
+/* =========================================================
+   ADD "OTHER" + GENDER
+========================================================= */
+
+function addDynamicMemberFields(){
+
+  var occupation=
+    document.getElementById("memberOccupation");
+
+  if(
+    occupation &&
+    !occupation.querySelector(
+      'option[value="other"]'
+    )
+  ){
+
+    var option=document.createElement("option");
+
+    option.value="other";
+    option.textContent=ovT("other");
+
+    occupation.appendChild(option);
+  }
+
+
+  if(
+    occupation &&
+    !document.getElementById(
+      "customOccupationGroup"
+    )
+  ){
+
+    var group=document.createElement("div");
+
+    group.id="customOccupationGroup";
+
+    group.className="form-group full";
+
+    group.style.display="none";
+
+    group.innerHTML=
+      '<label>'+
+        ovEscape(ovT("customOccupation"))+
+      '</label>'+
+      '<input id="customOccupation" '+
+      'type="text" '+
+      'placeholder="'+
+        ovEscape(ovT("customOccupation"))+
+      '">';
+
+    var grid=
+      occupation.closest(".form-grid");
+
+    if(grid){
+      grid.appendChild(group);
+    }
+
+    occupation.addEventListener(
+      "change",
+      function(){
+
+        group.style.display=
+          occupation.value==="other"
+          ? "flex"
+          : "none";
+
+      }
+    );
+  }
+
+
+  var grid=
+    document.querySelector(
+      "#addMember .form-grid"
+    );
+
+  if(
+    grid &&
+    !document.getElementById("memberGender")
+  ){
+
+    var genderGroup=
+      document.createElement("div");
+
+    genderGroup.className="form-group";
+
+    genderGroup.innerHTML=
+      '<label>'+
+        ovEscape(ovT("gender"))+
+      '</label>'+
+
+      '<select id="memberGender">'+
+
+        '<option value="male">'+
+          ovEscape(ovT("male"))+
+        '</option>'+
+
+        '<option value="female">'+
+          ovEscape(ovT("female"))+
+        '</option>'+
+
+        '<option value="other">'+
+          ovEscape(ovT("otherGender"))+
+        '</option>'+
+
+      '</select>';
+
+    grid.appendChild(genderGroup);
+  }
+
+}
+
+
+/* =========================================================
+   ADD MEMBER
+========================================================= */
+
+function addMemberV2(){
+
+  var name=
+    document.getElementById(
+      "memberName"
+    ).value.trim();
+
+  var age=
+    Number(
+      document.getElementById(
+        "memberAge"
+      ).value
+    );
+
+  var occupation=
+    document.getElementById(
+      "memberOccupation"
+    ).value;
+
+  var relation=
+    document.getElementById(
+      "memberRelation"
+    ).value;
+
+  var genderElement=
+    document.getElementById(
+      "memberGender"
+    );
+
+  var gender=
+    genderElement
+    ? genderElement.value
+    : "other";
+
+  var customElement=
+    document.getElementById(
+      "customOccupation"
+    );
+
+  var custom=
+    customElement
+    ? customElement.value.trim()
+    : "";
+
+
+  if(!name){
+
+    alert(
+      "Please enter the member's name."
+    );
+
+    return;
+  }
+
+
+  if(
+    !Number.isFinite(age) ||
+    age<0 ||
+    age>120
+  ){
+
+    alert(
+      "Please enter a valid age."
+    );
+
+    return;
+  }
+
+
+  if(
+    occupation==="other" &&
+    !custom
+  ){
+
+    alert(
+      "Please enter the occupation/job."
+    );
+
+    return;
+  }
+
+
+  var member={
+
+    id:
+      Date.now()+
+      Math.floor(Math.random()*1000),
+
+    name:name,
+
+    age:age,
+
+    occupation:occupation,
+
+    customOccupation:custom,
+
+    relation:relation,
+
+    gender:gender,
+
+    disability:
+      occupation==="disability"
+      ? "yes"
+      : "no",
+
+    income:"below1",
+
+    residence:"rural",
+
+    category:"general",
+
+    extraSituation:"",
+
+    availableDocuments:[]
+
+  };
+
+
+  familyMembers.push(member);
+
+  OV2.activeMemberId=
+    member.id;
+
+  ovSave();
+
+
+  document.getElementById(
+    "memberName"
+  ).value="";
+
+  document.getElementById(
+    "memberAge"
+  ).value="";
+
+  document.getElementById(
+    "memberOccupation"
+  ).value="farmer";
+
+  document.getElementById(
+    "memberRelation"
+  ).value="Self";
+
+
+  if(genderElement){
+    genderElement.value="other";
+  }
+
+  if(customElement){
+    customElement.value="";
+  }
+
+  var group=
+    document.getElementById(
+      "customOccupationGroup"
+    );
+
+  if(group){
+    group.style.display="none";
+  }
+
+
+  renderMembersV2();
+
+  showScreen("family");
+}
+
+
+/* =========================================================
+   OCCUPATION NAME
+========================================================= */
+
+function occupationNameV2(value){
+
+  var names={
+
+    farmer:"Farmer / Agriculture",
+
+    business:"Business / Self-employed",
+
+    worker:"Labour / Worker",
+
+    employee:"Employee",
+
+    student:"Student",
+
+    women:"Women / Family",
+
+    senior:"Senior Citizen",
+
+    artisan:"Artisan",
+
+    disability:"Person with Disability",
+
+    social:"Social Welfare",
+
+    fisher:"Fisheries",
+
+    unemployed:"Unemployed Youth",
+
+    child:"Child",
+
+    exservice:"Ex-serviceman",
+
+    health:"Healthcare Need"
+
+  };
+
+
+  if(
+    value==="other"
+  ){
+
+    var member=ovActive();
+
+    if(
+      member &&
+      member.customOccupation
+    ){
+
+      return member.customOccupation;
+    }
+
+    return "Other";
+  }
+
+
+  return names[value] || value;
+}
+
+
+/* =========================================================
+   FAMILY MEMBER CARDS
+========================================================= */
+
+function renderMembersV2(){
+
+  var container=
+    document.getElementById(
+      "membersContainer"
+    );
+
+  if(!container){
+    return;
+  }
+
+
+  if(!familyMembers.length){
+
+    container.innerHTML=
+      '<div class="empty" '+
+      'style="grid-column:1/-1">'+
+      'No family members added yet.'+
+      '</div>';
+
+    return;
+  }
+
+
+  container.innerHTML=
+    familyMembers.map(
+      function(member){
+
+        var active=
+          String(member.id)===
+          String(OV2.activeMemberId);
+
+        return (
+
+          '<div class="member-card" '+
+          'style="'+
+          (
+            active
+            ? "border:2px solid var(--gold);"
+            : ""
+          )+
+          '">' +
+
+          '<h3>'+
+            ovEscape(member.name)+
+          '</h3>'+
+
+          '<p>'+
+
+            '<span class="tag">'+
+              ovEscape(
+                occupationNameV2(
+                  member.occupation
+                )
+              )+
+            '</span>'+
+
+            (
+              member.disability==="yes"
+              ?
+              '<span class="tag tag-red">'+
+              'Disability: Yes'+
+              '</span>'
+              :
+              ''
+            )+
+
+            (
+              active
+              ?
+              '<span class="tag tag-green">'+
+              ovEscape(ovT("active"))+
+              '</span>'
+              :
+              ''
+            )+
+
+          '</p>'+
+
+          '<p class="small">'+
+            'Age: '+
+            member.age+
+            '<br>'+
+            'Relationship: '+
+            ovEscape(member.relation)+
+            '<br>'+
+            'Gender: '+
+            ovEscape(member.gender || "Other")+
+          '</p>'+
+
+          '<div class="button-row">'+
+
+            '<button class="btn '+
+            (
+              active
+              ? "btn-green"
+              : "btn-outline"
+            )+
+            '" onclick="selectMemberProfile('+
+            member.id+
+            ')">'+
+
+              (
+                active
+                ? "Selected"
+                : ovEscape(
+                    ovT("switchProfile")
+                  )
+              )+
+
+            '</button>'+
+
+            '<button class="btn btn-danger" '+
+            'onclick="removeMemberV2('+
+            member.id+
+            ')">'+
+            'Remove'+
+            '</button>'+
+
+          '</div>'+
+
+          '</div>'
+        );
+
+      }
+    ).join("");
+}
+
+
+/* =========================================================
+   SWITCH PROFILE
+========================================================= */
+
+function selectMemberProfile(id){
+
+  ovSyncSituation();
+
+  OV2.activeMemberId=id;
+
+  currentResults=[];
+
+  ovLoadSituation();
+
+  renderMembersV2();
+
+  updateProfileBar();
+
+  alert(
+    ovT("profileSaved")+
+    ": "+
+    ovMember(id).name
+  );
+}
+
+
+function switchMemberProfile(){
+
+  showScreen("family");
+
+  renderMembersV2();
+}
+
+
+function removeMemberV2(id){
+
+  var member=ovMember(id);
+
+  if(!member){
+    return;
+  }
+
+
+  if(
+    !confirm(
+      "Remove "+
+      member.name+
+      " from this family profile?"
+    )
+  ){
+    return;
+  }
+
+
+  familyMembers=
+    familyMembers.filter(
+      function(x){
+        return String(x.id)!==
+          String(id);
+      }
+    );
+
+
+  if(
+    String(OV2.activeMemberId)===
+    String(id)
+  ){
+
+    OV2.activeMemberId=
+      familyMembers.length
+      ? familyMembers[0].id
+      : null;
+  }
+
+
+  currentResults=[];
+
+  ovSave();
+
+  renderMembersV2();
+
+  updateProfileBar();
+}
+
+
+/* =========================================================
+   CONTINUE FROM FAMILY
+========================================================= */
+
+function continueFamilyV2(){
+
+  if(!familyMembers.length){
+
+    alert(
+      "Please add at least one family member."
+    );
+
+    return;
+  }
+
+
+  if(!OV2.activeMemberId){
+    OV2.activeMemberId=
+      familyMembers[0].id;
+  }
+
+
+  ovLoadSituation();
+
+  showScreen("memberSituation");
+}
+
+
+/* =========================================================
+   STRONGER SCHEME ELIGIBILITY
+========================================================= */
+
+function checkEligibilityV2(
+  member,
+  scheme,
+  extra
+){
+
+  var occupation=
+    member.occupation;
+
+  var category=
+    scheme.category;
+
+  var occupationMatch=
+    Array.isArray(
+      scheme.occupation
+    ) &&
+    scheme.occupation.includes(
+      occupation
+    );
+
+
+  /*
+     IMPORTANT HARD EXCLUSION
+
+     If disability = NO,
+     disability-specific schemes
+     can NEVER appear.
+  */
+
+  if(
+    category==="disability" &&
+    member.disability!=="yes"
+  ){
+
+    return {
+      ok:false,
+      score:0
+    };
+  }
+
+
+  /*
+     Senior Citizen schemes
+     require age 60+.
+  */
+
+  if(
+    category==="senior" &&
+    Number(member.age)<60
+  ){
+
+    return {
+      ok:false,
+      score:0
+    };
+  }
+
+
+  /*
+     If the scheme has an occupation list,
+     unrelated occupations are rejected.
+  */
+
+  var broadCategories=[
+    "health",
+    "social",
+    "housing",
+    "education"
+  ];
+
+
+  if(
+    Array.isArray(scheme.occupation) &&
+    !occupationMatch &&
+    broadCategories.indexOf(
+      category
+    )===-1
+  ){
+
+    return {
+      ok:false,
+      score:0
+    };
+  }
+
+
+  var score=30;
+
+  var reasons=[];
+
+
+  if(occupationMatch){
+
+    score+=35;
+
+    reasons.push(
+      "Occupation/situation matches"
+    );
+  }
+
+
+  if(
+    category==="senior" &&
+    Number(member.age)>=60
+  ){
+
+    score+=30;
+
+    reasons.push(
+      "Age matches senior-citizen support"
+    );
+  }
+
+
+  if(
+    category==="education" &&
+    (
+      occupation==="student" ||
+      Number(member.age)<25
+    )
+  ){
+
+    score+=20;
+
+    reasons.push(
+      "Student/education profile"
+    );
+  }
+
+
+  if(
+    category==="disability" &&
+    member.disability==="yes"
+  ){
+
+    score+=35;
+
+    reasons.push(
+      "Disability marked Yes"
+    );
+  }
+
+
+  if(category==="health"){
+
+    score+=12;
+
+    reasons.push(
+      "Health/vulnerability category"
+    );
+  }
+
+
+  if(category==="housing"){
+
+    score+=8;
+
+    reasons.push(
+      "Housing support category"
+    );
+  }
+
+
+  if(member.income==="below1"){
+
+    score+=10;
+
+    reasons.push(
+      "Lower income band selected"
+    );
+
+  }else if(
+    member.income==="1to2.5"
+  ){
+
+    score+=6;
+
+    reasons.push(
+      "Income band selected"
+    );
+  }
+
+
+  if(
+    member.residence==="rural" &&
+    [
+      "agriculture",
+      "housing",
+      "worker",
+      "fisher"
+    ].includes(category)
+  ){
+
+    score+=8;
+
+    reasons.push(
+      "Rural residence"
+    );
+  }
+
+
+  if(
+    [
+      "sc",
+      "st",
+      "obc"
+    ].includes(
+      member.category
+    )
+  ){
+
+    score+=5;
+
+    reasons.push(
+      "Social category selected"
+    );
+  }
+
+
+  if(extra){
+
+    var text=
+      extra.toLowerCase();
+
+
+    if(
+      (
+        text.includes("student") ||
+        text.includes("college")
+      ) &&
+      category==="education"
+    ){
+
+      score+=12;
+
+      reasons.push(
+        "Education need mentioned"
+      );
+    }
+
+
+    if(
+      (
+        text.includes("farmer") ||
+        text.includes("land") ||
+        text.includes("crop")
+      ) &&
+      category==="agriculture"
+    ){
+
+      score+=12;
+
+      reasons.push(
+        "Agriculture need mentioned"
+      );
+    }
+
+
+    if(
+      (
+        text.includes("housing") ||
+        text.includes("house")
+      ) &&
+      category==="housing"
+    ){
+
+      score+=12;
+
+      reasons.push(
+        "Housing need mentioned"
+      );
+    }
+
+
+    if(
+      (
+        text.includes("job") ||
+        text.includes("employment")
+      ) &&
+      [
+        "business",
+        "worker"
+      ].includes(category)
+    ){
+
+      score+=7;
+
+      reasons.push(
+        "Employment need mentioned"
+      );
+    }
+
+
+    if(
+      text.includes("disability") &&
+      member.disability==="yes" &&
+      category==="disability"
+    ){
+
+      score+=10;
+
+      reasons.push(
+        "Disability need mentioned"
+      );
+    }
+
+  }
+
+
+  score=Math.min(
+    98,
+    score
+  );
+
+
+  return {
+
+    ok:score>=45,
+
+    score:score,
+
+    reason:
+      reasons.join(", ") ||
+      "Profile category is relevant."
+
+  };
+}
+
+
+/* =========================================================
+   FIND SCHEMES
+========================================================= */
+
+function findSchemesV2(){
+
+  if(!familyMembers.length){
+
+    alert(
+      "Please add a family member first."
+    );
+
+    showScreen("family");
+
+    return;
+  }
+
+
+  var member=ovActive();
+
+  if(!member){
+
+    alert(
+      ovT("noProfile")
+    );
+
+    return;
+  }
+
+
+  ovSyncSituation();
+
+
+  var extra=
+    document.getElementById(
+      "extraSituation"
+    ).value || "";
+
+
+  currentResults=[];
+
+
+  schemes.forEach(
+    function(scheme){
+
+      var result=
+        checkEligibilityV2(
+          member,
+          scheme,
+          extra
+        );
+
+
+      if(result.ok){
+
+        currentResults.push(
+
+          Object.assign(
+            {},
+            scheme,
+            {
+              memberId:member.id,
+              memberName:member.name,
+              score:result.score,
+              why:result.reason,
+              matchReason:result.reason,
+              missing:
+                scheme.missing ||
+                "Check the official scheme conditions."
+            }
+          )
+
+        );
+
+      }
+
+    }
+  );
+
+
+  currentResults.sort(
+    function(a,b){
+      return b.score-a.score;
+    }
+  );
+
+
+  currentResultFilter="all";
+
+  showScreen("results");
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+function renderResultsV2(
+  filter
+){
+
+  filter=filter || "all";
+
+  currentResultFilter=filter;
+
+
+  var container=
+    document.getElementById(
+      "resultsContainer"
+    );
+
+  if(!container){
+    return;
+  }
+
+
+  var member=ovActive();
+
+
+  var results=
+    currentResults.filter(
+      function(item){
+
+        return (
+          filter==="all" ||
+          item.category===filter
+        );
+
+      }
+    );
+
+
+  var header=
+
+    '<div class="card" '+
+    'style="grid-column:1/-1">'+
+
+      '<strong>'+
+        ovEscape(
+          ovT("resultsFor")
+        )+
+        ': '+
+        ovEscape(
+          member
+          ? member.name
+          : ""
+        )+
+      '</strong>'+
+
+      '<p class="small">'+
+        ovEscape(
+          ovT("switchHint")
+        )+
+      '</p>'+
+
+    '</div>';
+
+
+  if(!results.length){
+
+    container.innerHTML=
+
+      header+
+
+      '<div class="empty" '+
+      'style="grid-column:1/-1">'+
+
+        ovEscape(
+          ovT("noMatch")
+        )+
+
+        '<br><br>'+
+
+        ovEscape(
+          ovT("verify")
+        )+
+
+      '</div>';
+
+    return;
+  }
+
+
+  container.innerHTML=
+
+    header+
+
+    results.map(
+      function(result){
+
+        return (
+
+          '<div class="result-card">'+
+
+            '<div class="result-score">'+
+              result.score+
+              '%'+
+            '</div>'+
+
+            '<h3>'+
+              ovEscape(
+                result.name
+              )+
+            '</h3>'+
+
+            '<p>'+
+
+              '<span class="tag">'+
+                ovEscape(
+                  result.memberName
+                )+
+              '</span>'+
+
+              '<span class="tag tag-green">'+
+                ovEscape(
+                  loggedUser.state ||
+                  "Karnataka"
+                )+
+              '</span>'+
+
+            '</p>'+
+
+            '<p>'+
+              '<strong>Why it appeared:</strong>'+
+              '<br>'+
+              ovEscape(
+                result.why
+              )+
+            '</p>'+
+
+            '<p class="small">'+
+              '<strong>Still to verify:</strong> '+
+              ovEscape(
+                result.missing
+              )+
+            '</p>'+
+
+            '<div class="button-row">'+
+
+              '<button class="btn btn-primary" '+
+              'onclick="openSchemeV2(\''+
+                ovAttr(result.id)+
+              '\')">'+
+
+                'View Details'+
+
+              '</button>'+
+
+              '<button class="btn btn-secondary" '+
+              'onclick="askAboutScheme(\''+
+                ovAttr(result.name)+
+              '\')">'+
+
+                'Ask Assistant'+
+
+              '</button>'+
+
+            '</div>'+
+
+          '</div>'
+
+        );
+
+      }
+    ).join("");
+}
+
+
+/* =========================================================
+   DOCUMENT REASONS
+========================================================= */
+
+function documentReason(doc){
+
+  var text=
+    String(doc).toLowerCase();
+
+
+  if(
+    text.includes("aadhaar") ||
+    text.includes("identity")
+  ){
+
+    return "Used to verify the applicant's identity.";
+  }
+
+
+  if(
+    text.includes("bank")
+  ){
+
+    return "Used to verify the bank account for eligible payments or benefits.";
+  }
+
+
+  if(
+    text.includes("land")
+  ){
+
+    return "Used to verify land ownership/holding where agriculture eligibility requires it.";
+  }
+
+
+  if(
+    text.includes("income")
+  ){
+
+    return "Used to verify the income condition of the scheme.";
+  }
+
+
+  if(
+    text.includes("caste") ||
+    text.includes("category")
+  ){
+
+    return "Used to verify the applicable social-category condition.";
+  }
+
+
+  if(
+    text.includes("disability")
+  ){
+
+    return "Used to verify disability status for disability-specific support.";
+  }
+
+
+  if(
+    text.includes("education") ||
+    text.includes("marks")
+  ){
+
+    return "Used to verify education or student eligibility.";
+  }
+
+
+  if(
+    text.includes("mobile")
+  ){
+
+    return "Used for applicant contact or registration verification.";
+  }
+
+
+  return "May be required to verify an eligibility condition or complete the application.";
+}
+
+
+/* =========================================================
+   APPLICATION READINESS
+========================================================= */
+
+function readinessHTML(result){
+
+  var member=ovActive();
+
+  var documents=
+    Array.isArray(result.documents)
+    ? result.documents
+    : [];
+
+
+  var available=
+    Array.isArray(
+      member.availableDocuments
+    )
+    ? member.availableDocuments
+    : [];
+
+
+  var missing=
+    documents.filter(
+      function(doc){
+        return !available.includes(doc);
+      }
+    );
+
+
+  var have=
+    documents.filter(
+      function(doc){
+        return available.includes(doc);
+      }
+    );
+
+
+  var html=
+
+    '<div class="card" '+
+    'style="background:#fffaf1;border:1px solid #ecd9b6">'+
+
+      '<h2>'+
+        ovEscape(
+          ovT("readiness")
+        )+
+      '</h2>'+
+
+      '<p>'+
+        '<strong>'+
+          have.length+
+          '/'+
+          documents.length+
+        '</strong> documents marked available.'+
+      '</p>';
+
+
+  if(documents.length){
+
+    html+=
+
+      documents.map(
+        function(doc){
+
+          var checked=
+            available.includes(doc);
+
+
+          return (
+
+            '<div style="margin:12px 0">'+
+
+              '<label style="font-weight:normal">'+
+
+                '<input type="checkbox" '+
+                'style="width:auto;margin-right:8px" '+
+                (
+                  checked
+                  ? "checked"
+                  : ""
+                )+
+                ' onchange="oneVisitToggleDocument(\''+
+                  ovAttr(doc)+
+                '\')">'+
+
+                ovEscape(doc)+
+
+              '</label>'+
+
+              '<div class="small" '+
+              'style="margin-left:25px">'+
+
+                '<strong>'+
+                  ovEscape(
+                    ovT("whyNeeded")
+                  )+
+                  ':</strong> '+
+
+                ovEscape(
+                  documentReason(doc)
+                )+
+
+              '</div>'+
+
+            '</div>'
+
+          );
+
+        }
+      ).join("");
+
+  }else{
+
+    html+=
+
+      '<div class="notice">'+
+        'No document list was supplied in the prototype record. '+
+        'Verify the official source.'+
+      '</div>';
+
+  }
+
+
+  if(missing.length){
+
+    html+=
+
+      '<div class="notice">'+
+
+        '<strong>'+
+          ovEscape(
+            ovT("missing")
+          )+
+          ':</strong> '+
+
+        missing
+          .map(ovEscape)
+          .join(", ")+
+
+        '<br>'+
+        'Collect these before applying where the official process requires them.'+
+
+      '</div>';
+
+  }else if(documents.length){
+
+    html+=
+
+      '<div class="info-box">'+
+
+        '<strong>'+
+          ovEscape(
+            ovT("ready")
+          )+
+        '</strong> '+
+        'All listed prototype documents are marked available.'+
+
+      '</div>';
+
+  }
+
+
+  html+=
+
+    '<button class="btn btn-outline" '+
+    'onclick="oneVisitSetReminder()">'+
+
+      ovEscape(
+        ovT("reminder")
+      )+
+
+    '</button>'+
+
+    '</div>';
+
+
+  return html;
+}
+
+
+/* =========================================================
+   DOCUMENT CHECKBOX
+========================================================= */
+
+function oneVisitToggleDocument(
+  documentName
+){
+
+  var member=ovActive();
+
+  if(!member){
+    return;
+  }
+
+
+  if(
+    !Array.isArray(
+      member.availableDocuments
+    )
+  ){
+
+    member.availableDocuments=[];
+  }
+
+
+  var index=
+    member.availableDocuments
+      .indexOf(
+        documentName
+      );
+
+
+  if(index>=0){
+
+    member.availableDocuments
+      .splice(index,1);
+
+  }else{
+
+    member.availableDocuments
+      .push(documentName);
+
+  }
+
+
+  ovSave();
+
+
+  if(selectedScheme){
+
+    openSchemeV2(
+      selectedScheme.id
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   DOCUMENT REMINDER
+========================================================= */
+
+function oneVisitSetReminder(){
+
+  var member=ovActive();
+
+  if(
+    !member ||
+    !selectedScheme
+  ){
+
+    return;
+  }
+
+
+  var available=
+    member.availableDocuments || [];
+
+
+  var missing=
+    (selectedScheme.documents || [])
+    .filter(
+      function(doc){
+        return !available.includes(doc);
+      }
+    );
+
+
+  if(missing.length){
+
+    alert(
+      "Reminder: collect these documents for "+
+      selectedScheme.name+
+      ":\n\n"+
+      missing.join("\n")
+    );
+
+  }else{
+
+    alert(
+      "All listed documents are marked available."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   SCHEME DETAIL
+========================================================= */
+
+function openSchemeV2(
+  schemeId
+){
+
+  var result=
+    currentResults.find(
+      function(item){
+        return item.id===schemeId;
+      }
+    );
+
+
+  if(!result){
+    return;
+  }
+
+
+  selectedScheme=result;
+
+
+  var container=
+    document.getElementById(
+      "schemeDetailContainer"
+    );
+
+
+  if(!container){
+    return;
+  }
+
+
+  container.innerHTML=
+
+    '<div class="card">'+
+
+      '<span class="tag tag-green">'+
+        result.score+
+        '% match'+
+      '</span>'+
+
+      '<span class="tag">'+
+        ovEscape(
+          result.memberName
+        )+
+      '</span>'+
+
+      '<h1 style="color:var(--primary-dark)">'+
+        ovEscape(
+          result.name
+        )+
+      '</h1>'+
+
+      '<p>'+
+        ovEscape(
+          result.description
+        )+
+      '</p>'+
+
+      '<h2>Why this appeared</h2>'+
+
+      '<p>'+
+        ovEscape(
+          result.why
+        )+
+      '</p>'+
+
+      '<h2>What still needs to be checked</h2>'+
+
+      '<p>'+
+        ovEscape(
+          result.missing
+        )+
+      '</p>'+
+
+      readinessHTML(result)+
+
+      '<h2>Benefits / Description</h2>'+
+
+      '<p>'+
+        ovEscape(
+          result.description
+        )+
+      '</p>'+
+
+      '<h2>Where to verify</h2>'+
+
+      '<p>'+
+        '<strong>'+
+          ovEscape(
+            result.source
+          )+
+        '</strong>'+
+      '</p>'+
+
+      '<div class="info-box">'+
+        ovEscape(
+          ovT("verify")
+        )+
+      '</div>'+
+
+      '<div class="button-row">'+
+
+        '<a href="'+
+          ovAttr(result.link)+
+        '" target="_blank" '+
+        'rel="noopener noreferrer" '+
+        'class="btn btn-primary" '+
+        'style="text-decoration:none">'+
+          'Official Source'+
+        '</a>'+
+
+        '<button class="btn btn-secondary" '+
+        'onclick="showScreen(\'priority\')">'+
+          'Check Application Priority'+
+        '</button>'+
+
+        '<button class="btn btn-outline" '+
+        'onclick="showScreen(\'notifications\')">'+
+          'Check Notifications'+
+        '</button>'+
+
+      '</div>'+
+
+    '</div>';
+
+
+  showScreen(
+    "schemeDetail"
+  );
+}
+
+
+/* =========================================================
+   LOAN MATCHING
+========================================================= */
+
+function loanMatches(
+  purpose,
+  member
+){
+
+  var list=[];
+
+
+  if(
+    purpose==="education" &&
+    (
+      member.occupation==="student" ||
+      Number(member.age)<30
+    )
+  ){
+
+    list.push(
+      "Education loan — compare education financing options for eligible students and courses."
+    );
+  }
+
+
+  if(
+    purpose==="agriculture" &&
+    member.occupation==="farmer"
+  ){
+
+    list.push(
+      "Agriculture loan — compare crop, farm-input, equipment and agricultural credit options."
+    );
+  }
+
+
+  if(
+    purpose==="business" &&
+    [
+      "business",
+      "artisan",
+      "unemployed"
+    ].includes(
+      member.occupation
+    )
+  ){
+
+    list.push(
+      "Business / self-employment loan — compare eligible micro-enterprise and self-employment credit options."
+    );
+  }
+
+
+  if(
+    purpose==="housing"
+  ){
+
+    list.push(
+      "Housing loan — compare housing finance and applicable housing-support schemes."
+    );
+  }
+
+
+  if(
+    purpose==="vehicle"
+  ){
+
+    list.push(
+      "Vehicle / equipment loan — compare finance options relevant to the required vehicle or equipment."
+    );
+  }
+
+
+  if(
+    purpose==="personal"
+  ){
+
+    list.push(
+      "Personal / emergency loan — compare interest, fees and repayment ability carefully."
+    );
+  }
+
+
+  if(
+    member.income==="below1"
+  ){
+
+    list.push(
+      "Lower-income profile: also check whether a government-supported credit or subsidy option applies."
+    );
+  }
+
+
+  return list;
+}
+
+
+/* =========================================================
+   EMI CALCULATOR
+========================================================= */
+
+function calculateEMIV2(){
+
+  var principal=
+    Number(
+      document.getElementById(
+        "loanAmount"
+      ).value
+    );
+
+
+  var rate=
+    Number(
+      document.getElementById(
+        "loanRate"
+      ).value
+    );
+
+
+  var months=
+    Number(
+      document.getElementById(
+        "loanTenure"
+      ).value
+    );
+
+
+  var purpose=
+    document.getElementById(
+      "loanPurpose"
+    ).value;
+
+
+  if(
+    principal<=0 ||
+    months<=0
+  ){
+
+    alert(
+      "Please enter a valid loan amount and tenure."
+    );
+
+    return;
+  }
+
+
+  var emi;
+
+
+  if(rate===0){
+
+    emi=
+      principal/months;
+
+  }else{
+
+    var monthlyRate=
+      rate/12/100;
+
+    emi=
+
+      principal*
+      monthlyRate*
+      Math.pow(
+        1+monthlyRate,
+        months
+      )/
+
+      (
+        Math.pow(
+          1+monthlyRate,
+          months
+        )-1
+      );
+
+  }
+
+
+  var total=
+    emi*months;
+
+  var interest=
+    total-principal;
+
+
+  document.getElementById(
+    "emiResult"
+  ).textContent=
+    formatCurrency(emi);
+
+
+  document.getElementById(
+    "interestResult"
+  ).textContent=
+    formatCurrency(interest);
+
+
+  document.getElementById(
+    "totalResult"
+  ).textContent=
+    formatCurrency(total);
+
+
+  var member=
+    ovActive();
+
+
+  var information=
+    loanMatches(
+      purpose,
+      member || {}
+    );
+
+
+  document.getElementById(
+    "loanCategoryResult"
+  ).innerHTML=
+
+    '<strong>'+
+      ovEscape(
+        ovT("loanInfo")
+      )+
+    '</strong>'+
+
+    '<ul class="detail-list">'+
+
+      (
+        information.length
+
+        ?
+
+        information.map(
+          function(item){
+            return (
+              '<li>'+
+                ovEscape(item)+
+              '</li>'
+            );
+          }
+        ).join("")
+
+        :
+
+        '<li>'+
+          'Select a loan purpose that matches the active profile.'+
+        '</li>'
+      )+
+
+    '</ul>'+
+
+    '<p class="small">'+
+      ovEscape(
+        ovT("notGuarantee")
+      )+
+    '</p>';
+}
+
+
+/* =========================================================
+   FARMER MARKET DECISION ASSISTANT
+========================================================= */
+
+function createMarketAssistant(){
+
+  var container=
+    document.getElementById(
+      "marketContainer"
+    );
+
+
+  if(
+    !container ||
+    document.getElementById(
+      "onevisitMarketTools"
+    )
+  ){
+
+    return;
+  }
+
+
+  var originalCrop=
+    document.getElementById(
+      "marketCropFilter"
+    );
+
+
+  if(!originalCrop){
+    return;
+  }
+
+
+  var box=
+    document.createElement("div");
+
+
+  box.id=
+    "onevisitMarketTools";
+
+  box.className=
+    "card";
+
+
+  box.innerHTML=
+
+    '<h2>'+
+      ovEscape(
+        ovT("marketTitle")
+      )+
+    '</h2>'+
+
+    '<p class="small">'+
+      'Compare the displayed prototype prices and estimate gross value for your quantity.'+
+    '</p>'+
+
+    '<div class="form-grid">'+
+
+      '<div class="form-group">'+
+
+        '<label>'+
+          ovEscape(
+            ovT("quantity")
+          )+
+        '</label>'+
+
+        '<input id="ovMarketQty" '+
+        'type="number" '+
+        'min="1" '+
+        'value="100">'+
+
+      '</div>'+
+
+      '<div class="form-group">'+
+
+        '<label>Crop</label>'+
+
+        '<select id="ovMarketCrop">'+
+
+          Array.from(
+            originalCrop.options
+          ).map(
+            function(option){
+
+              return (
+                '<option value="'+
+                  ovAttr(
+                    option.value
+                  )+
+                '">'+
+
+                  ovEscape(
+                    option.textContent
+                  )+
+
+                '</option>'
+              );
+
+            }
+          ).join("")+
+
+        '</select>'+
+
+      '</div>'+
+
+    '</div>'+
+
+    '<div class="button-row">'+
+
+      '<button class="btn btn-primary" '+
+      'onclick="oneVisitMarketDecision()">'+
+
+        'Compare & Estimate'+
+
+      '</button>'+
+
+    '</div>'+
+
+    '<div id="ovMarketResult"></div>';
+
+
+  container.parentNode.insertBefore(
+    box,
+    container
+  );
+}
+
+
+function oneVisitMarketDecision(){
+
+  var crop=
+    document.getElementById(
+      "ovMarketCrop"
+    ).value;
+
+
+  var quantity=
+    Number(
+      document.getElementById(
+        "ovMarketQty"
+      ).value
+    ) || 0;
+
+
+  var records=
+    marketData.filter(
+      function(item){
+
+        return (
+          crop==="all" ||
+          item.crop===crop
+        );
+
+      }
+    );
+
+
+  var output=
+    document.getElementById(
+      "ovMarketResult"
+    );
+
+
+  if(!records.length){
+
+    output.innerHTML=
+      '<div class="empty">'+
+      'No prototype record available.'+
+      '</div>';
+
+    return;
+  }
+
+
+  function priceNumber(value){
+
+    return Number(
+      String(value)
+        .replace(/[^\d.]/g,"")
+    ) || 0;
+
+  }
+
+
+  var best=
+    records
+      .slice()
+      .sort(
+        function(a,b){
+
+          return (
+            priceNumber(b.price)-
+            priceNumber(a.price)
+          );
+
+        }
+      )[0];
+
+
+  var price=
+    priceNumber(
+      best.price
+    );
+
+
+  var estimatedValue=
+    price*
+    quantity/
+    100;
+
+
+  output.innerHTML=
+
+    '<div class="stats-grid">'+
+
+      '<div class="stat-box">'+
+        '<strong>'+
+          ovEscape(
+            best.market
+          )+
+        '</strong>'+
+        '<span>'+
+          ovEscape(
+            ovT("best")
+          )+
+        '</span>'+
+      '</div>'+
+
+      '<div class="stat-box">'+
+        '<strong>'+
+          formatCurrency(price)+
+        '</strong>'+
+        '<span>per quintal</span>'+
+      '</div>'+
+
+      '<div class="stat-box">'+
+        '<strong>'+
+          formatCurrency(
+            estimatedValue
+          )+
+        '</strong>'+
+        '<span>'+
+          ovEscape(
+            ovT("estimate")
+          )+
+        '</span>'+
+      '</div>'+
+
+    '</div>'+
+
+    '<div class="notice">'+
+      ovEscape(
+        ovT("demo")
+      )+
+    '</div>';
+}
+
+
+/* =========================================================
+   PROFILE-AWARE CHATBOT
+========================================================= */
+
+function getChatReplyV2(
+  message
+){
+
+  var text=
+    String(message)
+      .toLowerCase();
+
+
+  var member=
+    ovActive();
+
+
+  var profile=
+    member
+
+    ?
+
+    (
+      member.name+
+      " is "+
+      occupationNameV2(
+        member.occupation
+      )+
+      ", age "+
+      member.age+
+      (
+        member.disability==="yes"
+        ?
+        ", and disability is marked Yes."
+        :
+        ", and disability is marked No."
+      )
+    )
+
+    :
+
+    "No active profile is selected.";
+
+
+  if(
+    text.includes("disability") ||
+    text.includes("disabled") ||
+    text.includes("divyang")
+  ){
+
+    if(
+      member &&
+      member.disability==="yes"
+    ){
+
+      return (
+        profile+
+        " Disability-specific support can be checked in the scheme results. Verify the exact official eligibility and documents."
+      );
+
+    }
+
+
+    return (
+      profile+
+      " Disability-specific schemes are not recommended because disability is marked No. If the information is wrong, switch to the correct profile and update it."
+    );
+  }
+
+
+  if(
+    text.includes("document") ||
+    text.includes("paper")
+  ){
+
+    return (
+      profile+
+      " Open a scheme's details to see its document checklist. Tick the documents you already have. Missing documents are highlighted with reasons."
+    );
+  }
+
+
+  if(
+    text.includes("loan") ||
+    text.includes("emi") ||
+    text.includes("interest")
+  ){
+
+    return (
+      profile+
+      " Open Loans & EMI. The calculator shows EMI, total interest and repayment, and also lists loan categories relevant to the selected purpose and profile."
+    );
+  }
+
+
+  if(
+    text.includes("job") ||
+    text.includes("employment") ||
+    text.includes("work")
+  ){
+
+    return (
+      profile+
+      " Open Jobs & Internships. Use the filters to review prototype opportunities and verify the official employer or portal before applying."
+    );
+  }
+
+
+  if(
+    text.includes("market") ||
+    text.includes("mandi") ||
+    text.includes("crop") ||
+    text.includes("price")
+  ){
+
+    return (
+      profile+
+      " Open Farmer Market Information to compare the displayed prototype prices and estimate value based on quantity."
+    );
+  }
+
+
+  if(
+    text.includes("profile") ||
+    text.includes("mother") ||
+    text.includes("father") ||
+    text.includes("switch")
+  ){
+
+    return (
+      "Use Switch Profile on the family page. Each family member has a separate stored profile, so their scheme results are not mixed."
+    );
+  }
+
+
+  if(
+    text.includes("scheme") ||
+    text.includes("support") ||
+    text.includes("eligible")
+  ){
+
+    return (
+      profile+
+      " I can help you understand the current scheme results. The displayed matches are prototype matches, so verify official eligibility before applying."
+    );
+  }
+
+
+  if(
+    text.includes("hello") ||
+    text.includes("hi") ||
+    text.includes("namaste")
+  ){
+
+    return (
+      "Hello! "+
+      (
+        member
+        ? "I am currently helping with "+member.name+"'s profile. "
+        : "Select a family profile first. "
+      )+
+      "Ask me about schemes, documents, loans, jobs, exams or market information."
+    );
+  }
+
+
+  return (
+    "I can use the active family profile to help with schemes, documents, loans/EMI, jobs, exams, deadlines, nearby centres and farmer market information."
+  );
+}
+
+
+function sendChatV2(){
+
+  var input=
+    document.getElementById(
+      "chatInput"
+    );
+
+
+  var message=
+    (
+      input.value || ""
+    ).trim();
+
+
+  if(!message){
+    return;
+  }
+
+
+  addChatMessage(
+    message,
+    true
+  );
+
+
+  setTimeout(
+    function(){
+
+      addChatMessage(
+        getChatReplyV2(
+          message
+        ),
+        false
+      );
+
+    },
+    150
+  );
+
+
+  input.value="";
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function loginUserV2(){
+
+  var name=
+    document.getElementById(
+      "loginName"
+    ).value.trim();
+
+
+  var mobile=
+    document.getElementById(
+      "loginMobile"
+    ).value.trim();
+
+
+  var state=
+    document.getElementById(
+      "loginState"
+    ).value;
+
+
+  if(!name){
+
+    alert(
+      "Please enter your name."
+    );
+
+    return;
+  }
+
+
+  if(
+    !/^\d{10}$/.test(
+      mobile
+    )
+  ){
+
+    alert(
+      "Please enter a valid 10-digit mobile number."
+    );
+
+    return;
+  }
+
+
+  loggedUser.name=name;
+
+  loggedUser.mobile=mobile;
+
+  loggedUser.state=state;
+
+
+  /*
+     Mobile number is used only as a
+     prototype family-account key.
+  */
+
+  OV2.accountKey=
+    mobile;
+
+
+  localStorage.setItem(
+    "onevisitLastAccount",
+    mobile
+  );
+
+
+  localStorage.setItem(
+    "onevisitAccount_"+mobile,
+    JSON.stringify(
+      loggedUser
+    )
+  );
+
+
+  /*
+     Prevent another family's profiles
+     from mixing into this account.
+  */
+
+  familyMembers=[];
+
+  OV2.activeMemberId=null;
+
+  currentResults=[];
+
+
+  ovLoad();
+
+  ovEnsureActive();
+
+  ovSave();
+
+
+  showScreen(
+    "family"
+  );
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function oneVisitLogout(){
+
+  ovSyncSituation();
+
+  localStorage.setItem(
+    "onevisitLastAccount",
+    OV2.accountKey || ""
+  );
+
+
+  OV2.activeMemberId=null;
+
+  currentResults=[];
+
+
+  var bar=
+    document.getElementById(
+      "onevisitProfileBar"
+    );
+
+  if(bar){
+    bar.remove();
+  }
+
+
+  showScreen(
+    "login"
+  );
+}
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+function changeLanguageV2(){
+
+  var select=
+    document.getElementById(
+      "languageSelect"
+    );
+
+
+  OV2.language=
+    select
+    ? select.value
+    : "en";
+
+
+  localStorage.setItem(
+    "onevisitLanguage",
+    OV2.language
+  );
+
+
+  applyLanguageV2();
+}
+
+
+function applyLanguageV2(){
+
+  var select=
+    document.getElementById(
+      "languageSelect"
+    );
+
+
+  if(select){
+    select.value=
+      OV2.language;
+  }
+
+
+  addDynamicMemberFields();
+
+  updateProfileBar();
+
+
+  var title=
+    document.getElementById(
+      "homeTitle"
+    );
+
+
+  var description=
+    document.getElementById(
+      "homeDescription"
+    );
+
+
+  if(title){
+    title.textContent=
+      "ONEVISIT";
+  }
+
+
+  if(description){
+
+    if(
+      OV2.language==="kn"
+    ){
+
+      description.textContent=
+        "ಕುಟುಂಬದ ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ, ಅವರ ಪರಿಸ್ಥಿತಿಯನ್ನು ನಮೂದಿಸಿ ಮತ್ತು ಸಂಬಂಧಿಸಿದ ಸರ್ಕಾರಿ ಸಹಾಯವನ್ನು ಪರಿಶೀಲಿಸಿ.";
+
+    }else if(
+      OV2.language==="hi"
+    ){
+
+      description.textContent=
+        "परिवार के सदस्यों को जोड़ें, उनकी परिस्थितियां दर्ज करें और संबंधित सरकारी सहायता देखें।";
+
+    }else{
+
+      description.textContent=
+        "Add family members, describe their circumstances, and check government support that may be relevant to each person.";
+
+    }
+
+  }
+
+
+  /*
+     Translate important newly added labels.
+  */
+
+  var disability=
+    document.getElementById(
+      "disability"
+    );
+
+
+  if(disability){
+
+    var label=
+      disability.closest(
+        ".form-group"
+      );
+
+    if(label){
+
+      var text=
+        label.querySelector(
+          "label"
+        );
+
+      if(text){
+        text.textContent=
+          ovT("disability");
+      }
+
+    }
+
+  }
+
+
+  var custom=
+    document.getElementById(
+      "customOccupationGroup"
+    );
+
+
+  if(custom){
+
+    var label=
+      custom.querySelector(
+        "label"
+      );
+
+    if(label){
+      label.textContent=
+        ovT(
+          "customOccupation"
+        );
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   OVERRIDE EXISTING FUNCTIONS
+========================================================= */
+
+window.addMember=
+  addMemberV2;
+
+window.renderMembers=
+  renderMembersV2;
+
+window.removeMember=
+  removeMemberV2;
+
+window.continueFromFamily=
+  continueFamilyV2;
+
+window.occupationName=
+  occupationNameV2;
+
+window.findSchemes=
+  findSchemesV2;
+
+window.renderResults=
+  renderResultsV2;
+
+window.openScheme=
+  openSchemeV2;
+
+window.calculateEMI=
+  calculateEMIV2;
+
+window.getChatReply=
+  getChatReplyV2;
+
+window.sendChat=
+  sendChatV2;
+
+window.loginUser=
+  loginUserV2;
+
+window.changeLanguage=
+  changeLanguageV2;
+
+
+/* =========================================================
+   SCREEN CONTROL
+========================================================= */
+
+var originalShowScreen=
+  window.showScreen;
+
+
+window.showScreen=
+function(screenId){
+
+  if(
+    screenId==="memberSituation"
+  ){
+
+    ovLoadSituation();
+
+  }
+
+
+  if(
+    screenId==="family"
+  ){
+
+    renderMembersV2();
+
+  }
+
+
+  originalShowScreen(
+    screenId
+  );
+
+
+  if(
+    screenId==="family"
+  ){
+
+    renderMembersV2();
+
+  }
+
+
+  if(
+    screenId==="memberSituation"
+  ){
+
+    ovLoadSituation();
+
+  }
+
+
+  if(
+    screenId==="market"
+  ){
+
+    setTimeout(
+      createMarketAssistant,
+      50
+    );
+
+  }
+
+
+  updateProfileBar();
+
+};
+
+
+/* =========================================================
+   MARKET SCREEN
+========================================================= */
+
+var originalRenderMarkets=
+  window.renderMarkets;
+
+
+window.renderMarkets=
+function(){
+
+  originalRenderMarkets();
+
+  setTimeout(
+    createMarketAssistant,
+    50
+  );
+
+};
+
+
+/* =========================================================
+   STARTUP
+========================================================= */
+
+function initializeOneVisitV2(){
+
+  addDynamicMemberFields();
+
+
+  var savedAccount=
+    localStorage.getItem(
+      "onevisitLastAccount"
+    );
+
+
+  if(savedAccount){
+
+    OV2.accountKey=
+      savedAccount;
+
+
+    var account=
+      localStorage.getItem(
+        "onevisitAccount_"+
+        savedAccount
+      );
+
+
+    if(account){
+
+      try{
+
+        loggedUser=
+          JSON.parse(account);
+
+      }catch(error){}
+
+    }
+
+
+    ovLoad();
+
+    ovEnsureActive();
+
+  }
+
+
+  var language=
+    document.getElementById(
+      "languageSelect"
+    );
+
+
+  if(language){
+
+    language.value=
+      OV2.language;
+
+  }
+
+
+  applyLanguageV2();
+
+  renderMembersV2();
+
+  updateProfileBar();
+
+}
+
+
+/* DOM ready */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  initializeOneVisitV2
+);
+
+
+/* Safety for GitHub Pages */
+
+setTimeout(
+  initializeOneVisitV2,
+  100
+);
+
+
+})();
+</script>
 </body>
 </html>
